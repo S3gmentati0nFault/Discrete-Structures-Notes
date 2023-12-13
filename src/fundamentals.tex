@@ -1,0 +1,93 @@
+\chapter{The basics}
+\begin{definition}[Graph]
+    A graph is a pair $(V, E)$ of finite disjoint sets where:
+    \begin{itemize}
+        \item $V$ is the set of vertices
+        \item $E$ is a set of pairs, $E \subseteq \binom{V}{2}\footnote{The binomial coefficient has an interpretation in the field of combinatorics: it gives the number of ways, disregarding order, that $k$ objects can be chosen among $n$ objects. More formally: it defines the number of $k$-element subsets of an $n$-element set.} = \{(u, v): u \neq v, \text{with } u, v \in V\}.$
+    \end{itemize}
+\end{definition}
+As a default, for the rest of the course, we will be considering simple graphs, which means that between any two $u, v$ vertices, there cannot be more than one edge. Moreover, between any vertex $v$ and himself, there cannot be an edge.
+
+We say that two vertices are adjacent if $\{u, v\} \in E$, an edge $\{u, v\} \in E$ is always incident to its extremes. Any edge will be named, by convention, using the labels for its extremes e.g. $\{u, v\}$ is translated to $uv$.
+
+\begin{definition}[Neighbour]
+    Given $u, v \in V$ two adjacent vertices, $v$ is neighbour of $u$. The set of neighbours of $u$ is called the neighbourhood of $u$ and we denote it with $\ngbrs{u}$. The degree of $u$ is $\deg{u} = |\ngbrs{u}|$.
+\end{definition}
+
+\begin{definition}[Order]
+    The order of $G$ is $n(G) = |V|$ and the size of the graph is $e(G) = |E|$.
+\end{definition}
+
+\begin{definition}[Subgraph]
+    Given two graphs $G, H$: We say $H$ is a subgraph of $G$ if $V(H) \subseteq V(G)$ and $E(H) \subseteq E(G)$, we denote this by saying that $H \subseteq G$.
+\end{definition}
+
+\begin{definition}[Induced subgraph]
+    A subgraph $H$ of $G$ is induced if, for any $u, v \in V(H), uv \in E(H) \iff u, v \in V(G)$
+\end{definition}
+
+For any $U \subseteq V(G)$ we write $G[U]$ for the subgraph $G$ induced by $U$, that is:
+
+$V(G[U]) = U$
+
+and
+
+$E(G[U]) = \{vw \in E(G): v, w \in U\}$
+
+We can also define the difference between two graphs as:
+
+\begin{equation*}
+    G - U = G[V(G) \setminus U]
+\end{equation*}
+Given $F \subseteq E(G)$, we write $G - F$ for the graph with vertex set $V(G)$ and edge set $E(G) \setminus F$.
+
+\begin{definition}[Complement]
+    The complement of $G$, denoted $\overline{G}$ is the graph on vertex set $V(G)$ and edge set $\binom{V}{2} \setminus E(G)$
+\end{definition}
+Usually in graph theory we derive three measures from the concept of vertex degree
+\begin{definition}[Maximum degree]
+    The maximum degree inside a graph can be defined as follows:
+    \begin{equation*}
+        \maxd = \max_{v \in V(G)}\deg{v}
+    \end{equation*}
+\end{definition}
+\begin{definition}[Average degree]
+    The average degree inside a graph can be defined as follows:
+    \begin{equation*}
+        \avgd = \frac{1}{|V(G)|}\sum_{v \in V(G)}\deg{v}
+    \end{equation*}
+\end{definition}
+\begin{definition}[Minumum degree]
+    The minimum degree inside a graph can be defined as follows:
+    \begin{equation*}
+        \mind = \min_{v \in V(G)}\deg{v}
+    \end{equation*}
+\end{definition}
+\begin{definition}[$r$-regular graph]
+    A graph is $r$-regular if $\deg{v} = r \forall v \in V(G)$. $G$ is just regular if it is regular for some $r \in \N$
+\end{definition}
+
+Now we will prove a very important lemma
+\begin{lemma}[Handshaking Lemma]
+    Let $G$ be a graph, then $2e(G) = \sum_{v \in V(G)}\deg{v}$ and $G$ has an even number of odd degree vertices.
+\end{lemma}
+\begin{prf}
+    Let $S$ be the set of pairs $(v, e)$ where $v \in V(G)$ and $e \in E(G)$, which is incident to $v$.
+
+    For any $v \in V(G)$, the number of pairs of the form $(v, e) \in S$ is $\deg{v}$, therefore:
+    \begin{equation*}
+        |S| = \sum_{v \in V(G)}\deg{v}
+    \end{equation*}
+    For any edge $e \in E(G)$, the number of pairs of the form $(v, e) \in S$ is $2$, thus
+    \begin{equation*}
+        |S| = 2|E(G)|
+    \end{equation*}
+    The two expressions have to be the same, this implies that
+    \begin{equation*}
+        \sum_{v \in V(G)}\deg{v} = 2|E(G)|
+    \end{equation*}
+    Since $\sum_{v \in V(G)}\deg{v}$ is even, then the sum contains an even number of odd terms. \qed
+\end{prf}
+\begin{pipo}
+    Any graph $G$ is the subgraph of a $\maxd$-regular graph.
+\end{pipo}

@@ -1,0 +1,24 @@
+\usepackage{a4wide}
+
+\usepackage[english]{babel}
+
+\usepackage{amsthm, amsmath, amssymb}
+
+\newtheorem*{definition}{Def}
+\newtheorem{lemma}{Lemma}
+\newtheorem*{prf}{Proof}
+\newtheorem{pipo}{Proposition}
+\newtheorem{pp}{Property}
+
+\newcommand{\@includebasepath}{src}
+\newcommand{\incl}[1]{\include{\@includebasepath/#1}}
+
+\renewcommand{\deg}[2][G]{d_#1(#2)}
+\newcommand{\ngbrs}[2][G]{N_#1(#2)}
+\newcommand{\maxd}[1][G]{\Delta(#1)}
+\newcommand{\avgd}[1][G]{d_{avg}(#1)}
+\newcommand{\mind}[1][G]{\delta(#1)}
+
+\newcommand{\N}{\mathbb{N}}
+
+\renewcommand{\qed}{\hspace{10mm}$\square$}
