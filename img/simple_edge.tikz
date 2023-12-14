@@ -1,0 +1,6 @@
+\begin{tikzpicture}
+    \node[defv] (n1) at (0,0) {$v_1$};
+    \node[defv] (n2) at (3,0) {$v_2$};
+
+    \draw[defe] (n1) edge node[above] {} (n2);
+\end{tikzpicture}

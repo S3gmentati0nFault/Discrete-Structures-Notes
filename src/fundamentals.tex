@@ -9,23 +9,18 @@
 As a default, for the rest of the course, we will be considering simple graphs, which means that between any two $u, v$ vertices, there cannot be more than one edge. Moreover, between any vertex $v$ and himself, there cannot be an edge.
 
 We say that two vertices are adjacent if $\{u, v\} \in E$, an edge $\{u, v\} \in E$ is always incident to its extremes. Any edge will be named, by convention, using the labels for its extremes e.g. $\{u, v\}$ is translated to $uv$.
-
 \begin{definition}[Neighbour]
     Given $u, v \in V$ two adjacent vertices, $v$ is neighbour of $u$. The set of neighbours of $u$ is called the neighbourhood of $u$ and we denote it with $\ngbrs{u}$. The degree of $u$ is $\deg{u} = |\ngbrs{u}|$.
 \end{definition}
-
 \begin{definition}[Order]
     The order of $G$ is $n(G) = |V|$ and the size of the graph is $e(G) = |E|$.
 \end{definition}
-
 \begin{definition}[Subgraph]
     Given two graphs $G, H$: We say $H$ is a subgraph of $G$ if $V(H) \subseteq V(G)$ and $E(H) \subseteq E(G)$, we denote this by saying that $H \subseteq G$.
 \end{definition}
-
 \begin{definition}[Induced subgraph]
     A subgraph $H$ of $G$ is induced if, for any $u, v \in V(H), uv \in E(H) \iff u, v \in V(G)$
 \end{definition}
-
 For any $U \subseteq V(G)$ we write $G[U]$ for the subgraph $G$ induced by $U$, that is:
 
 $V(G[U]) = U$
@@ -35,12 +30,10 @@ and
 $E(G[U]) = \{vw \in E(G): v, w \in U\}$
 
 We can also define the difference between two graphs as:
-
 \begin{equation*}
     G - U = G[V(G) \setminus U]
 \end{equation*}
 Given $F \subseteq E(G)$, we write $G - F$ for the graph with vertex set $V(G)$ and edge set $E(G) \setminus F$.
-
 \begin{definition}[Complement]
     The complement of $G$, denoted $\overline{G}$ is the graph on vertex set $V(G)$ and edge set $\binom{V}{2} \setminus E(G)$
 \end{definition}
@@ -66,7 +59,6 @@ Usually in graph theory we derive three measures from the concept of vertex degr
 \begin{definition}[$r$-regular graph]
     A graph is $r$-regular if $\deg{v} = r \fa v \in V(G)$. $G$ is just regular if it is regular for some $r \in \N$
 \end{definition}
-
 Now we will prove a very important lemma
 \begin{lemma}[Handshaking Lemma]
     Let $G$ be a graph, then $2e(G) = \sum_{v \in V(G)}\deg{v}$ and $G$ has an even number of odd degree vertices.
@@ -123,3 +115,47 @@ Now we will prove a very important lemma
     Thus $\maxd[H] = \maxd$ and $\mind[H] = \mind + 1$
     By the induction hypthesis there is a graph $H'$ such that $H'$ is $\maxd[H]$-regular and $H \subseteq H' \implies G \subseteq H \subseteq H'$ and $H'$ is $\maxd$-regular \qed
 \end{prf}
+\begin{definition}[Edge density]
+    $\ed = \frac{e(g)}{n(G)} = \frac{\avgd}{2}$
+\end{definition}
+\begin{pipo}
+    Any graph $G$, with at least one edge, has a subgraph $H$ with
+    \begin{equation*}
+        \mind > \ed[H] \geq \ed
+    \end{equation*}
+\end{pipo}
+\begin{prf}
+    We will do an induction proof on $n(G)$, the \textbf{base case} is the one in which we have a single edge
+    \begin{figure}[h]
+        \centering
+        \input{img/simple_edge.tikz}
+    \end{figure}
+    The above is called $\clq{2}$ and it's the complete graph containing all of the edges connecting 2 vertices ($v_1$ and $v_2$ in our case).
+
+    In this case we are having:
+    \begin{align*}
+        \ed[\clq{2}] &= \frac{1}{2} \\
+        \mind[\clq{2}] &= 1
+    \end{align*}
+    Let $H = \clq{2}$, every graph is subgraph of itself.
+    In the \textbf{inductive case}, $n(G) > 2$, we suppose that for any $G'$ with $n(G') < n(G)$ and $E(G') \geq 1, \ex H \subseteq G'$ such that $\mind[H] > \ed[H] \geq \ed[G']$.
+    
+    Removing vertices with low degree increases the edge density. Let $v \in V(G)$ with $\deg{v} \leq \ed = \frac{m}{n}$
+
+    Then if we remove the vertex
+    \begin{equation*}
+        \ed[G - v] = \frac{e(G - v)}{n - 1} = \frac{m - \deg{v}}{n - 1} \geq \frac{m - \frac{m}{n}}{n - 1} = \frac{m}{n} \cdot \frac{n - 1}{n - 1} = \frac{m}{n} = \ed
+    \end{equation*}
+    By the induction hypothesis $\ex H \subseteq G - v$ such that
+    \begin{equation*}
+        \mind[H] > \ed[H] \geq \ed[G - v] \geq \ed
+    \end{equation*}
+    And that proves our proposition.\qed
+\end{prf}
+Let $G$ and $G'$ be two graphs, we say that $G$ and $G'$ are isomorphic ($G \cong G'$) if there is a bijection $\phi: V(G) \rightarrow V(G')$ where, for any $u, v \in V(G), uv \in E(G) \iff \phi(u)\phi(v) \in E(G')$. $\phi$ is called isomorphism, if domain and codomain are the same then the function is colled an automorphism.
+\begin{cf}
+    The \texttt{Graph isomorphism} problem consists in determining whether two graphs are isomorphic, and it is one of the problems suspected to be in between \P and \NP.
+\end{cf}
+\begin{definition}[Girth]
+    The girth of a graph is the minimum length of a cycle in $G$ or $\infty$ if there are no cycles
+\end{definition}
