@@ -46,25 +46,25 @@ Given $F \subseteq E(G)$, we write $G - F$ for the graph with vertex set $V(G)$ 
 \end{definition}
 Usually in graph theory we derive three measures from the concept of vertex degree
 \begin{definition}[Maximum degree]
-    The maximum degree inside a graph can be defined as follows:
+    The maximum degree of a graph can be defined as follows:
     \begin{equation*}
         \maxd = \max_{v \in V(G)}\deg{v}
     \end{equation*}
 \end{definition}
 \begin{definition}[Average degree]
-    The average degree inside a graph can be defined as follows:
+    The average degree of a graph can be defined as follows:
     \begin{equation*}
         \avgd = \frac{1}{|V(G)|}\sum_{v \in V(G)}\deg{v}
     \end{equation*}
 \end{definition}
 \begin{definition}[Minumum degree]
-    The minimum degree inside a graph can be defined as follows:
+    The minimum degree of a graph can be defined as follows:
     \begin{equation*}
         \mind = \min_{v \in V(G)}\deg{v}
     \end{equation*}
 \end{definition}
 \begin{definition}[$r$-regular graph]
-    A graph is $r$-regular if $\deg{v} = r \forall v \in V(G)$. $G$ is just regular if it is regular for some $r \in \N$
+    A graph is $r$-regular if $\deg{v} = r \fa v \in V(G)$. $G$ is just regular if it is regular for some $r \in \N$
 \end{definition}
 
 Now we will prove a very important lemma
@@ -95,7 +95,7 @@ Now we will prove a very important lemma
     We reason by induction on $k = \maxd - \mind$
 
     \boldmath $k = 0$ \unboldmath
-    
+
     $G$ is regular and $G \subseteq G$
     
     \boldmath $k > 0$ \unboldmath
