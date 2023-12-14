@@ -91,3 +91,35 @@ Now we will prove a very important lemma
 \begin{pipo}
     Any graph $G$ is the subgraph of a $\maxd$-regular graph.
 \end{pipo}
+\begin{prf}
+    We reason by induction on $k = \maxd - \mind$
+
+    \boldmath $k = 0$ \unboldmath
+    
+    $G$ is regular and $G \subseteq G$
+    
+    \boldmath $k > 0$ \unboldmath
+
+    Let $G'$ be a disjoint copy of $G$, let $W$ and $W'$ be the sets of minimum degree vertices in $G$ and $G'$, respectively.
+
+    For any vertex $w \in W$, add an edge from $w$ to the corresponding vertex $w' \in W'$.
+
+    Iterate the process until all the corresponding vertices from $W$ and $W'$ have been linked by an edge, we can conclude the following:
+
+    Let $H$ be the resulting graph:
+    \begin{itemize}
+        \item $G \subseteq H$
+        \item For each $w \in W$ we have $\deg[H]{w} = \deg{w} + 1 = \mind + 1$
+        \item For each $w' \in W'$ we have $\deg[H]{w'} = \deg[G']{w} + 1 = \mind[G'] + 1$
+        \item For each $v \in V(H) \setminus (W \cup W')$ we have:
+        \begin{equation*}
+            \deg[H]{v} =
+            \begin{cases}
+                &\deg{v} \text{\hspace{5mm}if } v \in G\\
+                &\deg[G']{v} \text{\hspace{5mm}if } v \in G'
+            \end{cases}
+        \end{equation*}
+    \end{itemize}
+    Thus $\maxd[H] = \maxd$ and $\mind[H] = \mind + 1$
+    By the induction hypthesis there is a graph $H'$ such that $H'$ is $\maxd[H]$-regular and $H \subseteq H' \implies G \subseteq H \subseteq H'$ and $H'$ is $\maxd$-regular \qed
+\end{prf}
