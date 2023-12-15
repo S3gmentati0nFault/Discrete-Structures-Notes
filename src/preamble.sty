@@ -8,7 +8,7 @@
 
 \newtheorem*{definition}{Def}
 \newtheorem{lemma}{Lemma}
-\newtheorem{pipo}{Proposition}
+\newtheorem{proposition}{Proposition}
 \newtheorem{pp}{Property}
 \newtheorem{cf}{Cool Fact}
 
@@ -23,6 +23,8 @@
 \renewcommand{\P}{\textbf{P }}
 \newcommand{\NP}{\textbf{NP }}
 
+\newcommand{\prblm}[1]{\texttt{\MakeUppercase{#1}}}
+
 \renewcommand{\qed}{\hspace{10mm}$\square$}
 
 \newcommand{\fa}{\:\forall}
@@ -35,8 +37,10 @@
 \newcommand{\mind}[1][G]{\delta(#1)}
 \newcommand{\ed}[1][G]{\varepsilon(#1)}
 \newcommand{\clq}[1]{K_{#1}}
+\newcommand{\cycl}[1][C]{\mathcal{#1}}
 
 \tikzset{
     defv/.style={circle,minimum size=0.5cm,fill=cyan!20,draw=teal},
     defe/.style={-},
+    rede/.style={-,draw=red},
 }

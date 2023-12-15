@@ -80,9 +80,9 @@ Now we will prove a very important lemma
     \end{equation*}
     Since $\sum_{v \in V(G)}\deg{v}$ is even, then the sum contains an even number of odd terms. \qed
 \end{prf}
-\begin{pipo}
+\begin{proposition}
     Any graph $G$ is the subgraph of a $\maxd$-regular graph.
-\end{pipo}
+\end{proposition}
 \begin{prf}
     We reason by induction on $k = \maxd - \mind$
 
@@ -118,12 +118,12 @@ Now we will prove a very important lemma
 \begin{definition}[Edge density]
     $\ed = \frac{e(g)}{n(G)} = \frac{\avgd}{2}$
 \end{definition}
-\begin{pipo}
+\begin{proposition}
     Any graph $G$, with at least one edge, has a subgraph $H$ with
     \begin{equation*}
         \mind > \ed[H] \geq \ed
     \end{equation*}
-\end{pipo}
+\end{proposition}
 \begin{prf}
     We will do an induction proof on $n(G)$, the \textbf{base case} is the one in which we have a single edge
     \begin{figure}[h]
@@ -154,8 +154,42 @@ Now we will prove a very important lemma
 \end{prf}
 Let $G$ and $G'$ be two graphs, we say that $G$ and $G'$ are isomorphic ($G \cong G'$) if there is a bijection $\phi: V(G) \rightarrow V(G')$ where, for any $u, v \in V(G), uv \in E(G) \iff \phi(u)\phi(v) \in E(G')$. $\phi$ is called isomorphism, if domain and codomain are the same then the function is colled an automorphism.
 \begin{cf}
-    The \texttt{Graph isomorphism} problem consists in determining whether two graphs are isomorphic, and it is one of the problems suspected to be in between \P and \NP.
+    The \prblm{Graph isomorphism problem} consists in determining whether two graphs are isomorphic, and it is one of the problems suspected to be in between \P and \NP.
 \end{cf}
 \begin{definition}[Girth]
     The girth of a graph is the minimum length of a cycle in $G$ or $\infty$ if there are no cycles
 \end{definition}
+\begin{proposition}
+    Let $G$ be a graph, then $G$ has a path of length $\mind$. Moreover $\mind \geq 2$, then $G$ has a cycle of length $\geq \mind + 1$
+\end{proposition}
+\begin{prf}
+    Let $P = v_0\:v_1\:v_l$ be a path of maximum length in $G$, since $P$ is maximum, $\ngbrs{v_l} \subseteq V(P)$, otherwise we could extend $P$ (esamples of non maximal paths are shown in red in \ref{fig:proposition1.6}), so the length of $P$ is:
+    \begin{figure}[h!]
+        \centering
+        \input{img/proposition_1.6.tikz}
+        \caption{Example of non maximal paths}
+        \label{fig:proposition1.6}
+    \end{figure}
+    \begin{equation*}
+        l \geq |\ngbrs{v_l}| \geq \mind
+    \end{equation*}
+    Now suppose $\mind \geq 2$.
+
+    Let $i$ be the first index such that $v_iv_l \in E(G) \implies \ngbrs{v_l} \subseteq \{v_i, \dots, v_{l - 1}\}$, since $\mind \geq 2, i \neq l - 1$. So $v_i \dots v_lv_i$ is a cycle of length $\geq \mind + 1$ \qed
+\end{prf}
+\begin{definition}[Diameter]
+    The diameter of a graph $G$ is the length of the greatest shortest path between any two vertices in $G$
+\end{definition}
+\begin{proposition}
+    For any cyclic graph:
+    \begin{equation*}
+        g(G) \geq 2diam(G) + 1
+    \end{equation*}
+\end{proposition}
+\begin{prf}
+    Let $\cycl$ be a cycle of minimum length, suppose for a contradiction that it has length $\geq 2diam(G) + 2$.
+
+    Thus there are two vertices $u, v \in V(\cycl)$ such that $dist_{\cycl}(u, v) \geq diam(G) + 1$. Therefore $G$ contains a $u - v$ path $P$ of length $\leq diam(G)$, $P$ is not entirely contained in the cycle, so there exist two vertices $x, y \in P \cap V(\cycl)$ such that $E(xPy) \cap E(\cycl) = \emptyset$.
+
+    Note that $xPy$ has length $\leq diam(G) < \frac{e(\cycl)}{2}$ so that together with the shortest $x - y$ path on $\cycl$, $xPy$ gives a cycle of length $< e(\cycl)$ which is contradictory. \qed
+\end{prf}
