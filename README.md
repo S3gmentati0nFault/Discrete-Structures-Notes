@@ -13,3 +13,6 @@ Any modification of the source code should be keeping in mind just a few simple 
   - Any other configurations for tikz that can be useful in more than one spot inside the source code should be added to the <code>\tikzset</code> directive I included in the <code>/src/preamble.sty</code> file.
 
 Anything wrong with the code, any requests or suggestions, should pass through this repository's issues or through my mailbox.
+
+## License
+At the moment the license for this project is set to MIT but I am wondering if it would be nice to change it because I would like for this repository to be as close to official as possible and I would also like to have my work acknowledged by any future versions of the repository that may improve the quality of the proposed material.
