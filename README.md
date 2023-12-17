@@ -14,5 +14,11 @@ Any modification of the source code should be keeping in mind just a few simple 
 
 Anything wrong with the code, any requests or suggestions, should pass through this repository's issues or through my mailbox.
 
+Anyone contributing in the starting phases of this project should consider doing one of the following:
+  - Checking that the lectures are actually correct and maybe providing some feedback about the quality of the material.
+  - Adding content (before I should notified to avoid having superpositions and wasting time and energy).
+  - Fixing problems
+If you want to contribute but you have no idea on where to start just check the <code>TODO.md</code> file, there is a ton of fixes to go through!
+
 ## License
 At the moment the license for this project is set to MIT but I am wondering if it would be nice to change it because I would like for this repository to be as close to official as possible and I would also like to have my work acknowledged by any future versions of the repository that may improve the quality of the proposed material.
