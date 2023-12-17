@@ -13,72 +13,72 @@ We say that two vertices are adjacent if $\{u, v\} \in E$, an edge $\{u, v\} \in
     Given $u, v \in V$ two adjacent vertices, $v$ is neighbour of $u$. The set of neighbours of $u$ is called the neighbourhood of $u$ and we denote it with $\ngbrs{u}$. The degree of $u$ is $\deg{u} = |\ngbrs{u}|$.
 \end{definition}
 \begin{definition}[Order]
-    The order of $G$ is $n(G) = |V|$ and the size of the graph is $e(G) = |E|$.
+    The order of $G$ is $\nv = |V|$ and the size of the graph is $\ne = |E|$.
 \end{definition}
 \begin{definition}[Subgraph]
-    Given two graphs $G, H$: We say $H$ is a subgraph of $G$ if $V(H) \subseteq V(G)$ and $E(H) \subseteq E(G)$, we denote this by saying that $H \subseteq G$.
+    Given two graphs $G, H$: We say $H$ is a subgraph of $G$ if $\v[H] \subseteq \v$ and $\e[H] \subseteq \e$, we denote this by saying that $H \subseteq G$.
 \end{definition}
 \begin{definition}[Induced subgraph]
-    A subgraph $H$ of $G$ is induced if, for any $u, v \in V(H), uv \in E(H) \iff u, v \in V(G)$
+    A subgraph $H$ of $G$ is induced if, for any $u, v \in \v[H], uv \in \e[H] \iff u, v \in \v$
 \end{definition}
-For any $U \subseteq V(G)$ we write $G[U]$ for the subgraph $G$ induced by $U$, that is:
+For any $U \subseteq \v$ we write $G[U]$ for the subgraph $G$ induced by $U$, that is:
 
 $V(G[U]) = U$
 
 and
 
-$E(G[U]) = \{vw \in E(G): v, w \in U\}$
+$\e[G[U]] = \{vw \in \e: v, w \in U\}$
 
 We can also define the difference between two graphs as:
 \begin{equation*}
-    G - U = G[V(G) \setminus U]
+    G - U = G[\v \setminus U]
 \end{equation*}
-Given $F \subseteq E(G)$, we write $G - F$ for the graph with vertex set $V(G)$ and edge set $E(G) \setminus F$.
+Given $F \subseteq \e$, we write $G - F$ for the graph with vertex set $\v$ and edge set $\e \setminus F$.
 \begin{definition}[Complement]
-    The complement of $G$, denoted $\overline{G}$ is the graph on vertex set $V(G)$ and edge set $\binom{V}{2} \setminus E(G)$
+    The complement of $G$, denoted $\overline{G}$ is the graph on vertex set $\v$ and edge set $\binom{V}{2} \setminus \e$
 \end{definition}
 Usually in graph theory we derive three measures from the concept of vertex degree
 \begin{definition}[Maximum degree]
     The maximum degree of a graph can be defined as follows:
     \begin{equation*}
-        \maxd = \max_{v \in V(G)}\deg{v}
+        \maxd = \max_{v \in \v}\deg{v}
     \end{equation*}
 \end{definition}
 \begin{definition}[Average degree]
     The average degree of a graph can be defined as follows:
     \begin{equation*}
-        \avgd = \frac{1}{|V(G)|}\sum_{v \in V(G)}\deg{v}
+        \avgd = \frac{1}{|\v|}\sum_{v \in \v}\deg{v}
     \end{equation*}
 \end{definition}
 \begin{definition}[Minumum degree]
     The minimum degree of a graph can be defined as follows:
     \begin{equation*}
-        \mind = \min_{v \in V(G)}\deg{v}
+        \mind = \min_{v \in \v}\deg{v}
     \end{equation*}
 \end{definition}
 \begin{definition}[$r$-regular graph]
-    A graph is $r$-regular if $\deg{v} = r \fa v \in V(G)$. $G$ is just regular if it is regular for some $r \in \N$
+    A graph is $r$-regular if $\deg{v} = r \fa v \in \v$. $G$ is just regular if it is regular for some $r \in \N$
 \end{definition}
 Now we will prove a very important lemma
 \begin{lemma}[Handshaking Lemma]
-    Let $G$ be a graph, then $2e(G) = \sum_{v \in V(G)}\deg{v}$ and $G$ has an even number of odd degree vertices.
+    Let $G$ be a graph, then $2\ne = \sum_{v \in \v}\deg{v}$ and $G$ has an even number of odd degree vertices.
 \end{lemma}
 \begin{prf}
-    Let $S$ be the set of pairs $(v, e)$ where $v \in V(G)$ and $e \in E(G)$, which is incident to $v$.
+    Let $S$ be the set of pairs $(v, e)$ where $v \in \v$ and $e \in \e$, which is incident to $v$.
 
-    For any $v \in V(G)$, the number of pairs of the form $(v, e) \in S$ is $\deg{v}$, therefore:
+    For any $v \in \v$, the number of pairs of the form $(v, e) \in S$ is $\deg{v}$, therefore:
     \begin{equation*}
-        |S| = \sum_{v \in V(G)}\deg{v}
+        |S| = \sum_{v \in \v}\deg{v}
     \end{equation*}
-    For any edge $e \in E(G)$, the number of pairs of the form $(v, e) \in S$ is $2$, thus
+    For any edge $e \in \e$, the number of pairs of the form $(v, e) \in S$ is $2$, thus
     \begin{equation*}
-        |S| = 2|E(G)|
+        |S| = 2|\e|
     \end{equation*}
     The two expressions have to be the same, this implies that
     \begin{equation*}
-        \sum_{v \in V(G)}\deg{v} = 2|E(G)|
+        \sum_{v \in \v}\deg{v} = 2|\e|
     \end{equation*}
-    Since $\sum_{v \in V(G)}\deg{v}$ is even, then the sum contains an even number of odd terms. \qed
+    Since $\sum_{v \in \v}\deg{v}$ is even, then the sum contains an even number of odd terms. \qed
 \end{prf}
 \begin{proposition}
     Any graph $G$ is the subgraph of a $\maxd$-regular graph.
@@ -103,7 +103,7 @@ Now we will prove a very important lemma
         \item $G \subseteq H$
         \item For each $w \in W$ we have $\deg[H]{w} = \deg{w} + 1 = \mind + 1$
         \item For each $w' \in W'$ we have $\deg[H]{w'} = \deg[G']{w} + 1 = \mind[G'] + 1$
-        \item For each $v \in V(H) \setminus (W \cup W')$ we have:
+        \item For each $v \in \v[H] \setminus (W \cup W')$ we have:
         \begin{equation*}
             \deg[H]{v} =
             \begin{cases}
@@ -116,7 +116,7 @@ Now we will prove a very important lemma
     By the induction hypthesis there is a graph $H'$ such that $H'$ is $\maxd[H]$-regular and $H \subseteq H' \implies G \subseteq H \subseteq H'$ and $H'$ is $\maxd$-regular \qed
 \end{prf}
 \begin{definition}[Edge density]
-    $\ed = \frac{e(g)}{n(G)} = \frac{\avgd}{2}$
+    $\ed = \frac{\ne}{\nv} = \frac{\avgd}{2}$
 \end{definition}
 \begin{proposition}
     Any graph $G$, with at least one edge, has a subgraph $H$ with
@@ -125,7 +125,7 @@ Now we will prove a very important lemma
     \end{equation*}
 \end{proposition}
 \begin{prf}
-    We will do an induction proof on $n(G)$, the \textbf{base case} is the one in which we have a single edge
+    We will do an induction proof on $\nv$, the \textbf{base case} is the one in which we have a single edge
     \begin{figure}[h]
         \centering
         \input{img/simple_edge.tikz}
@@ -138,9 +138,9 @@ Now we will prove a very important lemma
         \mind[\clq{2}] &= 1
     \end{align*}
     Let $H = \clq{2}$, every graph is subgraph of itself.
-    In the \textbf{inductive case}, $n(G) > 2$, we suppose that for any $G'$ with $n(G') < n(G)$ and $E(G') \geq 1, \ex H \subseteq G'$ such that $\mind[H] > \ed[H] \geq \ed[G']$.
+    In the \textbf{inductive case}, $\nv > 2$, we suppose that for any $G'$ with $n(G') < \nv$ and $E[G'] \geq 1, \ex H \subseteq G'$ such that $\mind[H] > \ed[H] \geq \ed[G']$.
     
-    Removing vertices with low degree increases the edge density. Let $v \in V(G)$ with $\deg{v} \leq \ed = \frac{m}{n}$
+    Removing vertices with low degree increases the edge density. Let $v \in \v$ with $\deg{v} \leq \ed = \frac{m}{n}$
 
     Then if we remove the vertex
     \begin{equation*}
@@ -152,10 +152,10 @@ Now we will prove a very important lemma
     \end{equation*}
     And that proves our proposition.\qed
 \end{prf}
-Let $G$ and $G'$ be two graphs, we say that $G$ and $G'$ are isomorphic ($G \cong G'$) if there is a bijection $\phi: V(G) \rightarrow V(G')$ where, for any $u, v \in V(G), uv \in E(G) \iff \phi(u)\phi(v) \in E(G')$. $\phi$ is called isomorphism, if domain and codomain are the same then the function is colled an automorphism.
-\begin{cf}
+Let $G$ and $G'$ be two graphs, we say that $G$ and $G'$ are isomorphic ($G \cong G'$) if there is a bijection $\phi: \v \rightarrow V(G')$ where, for any $u, v \in \v, uv \in \e \iff \phi(u)\phi(v) \in \e[G']$. $\phi$ is called isomorphism, if domain and codomain are the same then the function is colled an automorphism.
+\begin{coolfact}
     The \prblm{Graph isomorphism problem} consists in determining whether two graphs are isomorphic, and it is one of the problems suspected to be in between \P and \NP.
-\end{cf}
+\end{coolfact}
 \begin{definition}[Girth]
     The girth of a graph is the minimum length of a cycle in $G$ or $\infty$ if there are no cycles
 \end{definition}
@@ -175,7 +175,7 @@ Let $G$ and $G'$ be two graphs, we say that $G$ and $G'$ are isomorphic ($G \con
     \end{equation*}
     Now suppose $\mind \geq 2$.
 
-    Let $i$ be the first index such that $v_iv_l \in E(G) \implies \ngbrs{v_l} \subseteq \{v_i, \dots, v_{l - 1}\}$, since $\mind \geq 2, i \neq l - 1$. So $v_i \dots v_lv_i$ is a cycle of length $\geq \mind + 1$ \qed
+    Let $i$ be the first index such that $v_iv_l \in \e \implies \ngbrs{v_l} \subseteq \{v_i, \dots, v_{l - 1}\}$, since $\mind \geq 2, i \neq l - 1$. So $v_i \dots v_lv_i$ is a cycle of length $\geq \mind + 1$ \qed
 \end{prf}
 \begin{definition}[Diameter]
     The diameter of a graph $G$ is the length of the greatest shortest path between any two vertices in $G$
@@ -189,7 +189,135 @@ Let $G$ and $G'$ be two graphs, we say that $G$ and $G'$ are isomorphic ($G \con
 \begin{prf}
     Let $\cycl$ be a cycle of minimum length, suppose for a contradiction that it has length $\geq 2diam(G) + 2$.
 
-    Thus there are two vertices $u, v \in V(\cycl)$ such that $dist_{\cycl}(u, v) \geq diam(G) + 1$. Therefore $G$ contains a $u - v$ path $P$ of length $\leq diam(G)$, $P$ is not entirely contained in the cycle, so there exist two vertices $x, y \in P \cap V(\cycl)$ such that $E(xPy) \cap E(\cycl) = \emptyset$.
+    Thus there are two vertices $u, v \in V(\cycl)$ such that $dist_{\cycl}(u, v) \geq diam(G) + 1$. Therefore $G$ contains a $u - v$ path $P$ of length $\leq diam(G)$, $P$ is not entirely contained in the cycle, so there exist two vertices $x, y \in P \cap V(\cycl)$ such that $\e[xPy] \cap \e[\cycl] = \emptyset$.
 
     Note that $xPy$ has length $\leq diam(G) < \frac{e(\cycl)}{2}$ so that together with the shortest $x - y$ path on $\cycl$, $xPy$ gives a cycle of length $< e(\cycl)$ which is contradictory. \qed
 \end{prf}
+\begin{proposition}
+    For $d \in \R$ and $g \in \N$, let
+    \begin{equation*}
+        n_0 =
+        \begin{cases}
+            &1 + d \sum_{i = 0}^{r - 1}(d - 1)^i \hspace{5mm} \text{if $g =: 2r + 1$ is odd}\\
+            &2\sum_{i = 0}^{r - 1}(d - 1)^i \hspace{5mm} \text{if $g =: 2r$ is even}
+        \end{cases}
+    \end{equation*}
+\end{proposition}
+Let $\delta, g \geq 3$ and $G$ a graph with $\mind \geq \delta$ and $g(G) \geq g$ then $\nv \geq n_0(\delta, g)$.\\
+\begin{coolfact}
+    There was a result by Alan, Hooray and Linial which replaced $\mind$ with $\avgd$
+\end{coolfact}
+\begin{corollary}
+    If $\mind \geq 3$ then $g(G) < 2\log{n}$
+\end{corollary}
+\begin{lemma}
+    Let $G$ be a graph, the relation $\conn$ defined by:
+    \begin{equation*}
+        x \conn y \iff \exists x-y \text{path in } G
+    \end{equation*}
+    For $x, y \in \v$ is an equivalence relation.
+\end{lemma}
+Since the proof is trivial we will not be showing it. Having defined an equivalence relation we can see different connected components as equivalence classes, more formally:
+\begin{definition}[Component]
+    The components of a graph $G$ are its maximal connected subgraphs, i.e. the subgraphs induced by the equivalence classes.
+\end{definition}
+\begin{definition}[$k$-connectivity]
+    Let $k \in \N$, then $G$ is $k$-connected if $\nv \geq k + 1$ and for any $X \subseteq \v$ with $|X| < k$, the graph $G - X$ is connected.
+\end{definition}
+Let's think about a couple of examples:
+\begin{itemize}
+    \item A $1$-connected graph is a simply connected graph. Removing one node will just break connectivity.
+    \item Any cycle is at most $2$-connected.
+\end{itemize}
+The largest $k$ such that $G$ is $k$-connected is called connectivity and we denote it with $k(G)$.
+\begin{definition}[Separator]
+    A set $X \subseteq \v$ such that $G - X$ is disconnected is called a separator.
+\end{definition}
+\begin{theorem}[Mader's theorem]
+    Any graph $G$ with average degree $\geq 4k, k \in \N$, has a subgraph $H$ which is $(k + 1)$-connected and satisfies $\ed[H] > \ed - k$
+\end{theorem}
+\begin{prf}
+    Let $\varepsilon := \ed$, now choose $H$ to be a subgraph of $G$ satisfying the following
+    \begin{itemize}
+        \item $n(H) \geq 2k$
+        \item $e(H) > \varepsilon(n(H) - k)$
+    \end{itemize}
+    with $n(H)$ minimum. $H$ exists since $G$ itself satisfies the above, simply because
+    \begin{itemize}
+        \item $\nv \geq \avgd \geq 2k$
+        \item $e(G) = \varepsilon \cdot \nv > \varepsilon (\nv - h)$
+    \end{itemize}
+    Before proceding we want to prove a couple of claims.
+    \begin{claim}
+        \label{claim:1_Mader}
+        \begin{equation*}
+            n(H) > 2k
+        \end{equation*}
+    \end{claim}
+    \begin{prf}
+        Suppose not, that means $n(H) = 2k$, thus $e(H) > \varepsilon(2k - k) \geq 2k^2$
+
+        But $\ne[H] \leq \ne[K_{2k}] = \binom{2k}{2} < 2k^2$
+
+        Which is absurd, no graph can have more edges than a complete graph \qed
+    \end{prf}
+    \begin{claim}
+        \label{claim:2_Mader}
+        \begin{equation*}
+            \mind[H] \geq \varepsilon
+        \end{equation*}
+    \end{claim}
+    \begin{prf}
+        Suppose not, let $v \in \v[H]$ with $\deg[H]{v} \leq \varepsilon$. Then 
+        \begin{equation*}
+            \ne[H - v] \geq \ne[H] - \varepsilon > \varepsilon(\nv[H] - 1 - k) = \varepsilon(\nv[H - v] - k)
+        \end{equation*}
+        Thus the property still holds, which means that contradicts the minimality of $H$ and that is absurd. \qed
+    \end{prf}
+    Thus:
+    \begin{equation*}
+        \ed[H] = \frac{\ne[H]}{\nv[H]} > \frac{\ed[\nv[H] - k]}{\nv[H]} = \varepsilon - \frac{\varepsilon_k}{\nv[H]} > \varepsilon - \frac{\varepsilon_k}{\mind[H]} > \varepsilon - \frac{\varepsilon_k}{\varepsilon} = \varepsilon - k
+    \end{equation*}
+    It remains to show that $H$ is $k + 1$ conneted, by \textbf{Claim 1} \ref{claim:1_Mader} we have
+    \begin{equation*}
+        \nv > 2k \geq k + 2
+    \end{equation*}
+    The last thing that we have to prove is that there is no separator of size $\leq k$.
+
+    Let's suppose for a contradiction that there is a separator of size $\leq k$ for $H$, we will call it $X$, $H_1$ and $H_2$ must be non-empty, thus they must be proper subgraphs. Let $k$ be a component of $H - X$ and define
+    \begin{align*}
+        H_1 &= H[\v[K] \cup X]\\
+        H_2 &= H - \v[K]
+    \end{align*}
+    By minimality of $H, H_1, H_2$ violate \ref{}
+
+    Vertices in $H$ have the same degree as in $H_1$ thus we want to show that both
+    \begin{equation*}
+        \nv[H_1], \nv[H_2] \geq 2k
+    \end{equation*}
+    \begin{equation*}
+        \varepsilon = \frac{\ne[H]}{\nv[H]}
+    \end{equation*}
+    We recall
+    \begin{equation*}
+        \avgd[H] = \frac{\sum\avgd[V]}{\nv[H]} = \frac{2\ne[H]}{\nv[H]}
+    \end{equation*}
+    Note that all vertices in $K$ have their neighbours only in $K \cup X$ (otherwise $K$ would not be a component of $H - X$). $\fa v \in \v[K]$ we have $\deg[H_1]{v} = \deg[H]{v} > \varepsilon$, that is true because of \textbf{Claim 2} \ref{claim:2_Mader}, moreover we can say that since $\varepsilon \geq 2k \implies \deg[H_1]{v} \geq 2k$.
+    
+    Similarly, since $H_2 - X$ is non-empty (otherwise $H - X$ would only consist of $K$ and that would make it connected), there exists $x \in \v[H_2] \setminus X$ such that $\deg[H_2]{x} = \deg[H]{x} \geq 2k \implies \nv[H] \geq 2k$
+
+    Since $H_1$ and $H_2$ violate \ref{}, we have $\ne[H_i] \leq \ed[\nv[H_i] - K] \fa i \in [Z]$, since every edge is connected at least once
+    \begin{align*}
+        \ne[H] &\leq \ne[H_1] + \ne[H_2]\\
+        \ne[H] &\leq \varepsilon(\nv[H_1] - k + \nv[H_2] - k)\\
+        &= \varepsilon(\nv[H] + |X| - 2k) \leq \varepsilon(\nv[H] - k)
+    \end{align*}
+    This violates \ref{}, so there is no such $X$, thus no separator of size $\leq k$, which means that $H$ is $(k + 1)$ connected. \qed
+\end{prf}
+\begin{theorem}[Carmensin]
+    Evey graph $G$ with $\avgd \geq (3 + \frac{1}{3})k$ has a $k + 1$-connected subgraph with more than $2k$ vertices.
+\end{theorem}
+We can extend the concept of connetivity to edges, we say that a graph with at least $2$ vertices is $k$-edge-connected if removing less than $k$ edges does not disconnect the graph. Any cycle, for example, other than being $2$-connected, is also $2$-edge connected.
+\begin{definition}[Edge-connectivity]
+    The edge-connectivity of a graph $G$ is the maximum $k$ such that the graph is $k$-edge-connected.    
+\end{definition}

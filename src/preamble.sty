@@ -6,38 +6,64 @@
 
 \usepackage{tikz}
 
+% Defining the environments for definitions, lemmi and other
 \newtheorem*{definition}{Def}
 \newtheorem{lemma}{Lemma}
 \newtheorem{proposition}{Proposition}
-\newtheorem{pp}{Property}
-\newtheorem{cf}{Cool Fact}
-
-\theoremstyle{definition}
+\newtheorem{property}{Property}
+\newtheorem{coolfact}{Cool Fact}
+\newtheorem{corollary}{Corollary}
 \newtheorem*{prf}{Proof}
+\newtheorem{theorem}{Theorem}
+\newtheorem{claim}{Claim}
 
 \newcommand{\@includebasepath}{src}
 \newcommand{\incl}[1]{\include{\@includebasepath/#1}}
 
+% Number sets
 \newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
 
+% Complexity sets
 \renewcommand{\P}{\textbf{P }}
 \newcommand{\NP}{\textbf{NP }}
 
+% Sets associated to a graph G
+\renewcommand{\v}[1][G]{V(#1)}
+\newcommand{\e}[1][G]{E(#1)}
+\newcommand{\nv}[1][G]{n(#1)}
+\renewcommand{\ne}[1][G]{e(#1)}
+
+% Macro for problem title
 \newcommand{\prblm}[1]{\texttt{\MakeUppercase{#1}}}
 
+% New command for the Quod Erat Demostrandum square
 \renewcommand{\qed}{\hspace{10mm}$\square$}
 
+% Spaced out logic operators
 \newcommand{\fa}{\:\forall}
 \newcommand{\ex}{\:\exists}
 
-\renewcommand{\deg}[2][G]{d_{#1}(#2)}
+% Neighbor set
 \newcommand{\ngbrs}[2][G]{N_{#1}(#2)}
+
+% Degree macros
+% Associated to the graph itself
 \newcommand{\maxd}[1][G]{\Delta(#1)}
 \newcommand{\avgd}[1][G]{d_{avg}(#1)}
 \newcommand{\mind}[1][G]{\delta(#1)}
-\newcommand{\ed}[1][G]{\varepsilon(#1)}
+% Associated to a specific vertex
+\renewcommand{\deg}[2][G]{d_{#1}(#2)}
+
+% Cliques and cycles
 \newcommand{\clq}[1]{K_{#1}}
 \newcommand{\cycl}[1][C]{\mathcal{#1}}
+
+% Connected relationship, it indicates that there is a path between any two edges
+\newcommand{\conn}{\sim}
+
+% Edge density
+\newcommand{\ed}[1][G]{\varepsilon(#1)}
 
 \tikzset{
     defv/.style={circle,minimum size=0.5cm,fill=cyan!20,draw=teal},
