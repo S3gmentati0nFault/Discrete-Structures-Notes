@@ -1,0 +1,38 @@
+\section{Trees and forests}
+A forest is a graph without cycles and a tree is a connected graph without cycles.
+\begin{lemma}
+    Any tree with at least $2$ vertices must have at least two leaves.
+\end{lemma}
+\begin{prf}
+    Let $P$ be a largest path, by maximality of $P$ the extremities do not have neighbours outside the path $P$ and have just one neighbour inside the path, since there are no cycles we have $N(v_1) = \{v_1\}$ and $N(v_l) = \{v_{l - 1}\}$
+\end{prf}
+\begin{theorem}
+    Let $T$ be a graph, the following statements are equivalent:
+    \begin{enumerate}
+        \item $T$ is a tree
+        \item $T$ is minimally connected, i.e. $T$ is connected but $T - e$ is disconnected $\fa e \in \e[T]$
+        \item $T$ is maximally acyclic, i.e. $T$ has no cycle but for any non adjacent $x \neq y \in \v[T], T + xy$ has a cycle
+        \item For any $u, v \in \v[T]$ there is a unique $u - v$ path in $T$
+    \end{enumerate}
+\end{theorem}
+\begin{prf}
+    \boldmath$1 \implies 2$\unboldmath
+
+    Suppose $T$ is a tree, by definition $T$ is connected. Let $uv \in \e[T]$, if $T - uv$ is connected, then $T$ has a $u - v$ path not using $uv$. Now $P + uv$ would be a cycle, which is absurd because we have a tree.
+
+    \boldmath$2 \implies 3$\unboldmath
+
+    Suppose $T$ has a cycle $\cycl$ and let $uv \in \e[\cycl]$. We claim that $T - uv$ is connected. If $P$ does not use $uv$ then there is still an $x - y$ path in $T - uv$, if $P$ contains $uv$, then $T - uv$ contains, without loss of generality, an $x - u$ path and a $v - y$ path, as well as an $u - v$ path (along $\cycl - uv$), so by \textit{Lemma 1.11} \ref{lemma:1.11} $T - uv$ has an $x - y$ path.
+
+    So $T$ is not minimally connected, which contradicts the hypothesis, thus $T$ must be acyclic. Now for any $xy \notin \e[T], T$ contains any $x - y$ path $P$ since $T$ is not connected, so $T + xy$ contains the cycle $P + xy$.
+
+    \boldmath$3 \implies 4$\unboldmath
+
+    Suppose $T$ is maximally acyclic, let $u, v \in \v[T]$. If $uv \in \e[T]$, then $uv$ is a $u - v$ path. Otherwise, by assumption, $T + uv$ has a cycle $\cycl$ using $uv$ (if I didn't use $uv$ there would already be another cycle). So $\cycl - uv$ is a $u - v$ path in $T$.
+
+    Suppose $P$ and $Q$ are two distinct $u - v$ paths in $T$, let $x$ be the first vertex on $P$ which is incident in $P$ to an edge not in $Q$. Let $y$ be the first vertex on $P$ after $x$ which is also in $Q$. Then $xPy$ and $yQx$ do not share any edge, so $xPyQx$ is a cycle in $T$.
+
+    \boldmath$4 \implies 1$\unboldmath
+
+    Suppose there exists a unique $u - v$ path between any two $u, v \in \v[T]$. Then, in particular, $T$ is connected. Moreover, if $T$ contained a cycle $\cycl$, any two vertices $u, v \in \v[\cycl]$ would be joined by two different paths.\qed
+\end{prf}
