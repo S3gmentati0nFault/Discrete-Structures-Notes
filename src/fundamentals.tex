@@ -21,14 +21,17 @@ We say that two vertices are adjacent if $\{u, v\} \in E$, an edge $\{u, v\} \in
 \begin{definition}[Induced subgraph]
     A subgraph $H$ of $G$ is induced if, for any $u, v \in \v[H], uv \in \e[H] \iff u, v \in \v$
 \end{definition}
+\begin{figure}[h]
+    \centering
+    \input{img/induced_subgraph.tikz}
+    \label{fig:induced_subgraph}
+    \caption{In red an example of induced subgraph}
+\end{figure}
 For any $U \subseteq \v$ we write $G[U]$ for the subgraph $G$ induced by $U$, that is:
-
-$V(G[U]) = U$
-
-and
-
-$\e[G[U]] = \{vw \in \e: v, w \in U\}$
-
+\begin{align*}
+    \v[{G[U]}] &= U \\
+    \e[{G[U]}] &= \{vw \in \e: v, w \in U\}
+\end{align*}
 We can also define the difference between two graphs as:
 \begin{equation*}
     G - U = G[\v \setminus U]
@@ -64,7 +67,7 @@ Now we will prove a very important lemma
     Let $G$ be a graph, then $2\ne = \sum_{v \in \v}\deg{v}$ and $G$ has an even number of odd degree vertices.
 \end{lemma}
 \begin{prf}
-    Let $S$ be the set of pairs $(v, e)$ where $v \in \v$ and $e \in \e$, which is incident to $v$.
+    For this proof we will be applying the double counting technique. Let $S$ be the set of pairs $(v, e)$ where $v \in \v$ and $e \in \e$, which is incident to $v$.
 
     For any $v \in \v$, the number of pairs of the form $(v, e) \in S$ is $\deg{v}$, therefore:
     \begin{equation*}
@@ -125,12 +128,13 @@ Now we will prove a very important lemma
     \end{equation*}
 \end{proposition}
 \begin{prf}
-    We will do an induction proof on $\nv$, the \textbf{base case} is the one in which we have a single edge
+    We will do an induction proof on $\nv$, the \textbf{base case} is the one in which we have a single edge as shown in \ref*{fig:k_2}. $K_2$ is the complete graph containing all of the edges connecting 2 vertices.
     \begin{figure}[h]
         \centering
         \input{img/simple_edge.tikz}
+        \caption{A clique composed of just two vertices}
+        \label{fig:k_2}
     \end{figure}
-    The above is called $\clq{2}$ and it's the complete graph containing all of the edges connecting 2 vertices ($v_1$ and $v_2$ in our case).
 
     In this case we are having:
     \begin{align*}
@@ -138,17 +142,17 @@ Now we will prove a very important lemma
         \mind[\clq{2}] &= 1
     \end{align*}
     Let $H = \clq{2}$, every graph is subgraph of itself.
-    In the \textbf{inductive case}, $\nv > 2$, we suppose that for any $G'$ with $n(G') < \nv$ and $E[G'] \geq 1, \ex H \subseteq G'$ such that $\mind[H] > \ed[H] \geq \ed[G']$.
+    In the \textbf{inductive case}, $\nv > 2$, we suppose that for any $G'$ with $n(G') < \nv$ and $\e[G'] \geq 1, \ex H \subseteq G'$ such that $\mind[H] > \ed[H] \geq \ed[G']$.
     
-    Removing vertices with low degree increases the edge density. Let $v \in \v$ with $\deg{v} \leq \ed = \frac{m}{n}$
+    Removing vertices with low degree increases the edge density. Given a graph $G$, let $v \in \v$ with $\deg{v} \leq \ed = \frac{m}{n}$
 
-    Then if we remove the vertex
+    Then we call $G' = G - v$, therefore
     \begin{equation*}
-        \ed[G - v] = \frac{e(G - v)}{n - 1} = \frac{m - \deg{v}}{n - 1} \geq \frac{m - \frac{m}{n}}{n - 1} = \frac{m}{n} \cdot \frac{n - 1}{n - 1} = \frac{m}{n} = \ed
+        \ed[G'] = \frac{e(G')}{n - 1} = \frac{m - \deg{v}}{n - 1} \geq \frac{m - \frac{m}{n}}{n - 1} = \frac{m}{n} \cdot \frac{n - 1}{n - 1} = \frac{m}{n} = \ed
     \end{equation*}
-    By the induction hypothesis $\ex H \subseteq G - v$ such that
+    By the induction hypothesis $\ex H \subseteq G'$ such that
     \begin{equation*}
-        \mind[H] > \ed[H] \geq \ed[G - v] \geq \ed
+        \mind[H] > \ed[H] \geq \ed[G'] \geq \ed
     \end{equation*}
     And that proves our proposition.\qed
 \end{prf}
@@ -157,19 +161,19 @@ Let $G$ and $G'$ be two graphs, we say that $G$ and $G'$ are isomorphic ($G \con
     The \prblm{Graph isomorphism problem} consists in determining whether two graphs are isomorphic, and it is one of the problems suspected to be in between \P and \NP.
 \end{coolfact}
 \begin{definition}[Girth]
-    The girth of a graph is the minimum length of a cycle in $G$ or $\infty$ if there are no cycles
+    The girth $g(\smth)$ of a graph is the minimum length of a cycle in $G$ or $\infty$ if there are no cycles
 \end{definition}
 \begin{proposition}
-    Let $G$ be a graph, then $G$ has a path of length $\mind$. Moreover $\mind \geq 2$, then $G$ has a cycle of length $\geq \mind + 1$
+    Let $G$ be a graph, then $G$ has a path of length $\geq \mind$. Moreover if $\mind \geq 2$, then $G$ has a cycle of length $\geq \mind + 1$
 \end{proposition}
 \begin{prf}
-    Let $P = v_0\:v_1\:v_l$ be a path of maximum length in $G$, since $P$ is maximum, $\ngbrs{v_l} \subseteq V(P)$, otherwise we could extend $P$ (esamples of non maximal paths are shown in red in \ref{fig:proposition1.6}), so the length of $P$ is:
     \begin{figure}[h]
         \centering
         \input{img/proposition_1.6.tikz}
         \caption{Example of non maximal paths}
         \label{fig:proposition1.6}
     \end{figure}
+    Let $P = v_0\:v_1\dots\:v_l$ be a path of maximum length in $G$, since $P$ is maximum, $\ngbrs{v_l} \subseteq V(P)$, otherwise we could extend $P$ (esamples of non maximal paths are shown in red in \ref{fig:proposition1.6}), for the same reason the length of the path is:
     \begin{equation*}
         l \geq |\ngbrs{v_l}| \geq \mind
     \end{equation*}
@@ -178,7 +182,7 @@ Let $G$ and $G'$ be two graphs, we say that $G$ and $G'$ are isomorphic ($G \con
     Let $i$ be the first index such that $v_iv_l \in \e \implies \ngbrs{v_l} \subseteq \{v_i, \dots, v_{l - 1}\}$, since $\mind \geq 2, i \neq l - 1$. So $v_i \dots v_lv_i$ is a cycle of length $\geq \mind + 1$ \qed
 \end{prf}
 \begin{definition}[Diameter]
-    The diameter of a graph $G$ is the length of the greatest shortest path between any two vertices in $G$
+    The diameter of a graph $diam(\smth)$ is the greatest shortest path in the graph.
 \end{definition}
 \begin{proposition}
     For any cyclic graph:
