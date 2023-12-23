@@ -1,12 +1,14 @@
 \section{Trees and forests}
 A forest is a graph without cycles and a tree is a connected graph without cycles.
 \begin{lemma}
+    \label{lemma:1.14}
     Any tree with at least $2$ vertices must have at least two leaves.
 \end{lemma}
 \begin{prf}
     Let $P$ be a largest path, by maximality of $P$ the extremities do not have neighbours outside the path $P$ and have just one neighbour inside the path, since there are no cycles we have $N(v_1) = \{v_1\}$ and $N(v_l) = \{v_{l - 1}\}$
 \end{prf}
 \begin{theorem}
+    \label{theorem:1.15}
     Let $T$ be a graph, the following statements are equivalent:
     \begin{enumerate}
         \item $T$ is a tree
@@ -39,4 +41,97 @@ A forest is a graph without cycles and a tree is a connected graph without cycle
     \boldmath$4 \implies 1$\unboldmath
 
     Suppose there exists a unique $u - v$ path between any two $u, v \in \v[T]$. Then, in particular, $T$ is connected. Moreover, if $T$ contained a cycle $\cycl$, any two vertices $u, v \in \v[\cycl]$ would be joined by two different paths.\qed
+\end{prf}
+\section{Spanning trees}
+\begin{definition}
+    The spanning tree for a connected graph $G$ is a subgraph $T \subseteq G$ which is a tree with $\v[T] = \v$
+\end{definition}
+\begin{corollary}
+    \label{corollary:1.16}
+    Any connected graph $G$ has a spanning tree
+\end{corollary}
+\begin{prf}
+    Let $H \subseteq G$ be a spanning connected subgraph of $G$ with as few edges as possible. This means that $H$ is minimally connected, thus, by Theorem \ref{theorem:1.15}, $H$ is a tree.
+\end{prf}
+\begin{lemma}
+    A connected graph $T$ on $n$ vertices is a tree $\iff \ne[T] = n - 1$
+\end{lemma}
+\begin{prf}
+    We will prove the above by induction on $n$. In the \textbf{Base case} we have $n = 1 \implies T = K_1$ and $\ne[T] = 0 = 1 - 1$.
+
+    In the \textbf{inductive case} we have to prove the above in both directions.
+    \begin{itemize}
+        \item [($\implies$)] By Lemma \ref{lemma:1.14} $T$ has a leaf $l$ and so $T - l$ is a tree on $n - 1$ vertices. By induction hypothesis we have $\ne[T - l] = (n - 1) - 1$ thus $\ne[T] = n - 2 + 1 = n - 1$
+        \item [($\impliedby$)] Because of Corollary \ref{corollary:1.16}, $T$ has a spanning tree $T'$ and we have shown that $\ne[T'] = n - 1$, thus
+        \begin{equation*}
+            \ne[T'] = \ne[T] \implies T = T'
+        \end{equation*}
+        That means that $T$ must be a tree.
+    \end{itemize}
+\end{prf}
+\begin{coolfact}
+    The key odea in this proof is that removing a leaf from a tree gives a tree on one less vertex, that proves very useful for inductions on the number of vertices.
+\end{coolfact}
+\begin{definition}[Root]
+    A root is a special vertex inside the tree because it is not son of anyone, any tree possessing a root is called rooted tree.
+\end{definition}
+\begin{definition}[Reachability]
+    Starting froma  vertex $v \in V$ we say that $w$ is reachable from $v$ if $w$ is inside $v$'s component.
+\end{definition}
+We will now see the first example of an algorithm in this course.
+\subsection{\texttt{Graph Scanning algorithm}}
+\subsubsection{Input}
+A graph $G$ and a vertex $s \in \v$
+\subsubsection{Output}
+A spanning tree of the component containing $s$. More precisely, $R \subseteq \v$ and $T \subseteq \e$ such that $(R, T)$ is a spanning tree of the component containing $s$ (assuming you could have a forest).
+\subsubsection{Algorithm}
+\begin{enumerate}
+    \item Set $R = \{s\}, Q = \{s\}, T = \emptyset$
+    \item \label{tag:condition} If $Q$ is empty then stop
+    \begin{enumerate}
+        \item Else $v \in Q$
+    \end{enumerate}
+    \item If possible choose $w \in \v \setminus R$ such that $vw \in \e$
+    \begin{enumerate}
+        \item If there is no such $w$ let $Q = Q \setminus \{v\}$ and go to \ref{tag:condition}
+    \end{enumerate}
+    \item Set $R = R \cup \{w\}, Q = Q \cup \{w\}$ and $T = T \cup \{w\}$ and go to \ref{tag:condition}
+\end{enumerate}
+\begin{lemma}
+    The graph spanning algorithm works properly.
+\end{lemma}
+\begin{prf}
+    We have to show that the obtained graph is a tree and it must contain all of the vertices in the component.
+
+    At any stage, $(R, T)$ is a tree (at the beginning it's just a single vertex and with every step we add a leaf to the tree). Suppose for a contradiction that there exists $w \in \v \setminus R$ but $w$ is reachable from $s$.
+
+    Let $P$ be an $s - w$ path in $G$. Since $s \in R$, there exists $xy \in \e[P]$ such that $x \in R$ but $y \notin R$. Since $x \in R$, it must have been added to $Q$ at some point in the algorithm (during either step $1$ or step $4$). The algorithm does not stop before $Q = \emptyset$ and $x$ can only be removed from $Q$ when $\ngbrs{x} \subseteq R$. That means that $y$ must have been added to $Q$ at some point, but whenever a vertex is added to $Q$, it is also added to $R$, which implies that $y \in R$, but that is a contradiction.
+
+    Therefore all vertices that are reachable from $s$ are in $R$. \qed
+\end{prf}
+\begin{lemma}
+    Suppose the \texttt{Graph Scanning algorithm} is applied to a connected graph $G$ with vertex $s \in \v$ and we use \texttt{BFS}. Then for any vertex $v \in \v$ we have $dist_G(s, v) = dist_{(R, T)}(s, v)$. Thus the \texttt{BFS} tree preserves distances to the root.
+\end{lemma}
+\begin{prf}
+    Let $n = \nv$ and $v_1, \dots, v_n$ be the enumeration of the vertices in $G$ in the order in which they are added to $Q$.
+    \begin{claim}
+        \label{claim:1_lemma1.19}
+        For $1 \leq i \leq j \leq n$ we have
+        \begin{equation*}
+            dist_G(s, v_i) \leq dist_G(s, v_j)
+        \end{equation*}
+    \end{claim}
+    \begin{prf}
+        Suppose for a contradiction that $\exists v_l \in \v$ with $dist_{(R, T)}(s, v_l) \neq dist_G(s, v_l)$ and suppose $dist_G(s, v_l)$ is minimum. Since (R, T) is a subgraph of $G$ we have
+        \begin{equation*}
+            dist_{(R, T)}(s, v_l) > dist_G(s, v_l)
+        \end{equation*}
+        Let $P$ be an $s - v_l$ path of minimum length in $G$ and denote by $v_k$ the neighbour of $v_l$ on $P$ then $dist_G(s, v_k) = dist_G(s, v_l) - 1$ so, by assumption, $dist_G(s, v_k) = dist_{(R, T)}(s, v_k)$.
+        Thus $v_k \notin T$, otherwise we could concatenate it to an $s - v_k$ path of length $dist_G(s, v_k)$ in $(R, T)$ to get an $s - v_k$ path of length $dist_G(s, v_k) + 1 = dist_G(s, v_l)$ in $(R, T)$. \qed
+    \end{prf}
+    By \ref{claim:1_lemma1.19} we have $k < l$, but $v_kv_k \notin T$ means that $v_l$ was in $R$ when scanning a $v_k$ so $\exists v_mv_l \in T$ for some $m < k$. By \ref{claim:1_lemma1.19}
+    \begin{equation*}
+        dist_G(s, vm) \leq dist_G(s, v_k) = dist_G(s, v_l) - 1
+    \end{equation*}
+    But by minimality we have an $s - v_m$ path of length $dist_G(s, vm) \leq dist_G(s, v_l) - 1$ in $(R, T)$, thus, together with $v_mv_l$ we get an $s - v_l$ path of length $\leq dist_G(s, v_l)$ in $(R, T)$, which is absurd. \qed
 \end{prf}
