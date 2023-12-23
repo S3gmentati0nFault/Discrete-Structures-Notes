@@ -22,9 +22,13 @@ A forest is a graph without cycles and a tree is a connected graph without cycle
 
     \boldmath$2 \implies 3$\unboldmath
 
-    Suppose $T$ has a cycle $\cycl$ and let $uv \in \e[\cycl]$. We claim that $T - uv$ is connected. If $P$ does not use $uv$ then there is still an $x - y$ path in $T - uv$, if $P$ contains $uv$, then $T - uv$ contains, without loss of generality, an $x - u$ path and a $v - y$ path, as well as an $u - v$ path (along $\cycl - uv$), so by \textit{Lemma 1.11} \ref{lemma:1.11} $T - uv$ has an $x - y$ path.
-
-    So $T$ is not minimally connected, which contradicts the hypothesis, thus $T$ must be acyclic. Now for any $xy \notin \e[T], T$ contains any $x - y$ path $P$ since $T$ is not connected, so $T + xy$ contains the cycle $P + xy$.
+    Let's suppose by contradiction $T$ is minimally connected but contains a cycle, if we take $u, v \in \v[\cycl]$ and $u \in N_{\cycl}(v)$ then we know $uv \in \e[\cycl]$ thus removing the edge from the set $E(\cycl)$ should disconnect the tree because it's minimally connected, but there is at least one pair of vertices $x, y \in \v[\cycl]$ (possibly $\{x, y\} = \{u, v\}$) such that:
+    \begin{itemize}
+        \item There is a $u - x$ path in $\cycl$ that doesn't contain $uv$
+        \item There is a $x - y$ path in $\cycl$ that doesn't contain $uv$
+        \item There is a $y - v$ path in $\cycl$ that doesn't contain $uv$
+    \end{itemize}
+    But since the connection relationship is transitive (by Lemma \ref{lemma:1.11}) then there is stilla $u - v$ path even after removing $uv$, that means that the graph was not actually disconnected by the removal of $uv$ therefore we conclude that a tree has to be maximally acyclic since it's also minimally connected
 
     \boldmath$3 \implies 4$\unboldmath
 
