@@ -7,15 +7,38 @@
 \usepackage{tikz}
 
 % Defining the environments for definitions, lemmi and other
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+  \newenvironment{#1}[1]
+  {%
+   \renewcommand\customgenericname{#2}%
+   \renewcommand\theinnercustomgeneric{##1}%
+   \innercustomgeneric
+  }
+  {\endinnercustomgeneric}
+}
+\newcustomtheorem{customtheorem}{Theorem}
+\newcustomtheorem{customlemma}{Lemma}
+\newcustomtheorem{customproposition}{Proposition}
+\newcustomtheorem{customcorollary}{Corollary}
+
 \newtheorem*{definition}{Def}
-\newtheorem{lemma}{Lemma}
-\newtheorem{proposition}{Proposition}
+\newtheorem*{coolfact}{Cool Fact}
 \newtheorem{property}{Property}
-\newtheorem{coolfact}{Cool Fact}
-\newtheorem{corollary}{Corollary}
-\newtheorem*{prf}{Proof}
-\newtheorem{theorem}{Theorem}
 \newtheorem{claim}{Claim}
+
+\newtheoremstyle{break}
+    {\topsep}
+    {\topsep}
+    {\normalfont}
+    {}
+    {\bfseries}
+    {.}
+    {\newline}
+    {}
+\theoremstyle{break}
+\newtheorem*{prf}{Proof}
 
 \newcommand{\@includebasepath}{src}
 \newcommand{\incl}[1]{\include{\@includebasepath/#1}}

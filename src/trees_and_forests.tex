@@ -1,13 +1,13 @@
 \chapter{Trees and forests}
 A forest is a graph without cycles and a tree is a connected graph without cycles.
-\begin{lemma}
+\begin{customlemma}{1.14}
     \label{lemma:1.14}
     Any tree with at least $2$ vertices must have at least two leaves.
-\end{lemma}
+\end{customlemma}
 \begin{prf}
     Let $P$ be a largest path, by maximality of $P$ the extremities do not have neighbours outside the path $P$ and have just one neighbour inside the path, since there are no cycles we have $N(v_1) = \{v_1\}$ and $N(v_l) = \{v_{l - 1}\}$
 \end{prf}
-\begin{theorem}
+\begin{customtheorem}{1.15}
     \label{theorem:1.15}
     Let $T$ be a graph, the following statements are equivalent:
     \begin{enumerate}
@@ -16,7 +16,7 @@ A forest is a graph without cycles and a tree is a connected graph without cycle
         \item $T$ is maximally acyclic, i.e. $T$ has no cycle but for any non adjacent $x \neq y \in \v[T], T + xy$ has a cycle
         \item For any $u, v \in \v[T]$ there is a unique $u - v$ path in $T$
     \end{enumerate}
-\end{theorem}
+\end{customtheorem}
 \begin{prf}
     \boldmath$1 \implies 2$\unboldmath
 
@@ -46,16 +46,17 @@ A forest is a graph without cycles and a tree is a connected graph without cycle
 \begin{definition}
     The spanning tree for a connected graph $G$ is a subgraph $T \subseteq G$ which is a tree with $\v[T] = \v$
 \end{definition}
-\begin{corollary}
+\begin{customcorollary}{1.16}
     \label{corollary:1.16}
     Any connected graph $G$ has a spanning tree
-\end{corollary}
+\end{customcorollary}
 \begin{prf}
     Let $H \subseteq G$ be a spanning connected subgraph of $G$ with as few edges as possible. This means that $H$ is minimally connected, thus, by Theorem \ref{theorem:1.15}, $H$ is a tree.
 \end{prf}
-\begin{lemma}
+\begin{customtheorem}{1.17}
+    \label{theorem:1.17}
     A connected graph $T$ on $n$ vertices is a tree $\iff \ne[T] = n - 1$
-\end{lemma}
+\end{customtheorem}
 \begin{prf}
     We will prove the above by induction on $n$. In the \textbf{Base case} we have $n = 1 \implies T = K_1$ and $\ne[T] = 0 = 1 - 1$.
 
@@ -97,9 +98,10 @@ A spanning tree of the component containing $s$. More precisely, $R \subseteq \v
     \end{enumerate}
     \item Set $R = R \cup \{w\}, Q = Q \cup \{w\}$ and $T = T \cup \{w\}$ and go to \ref{tag:condition}
 \end{enumerate}
-\begin{lemma}
+\begin{customlemma}{1.18}
+    \label{lemma:1.18}
     The graph spanning algorithm works properly.
-\end{lemma}
+\end{customlemma}
 \begin{prf}
     We have to show that the obtained graph is a tree and it must contain all of the vertices in the component.
 
@@ -109,9 +111,10 @@ A spanning tree of the component containing $s$. More precisely, $R \subseteq \v
 
     Therefore all vertices that are reachable from $s$ are in $R$. \qed
 \end{prf}
-\begin{lemma}
+\begin{customlemma}{1.19}
+    \label{lemma:1.19}
     Suppose the \texttt{Graph Scanning algorithm} is applied to a connected graph $G$ with vertex $s \in \v$ and we use \texttt{BFS}. Then for any vertex $v \in \v$ we have $dist_G(s, v) = dist_{(R, T)}(s, v)$. Thus the \texttt{BFS} tree preserves distances to the root.
-\end{lemma}
+\end{customlemma}
 \begin{prf}
     Let $n = \nv$ and $v_1, \dots, v_n$ be the enumeration of the vertices in $G$ in the order in which they are added to $Q$.
     \begin{claim}
@@ -135,9 +138,10 @@ A spanning tree of the component containing $s$. More precisely, $R \subseteq \v
     \end{equation*}
     But by minimality we have an $s - v_m$ path of length $dist_G(s, vm) \leq dist_G(s, v_l) - 1$ in $(R, T)$, thus, together with $v_mv_l$ we get an $s - v_l$ path of length $\leq dist_G(s, v_l)$ in $(R, T)$, which is absurd. \qed
 \end{prf}
-\begin{lemma}
+\begin{customlemma}{1.20}
+    \label{lemma:1.20}
     Applying \texttt{DFS} to a connected graph $G$ and vertex $s \in \v$, we obtain a spanning tree $T$ such that for any $xy \in \e$ there exists a leaf $v_l \in \v[T]$ such that $x$ and $y$ lie on the unique $s - v_l$ path in $T$
-\end{lemma}
+\end{customlemma}
 \begin{prf}
     Let $xy \in \e$ and say without loss of generality that $x$ was added to the queue $Q$ first.
 
@@ -146,11 +150,12 @@ A spanning tree of the component containing $s$. More precisely, $R \subseteq \v
     There is an $x - y$ path $P'$ in $T$, thus $P \cup P'$ is an $s - y$ path using $x$ and $y$. Note that $P \cup P'$ is indeed a path since $T$ is a tree. If $y$ is a leaf, we are done, otherwise we can keep extending $P \cup P'$ until we hit a leaf.\qed
 \end{prf}
 \section{\texttt{Minimum Spanning Tree problem}}
-\begin{lemma}
+\begin{customlemma}{1.22}
     \label{lemma:1.22}
     Let $G$ be a connected graph and $c: \e \rightarrow \R$. Let $T$ be a spanning tree. Then $T$ is a minimum spanning tree $iff xy \in \e$, there is no edge $e$ in the unique $x - y$ path in $T$ such that $c(e) > c(xy)$. 
-\end{lemma}
+\end{customlemma}
 \begin{prf}
+    To prove this theorem we will have to prove both directions.
     \begin{itemize}
         \item[$(\implies)$] Let $T$ be a spanning tree, let $xy \in \e$ and $P$ be the $x - y$ path in $T$, suppose for a contradiction that there is $e \in \e[P]$ with $c(e) > c(xy)$. Note that $T' = T + xy - e$ has a smaller weight and is still spanning because we are still covering all fo the vertices. We claimed that $T'$ is a tree, which means that, by Theorem \ref{theorem:1.15}, $T$ is maximally acyclic, i.e. $T + xy$ has a cycle containing $xy$.
 
@@ -177,9 +182,10 @@ Minimum spanning tree
         \item if $T + e_i$ does not contain a cycle, set $T = T + e_i$
     \end{enumerate}
 \end{enumerate}
-\begin{theorem}
+\begin{customtheorem}{1.23}
+    \label{theorem:1.23}
     Kruskal's algorithm works properly and runs in $\O(nm)$ time
-\end{theorem}
+\end{customtheorem}
 \begin{prf}
     Note that $T$ has no cycle and we check all edges, so $T$ is a spanning tree. If $xy$ is not added to $T$, then it means that when $xy$ was considered, $T$ already had an $x - y$ path and all edges on this path have weight $\leq c(xy)$. So by Lemma \ref{lemma:1.22} $T$ is a minimum spanning tree.
 \end{prf}

@@ -3,10 +3,12 @@
     A graph $G$ is bipartite if there is a partition $A \cup B = \v$ such that all edges have one extreme in $A$ and the other in $B$.
 \end{definition}
 We say $(A, B)$ is a bipartition of $G$, we denote by $\clbg{m}{n}$ the complete bipartite graph with bipartition $(A, B)$ such that $|A| = m$ and $|B| = n$.
-\begin{proposition}
+\begin{customproposition}{1.24}
+    \label{proposition:1.24}
     A graph is bipartite $\iff$ it has no odd cycle
-\end{proposition}
+\end{customproposition}
 \begin{prf}
+    To prove this theorem we will have to prove both directions.
     \begin{itemize}
         \item [($\implies$)] Suppose $G$ is bipartite, odd cycles are not bipartite (we call $(A, B)$ the bipartition). Note that $(A, B)$ induces a bipartition of any $H \subseteq G$ thus no odd cycle can be a subgraph of $G$.
         \item [($\impliedby$)] We can assume without loss of generality\footnote{What follows holds because we can look at every component separately and consider each one of them a connected component on its own, since the connected components of the graph form a partition of the graph itself and we can define a bipartition on each one of them, putting the bipartitions together we can actually compute the bipartition of the graph itself $G$. Thus it being connected or not doesn't make a difference.} that $G$ is connected, so $G$ has a spanning tree $T$. Let $(A, B)$ be a bipartition for $T$.
@@ -23,15 +25,16 @@ and edge set:
 \begin{equation*}
     \e[G'] = \{e \in \e: |xy \cap e| < 2\}
 \end{equation*}
-\begin{proposition}
-    \label{prop:1.25}
+\begin{customproposition}{1.25}
+    \label{proposition:1.25}
     $X \minr G \iff$ there exist disjoint sets $V_x \subseteq \v, x \in \v[X]$ such that:
     \begin{itemize}
         \item $\fa x \in V_x, G[V_x]$ is connected
         \item For each $xy \in \e[X]$, there exists an edge in $G$ between $V_x$ and $V_y$
     \end{itemize}
-\end{proposition}
+\end{customproposition}
 \begin{prf}
+    To prove this theorem we will have to prove both directions.
     \begin{itemize}
         \item [($\impliedby$)] Suppose $\ex \{V_x \subseteq \v \st x \in \v[X]\}$ as in the statement.
         
@@ -42,17 +45,19 @@ and edge set:
     \end{itemize}
 \end{prf}
 The sets $V_x$ are called branch sets.
-\begin{proposition}
+\begin{customproposition}{1.26}
+    \label{proposition:1.26}
     $\minr$ defines a partial order on the set of all finite graphs.
-\end{proposition}
+\end{customproposition}
 Let $G$ be a graph. A subdivision of $G$ is a graph obtained by replacing some edges by internally disjoint paths. The vertices of $G$ are called the branch vertices of the subdivision and the new vertices are called subdivding vertices.
 
 If G contains a subdivision of $H$, then $H$ is a topological minor of $G$. If $H$ is a topological minor of $G$ then $H$ is a minor of $G$, but if $H$ is a minor of $G$ that doesn't necessarily imply that $H$ is not a topological minor of $G$. When we have a subdivision the degree of the branch vertices in maintained.
-\begin{lemma}
+\begin{customproposition}{1.27}
+    \label{proposition:1.27}
     Suppose $X \minr G$ with $\maxd[X] \leq 3$, then $X$ is a topological minor of $G$.
-\end{lemma}
+\end{customproposition}
 \begin{prf}
-    Let $H$ be a minimal subgraph of $G$ which still contains $X$ as a minor. Let $\{V_x \subseteq \v[H] \st x \in \v[X]\}$ be the branch sets guaranteed by Proposition \ref{prop:1.25} then:
+    Let $H$ be a minimal subgraph of $G$ which still contains $X$ as a minor. Let $\{V_x \subseteq \v[H] \st x \in \v[X]\}$ be the branch sets guaranteed by Proposition \ref{proposition:1.25} then:
     \begin{itemize}
         \item $H[V_x]$ is minimally connected (by minimality of $H$) thus the induced subgraphs are trees by Theorem \ref{theorem:1.15}.
         \item Each leaf of $H[V_x]$ has a neighbour outside of $V_x$ (otherwise we could delete it and preserve $x$ as a minor).
