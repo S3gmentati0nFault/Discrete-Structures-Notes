@@ -135,3 +135,51 @@ A spanning tree of the component containing $s$. More precisely, $R \subseteq \v
     \end{equation*}
     But by minimality we have an $s - v_m$ path of length $dist_G(s, vm) \leq dist_G(s, v_l) - 1$ in $(R, T)$, thus, together with $v_mv_l$ we get an $s - v_l$ path of length $\leq dist_G(s, v_l)$ in $(R, T)$, which is absurd. \qed
 \end{prf}
+\begin{lemma}
+    Applying \texttt{DFS} to a connected graph $G$ and vertex $s \in \v$, we obtain a spanning tree $T$ such that for any $xy \in \e$ there exists a leaf $v_l \in \v[T]$ such that $x$ and $y$ lie on the unique $s - v_l$ path in $T$
+\end{lemma}
+\begin{prf}
+    Let $xy \in \e$ and say without loss of generality that $x$ was added to the queue $Q$ first.
+
+    At any stage of the algorithm, $T$ is a tree, so when $x$ is added to $Q$, $T$ is a tree containing $s$ and $x$ but not $y$. So there is an $s - x$ path $P$ in $T$ not using $y$. Let $e_1, \dots, e_k$ be the sequence of edges from the first edge added after $x$ enters $Q$ to the last edge before $x$ is removed from $Q$. Note that $T' = \bigcup_{i \in [k]}e_i$ is a subtree of $T$ such that $y \in \v[T']$ since $y \in N(x)$ and we cannot delete $x$ before $y$ is added to $Q$.
+
+    There is an $x - y$ path $P'$ in $T$, thus $P \cup P'$ is an $s - y$ path using $x$ and $y$. Note that $P \cup P'$ is indeed a path since $T$ is a tree. If $y$ is a leaf, we are done, otherwise we can keep extending $P \cup P'$ until we hit a leaf.\qed
+\end{prf}
+\section{\texttt{Minimum Spanning Tree problem}}
+\begin{lemma}
+    \label{lemma:1.22}
+    Let $G$ be a connected graph and $c: \e \rightarrow \R$. Let $T$ be a spanning tree. Then $T$ is a minimum spanning tree $iff xy \in \e$, there is no edge $e$ in the unique $x - y$ path in $T$ such that $c(e) > c(xy)$. 
+\end{lemma}
+\begin{prf}
+    \begin{itemize}
+        \item[$(\implies)$] Let $T$ be a spanning tree, let $xy \in \e$ and $P$ be the $x - y$ path in $T$, suppose for a contradiction that there is $e \in \e[P]$ with $c(e) > c(xy)$. Note that $T' = T + xy - e$ has a smaller weight and is still spanning because we are still covering all fo the vertices. We claimed that $T'$ is a tree, which means that, by Theorem \ref{theorem:1.15}, $T$ is maximally acyclic, i.e. $T + xy$ has a cycle containing $xy$.
+
+        This cycle consists of $P + xy$. $P$ unique implies a unique cycle in $T + xy$, deleting $e$ removes this cycle, so $T'$ is a tree. But that is a contradiction, so there is no such $e$.
+        \item[$(\implies)$] Suppose $T$ satisfies the property of the lemma, let $T'$ be a minimum spanning tree which shares as many edges as possible with $T$. We want to show that $T' = T$.
+        
+        Suppose not, so there exists $xy \in \e[T']\setminus\e[T]$, let $P$ be the $x - y$ path in $T$. By assumption each edge in $P$ has weight $\leq c(xy)$. Since $T'$ is a tree, $\exists e \in \e[P] \setminus \e[T']$ (otherwise $P + xy$ would be a cycle in $T'$). By the same arguments as above, $T' + e - xy$ is still a spanning tree but has weight no larger than $T'$. Since $c(e) \leq c(xy)$. But $T' + e - xy$ has one more edge in common with $T$, which is absurd.\qed
+    \end{itemize}
+\end{prf}
+\subsection{\texttt{Kruskal's algorithm}}
+\subsubsection{Input}
+Connected graph $G$, weights $c: \e \rightarrow \R$
+\subsubsection{Output}
+Minimum spanning tree
+\subsubsection{Algorithm}
+\begin{enumerate}
+    \item Label the edges of $G$ with $e_1, \dots, e_m$ such that
+    \begin{equation*}
+        c(e_1) \leq c(e_2) \leq \dots \leq c(e_m)
+    \end{equation*}
+    \item Set $T = (\v, \emptyset)$
+    \item For $i = 1$ to $m$ do:
+    \begin{enumerate}
+        \item if $T + e_i$ does not contain a cycle, set $T = T + e_i$
+    \end{enumerate}
+\end{enumerate}
+\begin{theorem}
+    Kruskal's algorithm works properly and runs in $\O(nm)$ time
+\end{theorem}
+\begin{prf}
+    Note that $T$ has no cycle and we check all edges, so $T$ is a spanning tree. If $xy$ is not added to $T$, then it means that when $xy$ was considered, $T$ already had an $x - y$ path and all edges on this path have weight $\leq c(xy)$. So by Lemma \ref{lemma:1.22} $T$ is a minimum spanning tree.
+\end{prf}
