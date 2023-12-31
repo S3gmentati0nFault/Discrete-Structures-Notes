@@ -80,12 +80,12 @@ A forest is a graph without cycles and a tree is a connected graph without cycle
     Starting froma  vertex $v \in V$ we say that $w$ is reachable from $v$ if $w$ is inside $v$'s component.
 \end{definition}
 We will now see the first example of an algorithm in this course.
-\subsection{\texttt{Graph Scanning algorithm}}
-\subsubsection{Input}
+\section{\texttt{Graph Scanning algorithm}}
+\subsection{Input}
 A graph $G$ and a vertex $s \in \v$
-\subsubsection{Output}
+\subsection{Output}
 A spanning tree of the component containing $s$. More precisely, $R \subseteq \v$ and $T \subseteq \e$ such that $(R, T)$ is a spanning tree of the component containing $s$ (assuming you could have a forest).
-\subsubsection{Algorithm}
+\subsection{Algorithm}
 \begin{enumerate}
     \item Set $R = \{s\}, Q = \{s\}, T = \emptyset$
     \item \label{tag:condition} If $Q$ is empty then stop

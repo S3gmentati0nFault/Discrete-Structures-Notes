@@ -1,0 +1,38 @@
+\chapter{Matchings}
+\begin{definition}[Matching]
+    A matching is a set of vertex-disjoint edges.    
+\end{definition}
+A matching in $G$ is maximum if no other matching in $G$ has more edges. A very important detail needs to be clarified at this point: \textbf{maximum} $\neq$ \textbf{maximal}, explained easily:
+\begin{itemize}
+    \item [\textbf{Maximum:}] The greatest in size
+    \item [\textbf{Maximal:}] It cannot be extended
+\end{itemize}
+This means that:
+\begin{equation}
+    \text{\textbf{Maximum}} \implies \text{\textbf{Maximal}} \:\:\text{but}\:\: \text{\textbf{Maximal}} \nimplies \text{\textbf{Maximum}}
+\end{equation}
+Let $G$ be a graph and $M$ a matching in $G$, an augmenting path in $G$ with respect to $M$ is a path in $G$ which starts at an unmatched vertex and alternates between edges of $\e \setminus M$ and $M$, and ends at an unmatched vertex. Note that $\e[P] \setminus M$ is a matching containing one edge more than $M$.
+\begin{customlemma}{2.1}
+\label{lemma:2.1}
+    A matching is maximum $\iff$ it has no augmenting path.
+\end{customlemma}
+An alternating path is a path starting at an unmatched vertex and alternates between edges of $\e \setminus M$ and $M$.
+\section{Bipartite Matchings}
+\begin{definition}[Vertex cover]
+    A vertex cover is a set $U$ of vertices such that each edge of $G$ has an endpoint in $U$.
+\end{definition}
+\begin{customtheorem}{König}
+\label{theorem:konig}
+    Let $G$ be a bipartite graph: the maximum size of a matching in $G$ is the maximum size of a vertex cover of $G$.
+\end{customtheorem}
+\begin{prf}
+    Let $M$ be a maximum matching and $U$ be a minimum vertex cover. If $|M| \leq |U|:\:U$ is a vertex cover, which means that for each $e \in M$ one of the endpoints of $e$ is in $U$. Since the edges in $M$ are disjoint, we need $|M|$ vertices in $V$ to cover $M$.
+
+    Denote by $(A, B)$ the bipartition of $G$, construct a set $U \subseteq \v$ as follows: For each $a, b \in M$, where $a \in A$ and $b \in B$ if $G$ has an alternating path starting in $A$ and ending in $b$ then add $b$ to $U$, otherwise we add $a$ to $U$. By construction $|M| = |U|$. It remains to show that $U$ is a vertex cover.
+
+    By definition of $U$, each $e \in M$ has an endpoint in $U$, so let $ab \in \e \setminus M, a \in A, b \in B^*$. For a contradiction, suppose both $a, b \notin U$, since $M$ is maximum, at least one between $a$ and $b$ is incident to an edge of $M$. If there is an alternating path $P$ starting in $A$ and ending at $b$, then, by definition of $U$, $b$ cannot be incident to an edge of $M$, so $P$ is an augmenting path. Since $P$ is an augmenting path then $M$ is not maximum, but that is a contradiction of the fact that $M$ is maximum (by Lemma \ref{lemma:2.1}).
+
+    If $a$ is unmatched, then $ab$ would be such an alternating path. So $\ex ab' \in M$ since $a \notin U$ by assumption, there exists an alternating path $Q$ which starts in $A$ and ends at $b'$. If $a, b \notin \v[Q]$ then $Qb'ab$ would be an alternating path starting in $A$ and ending at $b$, which is absurd. If $b \in \v[Q]$ then $a'Qb$ is an alternating path, which is absurd.
+
+    If $a \in \v[Q]$, then $a$ is matched, it must be an internal vertex of $Q$ and so since $Q$ is alternating $ab'$ must be in $Q$. Since $G$ is bipartite and the first vertex of $Q$ is unmatched, we must have that $b'$ is also an internal vertex. Which is absurd.\qed
+\end{prf}

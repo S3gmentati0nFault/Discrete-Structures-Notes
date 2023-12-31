@@ -38,12 +38,12 @@ We say that the walk is simple if all the edges are distinct and we say that it'
         Since $G$ is connected there is $v_i \in \v[w]$ such that $\deg[G']{v_i} \neq 0$. Let $w'$ be a maximal walk in $G'$ starting at $v_i$. By Claim \ref{claim:euler_2} $w'$ is closed. Then $v_1, e_1, \dots, e_{i - 1}, w", e_i, \dots, v_1$ is a larger walk in $G$ containing $w$, which is a contradiction to the maximality of $w$.\qed
     \end{enumerate}
 \end{prf}
-\subsection{\texttt{Euler's algorithm}}
-\subsubsection{Input}
+\section{\texttt{Euler's algorithm}}
+\subsection{Input}
     A connected graph $G$ whose degrees are all even.
-\subsubsection{Output}
+\subsection{Output}
     An Euler tour $w$.
-\subsubsection{Algorithm}
+\subsection{Algorithm}
 The following is the main procedure
 \begin{enumerate}
     \item Let $v_1$ be an arbitrary vertex and return $w$ = \texttt{Euler($v_1$)}
