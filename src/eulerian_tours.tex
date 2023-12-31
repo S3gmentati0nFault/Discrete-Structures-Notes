@@ -1,0 +1,80 @@
+\chapter{Eulerian tours}
+\begin{definition}[Walk]
+    A walk is an alternating sequence $v_1, e_1, \dots, v_{k + 1}$ of vertices and edges such that $e_i = v_i v_{i + 1}$ for all $i \in k$. 
+\end{definition}
+We say that the walk is simple if all the edges are distinct and we say that it's closed if $v_{k + 1} = v_1$.
+\begin{definition}[Euler tour]
+    An Euler tour in a graph $G$ is a simple closed walk which covers every edge of $G$.
+\end{definition}
+\begin{customtheorem}{Euler}
+\label{theorem:euler}
+    A connected graph has an Euler tour $\iff$ all of its degrees are even.
+\end{customtheorem}
+\begin{prf}
+    \begin{claim}
+    \label{claim:euler_1}
+        A simple walk $w$ is closed $\iff \deg[w]{v}$ is even for all $v \in w$.
+    \end{claim}
+    \begin{prf}
+        If $w = v_1, e_1, \dots, v_{k + 1}$ then for any $i \in \{2, \dots, k\}$ the edges $e_i$ and $e_{i + 1}$ are two distinct edges incident to $v_i$. So if $v \neq v_i, v_{k + 1}$ then $\deg[w]{v}$ is even.
+
+        If $v_1 = v_{k + 1}$ then $e_1$ and $e_k$ are edges at $v_1$. So, if $w$ is closed then the vertices inside $w$ must have even degree, if not, $v_1$ and $v_{k + 1}$ have odd degree.\qed
+    \end{prf}
+    \begin{claim}
+    \label{claim:euler_2}
+        Any maximal simple walk in a graph whose degrees are all even is closed
+    \end{claim}
+    \begin{prf}
+        Let $w = v_1, e_1, \dots, v_{k + 1}$, let $w$ be a maximal walk, if $w$ is not closed, then $v_{k + 1}$ has odd degree in $w$, so $\ex v_{k + 1}w \in \e \setminus \e[w]$, this means that we could extend $w$ which is absurd.\qed
+    \end{prf}
+    Let's now prove the theorem.
+
+    \begin{enumerate}
+        \item[($\implies$)] If $w$ is an Euler tour, then by Claim \ref{claim:euler_1} implies $\deg[w]{v}$ is even for all $v \in \v[w]$. By definition, $\deg[w]{v} = \deg{v} \fa v \in \v[w]$ and $\v[w] = \v$
+        \item[($\impliedby$)] Suppose that $\deg{v}$ is even $\fa v \in \v$, let $w$ be a maximal simple walk in $G$. We want to show that $\e[w] = \e$.
+        
+        By Claim \ref{claim:euler_2} $w$ is closed. Say $w = v_1, e_1, \dots, e_k, v_1$. Suppose for a contradiction that there is an edge in $G' = G - \e[w]$. By Claim \ref{claim:euler_1} all degrees in $G'$ are even.
+
+        Since $G$ is connected there is $v_i \in \v[w]$ such that $\deg[G']{v_i} \neq 0$. Let $w'$ be a maximal walk in $G'$ starting at $v_i$. By Claim \ref{claim:euler_2} $w'$ is closed. Then $v_1, e_1, \dots, e_{i - 1}, w", e_i, \dots, v_1$ is a larger walk in $G$ containing $w$, which is a contradiction to the maximality of $w$.\qed
+    \end{enumerate}
+\end{prf}
+\subsection{\texttt{Euler's algorithm}}
+\subsubsection{Input}
+    A connected graph $G$ whose degrees are all even.
+\subsubsection{Output}
+    An Euler tour $w$.
+\subsubsection{Algorithm}
+The following is the main procedure
+\begin{enumerate}
+    \item Let $v_1$ be an arbitrary vertex and return $w$ = \texttt{Euler($v_1$)}
+\end{enumerate}
+The following is the \texttt{Euler($smth$)} procedure
+\begin{enumerate}
+    \item set $w = v_1$ and $x = v_1$
+    \item \label{algo:cycle_head} if $\deg{x} = 0$ then go to \ref{algo:cycle_end}
+    \begin{enumerate}
+        \item else let $y \in \ngbrs{x}$
+    \end{enumerate}
+    \item Set $w = w, xy, y$, set $x = y$, set $G = G - xy$ and go to \ref{algo:cycle_head}
+    \item \label{algo:cycle_end} Let $v_1, e_1, \dots, e_k, v_{k + 1}$ be the sequence $w$
+    \begin{enumerate}
+        \item for $i = 2$ to $k$ do:
+        \begin{enumerate}
+            \item Set $w_i =$ \texttt{Euler($v_i$)}
+        \end{enumerate}
+    \end{enumerate}
+    \item Set $w = v_1, e_1, w_2, e_2, \dots, w_k, e_k, w_{k + 1}$
+\end{enumerate}
+\begin{customtheorem}{1.29}
+\label{theorem:1.29}
+    Euler's algorithm works properly and runs in $\O(m)$
+\end{customtheorem}
+\begin{prf}
+    \begin{itemize}
+        To prove the theorem we will consider Runtime and Correctness as two different concepts.
+        \item [\textbf{Running time}] Across all iterations a vertex $v$ is encountered at most $\deg{v}$ times (because we delete each edge after it's explored). Note that we can run \texttt{Euler($\smth$)} at most $m$ times, thus we get a $\O(m)$ runtime.
+        \item [\textbf{Correctness}] We can prove this by induction on the number of edges $\ne$. If $\ne = 0$ then $G = v_1$ and $w = v_1$. Let's now suppose we are in the case $\ne \geq 1$.
+        
+        By the degree condition we have $v_{k + 1} = v_1$ when we first reach \ref{algo:cycle_end}. Let $G'$ be the graph at this stage, then $w = v_1, e_1, \dots, e_k, v_1$ and $G' = G - \e[w]$. Any edge $e \in \e[G']$ lies in a component containing $v_i$ for some $i \in \{2, \dots, k\}$ thus $e$ will be contained in $w_i$ by the induction hypothesis since in \ref{algo:cycle_end} we run \texttt{Euler($v_i$)} in the component containing $v_i$.\qed
+    \end{itemize}
+\end{prf}

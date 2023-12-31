@@ -6,7 +6,7 @@
 
 \usepackage{tikz}
 
-% Defining the environments for definitions, lemmi and other
+% Definition of a generic environment with custom numbering
 \newtheorem{innercustomgeneric}{\customgenericname}
 \providecommand{\customgenericname}{}
 \newcommand{\newcustomtheorem}[2]{%
@@ -18,16 +18,21 @@
   }
   {\endinnercustomgeneric}
 }
+
+% Definition of the various specific custom environments
 \newcustomtheorem{customtheorem}{Theorem}
 \newcustomtheorem{customlemma}{Lemma}
 \newcustomtheorem{customproposition}{Proposition}
 \newcustomtheorem{customcorollary}{Corollary}
 
+% Definition of the classic non-numbered environments
 \newtheorem*{definition}{Def}
 \newtheorem*{coolfact}{Cool Fact}
-\newtheorem{property}{Property}
+\newtheorem*{property}{Property}
+
 \newtheorem{claim}{Claim}
 
+% Definition of a specific theorem style for the proof environment
 \newtheoremstyle{break}
     {\topsep}
     {\topsep}
@@ -37,6 +42,7 @@
     {.}
     {\newline}
     {}
+% Definition of the proof environment
 \theoremstyle{break}
 \newtheorem*{prf}{Proof}
 
