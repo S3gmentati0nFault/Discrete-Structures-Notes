@@ -36,3 +36,42 @@ An alternating path is a path starting at an unmatched vertex and alternates bet
 
     If $a \in \v[Q]$, then $a$ is matched, it must be an internal vertex of $Q$ and so since $Q$ is alternating $ab'$ must be in $Q$. Since $G$ is bipartite and the first vertex of $Q$ is unmatched, we must have that $b'$ is also an internal vertex. Which is absurd.\qed
 \end{prf}
+Given a graph $G$ and $A \subseteq \v$, a matching of $A$ in $G$ is a matching $M$ such that every $a \in A$ is incident to an edge of $M$. For $X \subseteq \v, \ngbrs{X} = \bigcup_{x \in X} \ngbrs{x} \setminus X$.
+\begin{customtheorem}{Hall}
+\label{theorem:hall}
+    Let $G = (A \cup B, E)$ be a bipartite graph. Then $G$ has a matching of $A$ if an only if
+    \begin{equation*}
+        |\ngbrs{X}| \geq |X| \text{for all $X \subseteq A$}
+    \end{equation*}
+\end{customtheorem}
+\begin{prf}
+    \begin{itemize}
+        \item [($\implies$)] Let $M$ be a matching of $A$ note that for each $X \subseteq A$, each $x \in X$ is matched to a different $b_x \in B$.
+        \item [($\impliedby$)] $|\ngbrs{X}| \geq |\{b_x \st x \in X\} = |X|$
+        
+        By Theorem \ref{theorem:konig}, $G$ has a matching $M$ and a vertex cover $U$ of the same cardinality. We want to show that $M$ is a matching of $A$.
+
+        Since $|M| = |U|, U$ consists of precisely one endpoint of each edge of $M$. Let $A_U = A \cap U$ and $B_U = B \cap U$ and $A' = \{a \in A \st \ex b \in B_U \st ab \in M\}$. By the observation above, $U = A_U \cap B_U$ and $A_U \cap A' \neq \emptyset$, moreover each vertex is in $A_U \cup A'$ is incident to an edge of $M$. And $|A'| = |B_U|$ thus
+        \begin{equation*}
+            |A \setminus A'| \leq |\ngbrs{A \setminus A_U}| \leq |B_U|
+        \end{equation*}
+        but $|B_U| = |A'| \leq |A \setminus A_U|$, thus the equality holds throughout this string of inequalities. In particular, $|A'| = |A \setminus A_U|$. So $A = A_U \cup A'$ and, as already observed, each vertex of $A$ is matched.\qed
+    \end{itemize}
+\end{prf}
+Let $G$ be a graph. A matching $M$ in $G$ is perfect if $\v[M] = \v$. A perfect matching is also called a $1$-factor. More generally, a $k$-factor in $G$ is a spanning $k$-regular subgraph in $G$.
+\begin{customcorollary}{2.4}
+\label{corollary:2.4}
+    Let $k \geq 1$ and $k$-regular bipartite graph has a perfect matching.
+\end{customcorollary}
+\begin{prf}
+    Let $(A, B)$ be the bipartition of $G$. Since $G$ is $k$-regular then $k \cdot |A| = \ne = k \cdot |B|$.
+    \begin{equation*}
+        k \cdot |A| = \sum_{v \in A}\deg{v} = \ne = \sum_{v \in B}\deg{v} = k \cdot |B|
+    \end{equation*}
+    So a matching of $A$ is a perfect matching, thus by Theorem \ref{theorem:hall} it is enough to check Hall's condition. Let $X \subseteq A$. If $|X| \leq k$, then the degree condition implies $|\ngbrs{x}| \geq k \geq |X|$. Suppose $|X| > k$
+    \begin{equation*}
+        |X| \cdot k = \ne[G[X \cup \ngbrs{X}]] \leq k \cdot |\ngbrs{x}|\\
+        |\ngbrs{X}| \geq |X|
+    \end{equation*}
+    And that proves the theorem.\qed
+\end{prf}
