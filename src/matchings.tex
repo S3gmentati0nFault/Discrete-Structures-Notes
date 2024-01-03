@@ -21,7 +21,7 @@ An alternating path is a path starting at an unmatched vertex and alternates bet
 \begin{definition}[Vertex cover]
     A vertex cover is a set $U$ of vertices such that each edge of $G$ has an endpoint in $U$.
 \end{definition}
-\begin{customtheorem}{König}
+\begin{customtheorem}{(König)}
 \label{theorem:konig}
     Let $G$ be a bipartite graph: the maximum size of a matching in $G$ is the maximum size of a vertex cover of $G$.
 \end{customtheorem}
@@ -37,7 +37,7 @@ An alternating path is a path starting at an unmatched vertex and alternates bet
     If $a \in \v[Q]$, then $a$ is matched, it must be an internal vertex of $Q$ and so since $Q$ is alternating $ab'$ must be in $Q$. Since $G$ is bipartite and the first vertex of $Q$ is unmatched, we must have that $b'$ is also an internal vertex. Which is absurd.\qed
 \end{prf}
 Given a graph $G$ and $A \subseteq \v$, a matching of $A$ in $G$ is a matching $M$ such that every $a \in A$ is incident to an edge of $M$. For $X \subseteq \v, \ngbrs{X} = \bigcup_{x \in X} \ngbrs{x} \setminus X$.
-\begin{customtheorem}{Hall}
+\begin{customtheorem}{(Hall)}
 \label{theorem:hall}
     Let $G = (A \cup B, E)$ be a bipartite graph. Then $G$ has a matching of $A$ if an only if
     \begin{equation*}
@@ -45,6 +45,7 @@ Given a graph $G$ and $A \subseteq \v$, a matching of $A$ in $G$ is a matching $
     \end{equation*}
 \end{customtheorem}
 \begin{prf}
+    To prove the theorem we will prove the two directions separately
     \begin{itemize}
         \item [($\implies$)] Let $M$ be a matching of $A$ note that for each $X \subseteq A$, each $x \in X$ is matched to a different $b_x \in B$.
         \item [($\impliedby$)] $|\ngbrs{X}| \geq |\{b_x \st x \in X\} = |X|$
