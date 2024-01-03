@@ -1,0 +1,31 @@
+\chapter{Connectivity}
+We recall that a graph is $2$-connected when it has at least $3$ vertices and the graph stays connected when we remove one vertex.
+\begin{customproposition}{3.1}
+\label{proposition:3.1}
+    A graph $G$ is $2$-connected $\iff$ there is a sequence $\ears = G$ of $2$-connected subgraphs such that:
+    \begin{itemize}
+        \item $H_1$ is a cycle
+        \item $\fa i \in [k - 1], H_{i + 1}$ is obtained from $H_i$ by adding a path whose endpoints are in $\v[H_i])$ but not its internal vertices.
+    \end{itemize}
+\end{customproposition}
+\begin{definition}[Ears]
+    A sequence $\ears$ is called an ear decomposition of $G$. The paths $\e[H_{i + 1}] \setminus \e[H_i]$ are called ears.
+\end{definition}
+More generally, given a graph $G$ and $H \subseteq G$ or $H \subseteq \v$, an $H$-path is a path in $G$ whose endpoints are in $H$ but whose internal vertices are in $G-H$.
+\begin{prf}
+    To prove Proposition \ref{proposition:3.1} we will prove first one direction, and then the other.
+    \begin{itemize}
+        \item [($\implies$)] Trivial as $H_n = G$ which is $2$-connected by assumption.
+        \item [($\impliedby$)] Let $G$ be $2$-connected. Let $\ears$ be an ear decomposition for $G$ where $n$ is maximum. We want to show that $H_n = G$, with $n \geq 1$ since $G$ has a cycle.
+        
+        Suppose for a contradicition that $H_n \neq G$, suppose that there is $xy \in \e \setminus \e[H_n]$ with $x, y \in \v[H_n]$, then $xy$ is an $H_n$-path, thus we could add it to the ear decomposition and contradict the maximality of $k$. That means that $H_n$ is an induced subgraph of $G$, containing a subset of $\v$ but having all of the edges linking them, thus $H_n \neq G \implies \v \setminus \v[H_n] \neq \emptyset$.
+
+        Since $G$ is connected, there is a vertex $v \in \v \setminus \v[H_n]$ which has a neighbor $u \in \v[H_n]$, since $G$ is $2$-connected $G - u$ is still a connected graph and thus there is a path $P$ from $v$ to $\v[H_n]$ in $G - u$. By taking such a minimum path we may assume that the internal vertices of $P$ lie outside of $H_n$. Note that $u \notin \v[P]$ so $uPv$ is an $H_n$-path and that could be added to the ear decomposition, contradicting the maximality of $n$.\qed
+    \end{itemize}
+\end{prf}
+\section{2-connectivity}
+\section{3-connectivity}
+\section{\texttt{Max flow problem}}
+\subsection{Input}
+\subsection{Output}
+\subsection{Algorithm}
