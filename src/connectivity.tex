@@ -1,4 +1,5 @@
 \chapter{Connectivity}
+\section{2-connectivity}
 We recall that a graph is $2$-connected when it has at least $3$ vertices and the graph stays connected when we remove one vertex.
 \begin{customproposition}{3.1}
 \label{proposition:3.1}
@@ -23,8 +24,72 @@ More generally, given a graph $G$ and $H \subseteq G$ or $H \subseteq \v$, an $H
         Since $G$ is connected, there is a vertex $v \in \v \setminus \v[H_n]$ which has a neighbor $u \in \v[H_n]$, since $G$ is $2$-connected $G - u$ is still a connected graph and thus there is a path $P$ from $v$ to $\v[H_n]$ in $G - u$. By taking such a minimum path we may assume that the internal vertices of $P$ lie outside of $H_n$. Note that $u \notin \v[P]$ so $uPv$ is an $H_n$-path and that could be added to the ear decomposition, contradicting the maximality of $n$.\qed
     \end{itemize}
 \end{prf}
-\section{2-connectivity}
+\begin{definition}[Cut vertex]
+    A cut vertex is a vertex in a connected graph whose removal increases the number of connected components.
+\end{definition}
+\begin{definition}[Block]
+    A block is a maximally connected subgraph with no cut vertices.
+\end{definition}
+The easiest example of a block is a single edge.
+\begin{customlemma}{3.2}
+\label{lemma:3.2}
+    Let $G$ be a graph, then the following holds:
+    \begin{enumerate}
+        \item Every cycle is completely contained in a block of $G$
+        \item Two distinct blocks meet at most in one vertex which will then be a cut vertex for $G$
+        \item $\e$ is partitioned between the blocks
+    \end{enumerate}
+\end{customlemma}
+\begin{prf}
+    To prove the above statement we will have to prove the singulare statements separately:
+    \begin{enumerate}
+        \item Suppose $\cycl$ is some cycle in $G$ not completely contained in a block $B$. Pick an edge of $\cycl$, say $e \in B$. Go along $\cycl$ starting from $e$, then there is some edge that does not belong to $B$. The path starting with the first edge outside of $B$ is the start of some $B$-path, which is a contradiction because that makes $B$ not a block.
+        \item Suppose we have $B$ and $B'$ two blocks, assume for a contradiction that $B, B'$ meet in $v$ and $v$ is not a cut vertex, then there is a $B - B'$ path with end vertices $x, y$ then there is an $x - y$ path in $B \cup B'$ therefore there is a cycle not completely contained in a block, which contradicts point 1.
+        \item Follows from points 1. and 2.\qed
+    \end{enumerate}
+\end{prf}
+For any graph $G$ we define the bipartite graph called the block tree on $X \cup \mathcal{B}$, where $X$ is the set of all cut vertices and $\mathcal{B}$ is the set of all blocks, xB will be an edge in the block tree if $x \in \v[B]$
+\begin{customproposition}{3.3}
+\label{proposition:3.3}
+    The block tree of a connected graph is a tree.
+\end{customproposition}
 \section{3-connectivity}
+\begin{customlemma}{3.4}
+\label{lemma:3.4}
+    Every $3$-connected graph $G$ on at least $5$ vertices has an edge $e$ such that $G / e$ is still $3$-connected.
+\end{customlemma}
+We call $G / e$ "G contracted e" and $/$ is the contraction operator.
+\begin{prf}
+    Suppose the statement is false, that means that $G / e$ is not $3$-connected $\fa e \in \e$. In particular there must be a $z$ such that $V_{xy}z$ is a separator in $G / xy$ which means that $x, y, z$ is a separator for the original expanded graph $G$.
+
+    Pick $xy, z$ and a component $C$ of $G - \{x, y, z\}$ such that $C$ is of minimal order. Pick $v$, which is a neighbour of $z$ in $C$. Let $w$ be a vertex such that $v, z, w$ is a separator in $G$. Since $xy$ is an edge, there is a component $D$ in $G - \{v, z, w\}$ not containing $x, y$. We claim $D \subseteq C$, which is a contradiction because $D \subseteq C - v$.
+
+    As $x, y, z$ are not contained in $D$ it suffices to show that $C \cap D \neq \emptyset$. Let $u$ be a neighbour of $v$ in $D$, since $u \notin \{x, y, z\}$ and since $u \in \v[D]$, the vertex $u$ lies also in $C$, which is a contradiction.\qed
+\end{prf}
+\begin{customtheorem}{3.5}
+\label{theorem:3.5}
+    A graph $G$ is $3$-connected if and only if there is a sequence $K_h = G_0, \dots, G_h = G$ where $G_{i + 1}$ contains an edge $xy$ with $\deg[G_{i + 1}]{y} \geq 3$ such that $G_i = G_{i + 1} / xy \fa i$. Moreover, each graph in $G_0, \dots, G_h$ is $3$-connected.
+\end{customtheorem}
+\begin{prf}
+    Given $G$, by Lemma \ref{lemma:3.4} we have such a sequence.
+
+    Assume we have such a sequence given, by induction over $h$ we show that $G$ is $3$-connected. Suppose there is a seprator $X$ in $G_h$ of size at most $2$, if $X$ separates two vertices, none of which is $x$ or $y$ then $X$ or $X \setminus \{x, y\} \cup \{V_{xy}\}$ is a separator of size at most $2$ in $G_{h - 1}$. Thus $G_h - X$ contains a component $C$, with $\v[C] \subseteq \{x, y\}$. Since $\deg[G_h]{X}, \deg[G_h]{y} \geq 3$ this is impossible.\qed
+\end{prf}
+\begin{definition}[$A - B$ path]
+    Let $A, B \subseteq \v$ we define $A - B$ path a path in $G$ such that the first vertex of the path is in $A$, the last vertex of the path is in $B$ and all of the internal vertices are neither in $A$ or in $B$.    
+\end{definition}
+\begin{definition}[$A - B$ separator]
+    Let $A, B$ be two blocks, let $X \subseteq \v$ such that $\v[X] \cap (\v[A] \cup \v[B]) = \emptyset$. $X$ is called $A - B$ separator if $X$'s  removal breaks $A - B$ connectivity.
+\end{definition}
+\begin{customtheorem}{(Meneger)}
+\label{theorem:meneger}
+    Let $A, B \subseteq \v$ be two vertex sets in $G$, then there are $k$ vertex disjoint $A - B$ paths in $G$ if and only if there is no $A - B$ separator of size $< k$.
+\end{customtheorem}
+\begin{prf}
+    Let $P$ and $Q$ be two sets of disjoint $(A - B)$ paths. $Q$ exceeds $P$ if the first vertices of $P$ are a proper subset of the first vertices of $Q$ and if the last vertices of $P$ are a proper subset of the last vertices of $Q$.
+
+    Let $k(A, B)$ be the size of the smallest $A - B$ separator. Show by induction on the number of vertices $P$. If $P$ contains fewer paths than $k(A, B)$ paths, then there is a path system $Q$ that exceeds $P$ with $|Q| = |P| + 1$ and $k(A, B_Q) \geq k(A, B)$\qed
+\end{prf}
 \section{\texttt{Max flow problem}}
 \subsection{Input}
 \subsection{Output}
