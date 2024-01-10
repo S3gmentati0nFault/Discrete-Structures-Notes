@@ -21,7 +21,7 @@ A plane graph $G$ is maximally plane if, for any non-adjacent vertices $x, y \in
 \end{definition}
 \begin{customlemma}{4.8}
 \label{lemma:4.8}
-    A plane graph on $\leq 3$ vertices is maximally plane $iff$ it is a plane triangulation
+    A plane graph on $\leq 3$ vertices is maximally plane $\iff$ it is a plane triangulation
 \end{customlemma}
 \begin{prf}
     \begin{itemize}
@@ -35,7 +35,9 @@ A plane graph $G$ is maximally plane if, for any non-adjacent vertices $x, y \in
         \begin{prf}
             Suppose not, then we have either a cut vertex or a series of connected components, then $G = G_1 \cup G_2$, where $|\v[G_1] \cap \v[G_2]| \leq 1$ and $\v[G_1] \setminus \v[G_2] \neq \emptyset \neq \v[G_2] \setminus \v[G_1]$.
 
-            Let $x \in \v[G_1] \setminus \v[G_2]$ and $y \in \v[G_2] \setminus \v[G_1]$ both lying on the boundary of the outside face. Then we can draw the edge xy within the outside face, without crossings, but that contradicts the plane maximality, thus the graph is $2$-connected.\qed
+            Let $x \in \v[G_1] \setminus \v[G_2]$ and $y \in \v[G_2] \setminus \v[G_1]$ both lying on the boundary of the outside face. Then we can draw the edge xy within the outside face, without crossings, but that contradicts the plane maximality, thus the graph is $2$-connected.\footnote{
+                In the proof we use a connection between two vertices that are on the border of the graph, the edge is positioned on the outside face, but nothing stops us from having one of the two graphs inside the other, nothing changes in the proving process though.
+            }\qed
         \end{prf}
         By Lemma \ref{lemma:4.6} all the faces of $G$ are bounded by a cycle. Suppose for a contradiction that $G$ has a face which is bounded by a cycle $\cycl$ of length $\geq 4$.
 
@@ -101,3 +103,75 @@ A plane graph $G$ is maximally plane if, for any non-adjacent vertices $x, y \in
 \label{corollary:4.11}
     $\clq{5}$ and $\clq{3, 3}$ are not planar.
 \end{customcorollary}
+\begin{definition}[Platonic solid]
+    A platonic solid is a $3$-dimensional convex polyhedra such that every vertex meets all the same number of faces, and each face is a regular polygon.
+\end{definition}
+An example of a platonic solid is a cube.
+\begin{customtheorem}{4.12}
+\label{theorem:4.12}
+    There are only $5$ platonic solids
+\end{customtheorem}
+\begin{prf}
+    Note that any platonic solid is embeddable on the sphere, and so can be projected onto the plane, to obtain a plane graph with all faces bounded by a cycle of length $r$ (for some $r \geq 3$) and every vertex has a degree $s$ (for some $s \geq 3$). That implies that $r \cdot f = 2 \cdot m$, which means that $r$ edges are on the boundary between two faces. By \ref{lemma:handshaking} $2 \cdot m = n \cdot s$.By \ref{theorem:euler}'s formula:
+    \begin{align*}
+        &\frac{2m}{s} - m + \frac{2m}{r} = 2 \\
+        &m \cdot \tnd{\frac{1}{s} + \frac{1}{r} - \frac{1}{2}} = 1 \text{\hspace{1cm} What's in the parentheses has to be $< 1$} \\
+        &\frac{1}{s} + \frac{1}{r} = \frac{1}{m} + \frac{1}{2} \\
+        &\frac{1}{s} + \frac{1}{r} > \frac{1}{2}
+    \end{align*}
+    Together $s, r \geq 3$, we get $s, r \leq 5$ and if one of $s, r$ is $3$ then the other is $5$. We have the following $5$ solutions for $(r, s)$:
+    \begin{itemize}
+        \item $(3, 3)$ is a tetrahedron
+        \item $(3, 4)$ is an octahedron
+        \item $(3, 5)$ is an icosahedron
+        \item $(4, 3)$ is a cube
+        \item $(5, 3)$ is a dodecahedron
+    \end{itemize}
+    Since the possibilities are just these $5$ this proves our theorem.\qed
+\end{prf}
+\section*{Kuratowski's theorem}
+\begin{customtheorem}{Kuratowski}
+\label{theorem:kuratowski}
+    The following are equivalent:
+    \begin{enumerate}
+        \item $G$ is planar.
+        \item $G$ has neither $\clq{5}$ nor $\clq{3, 3}$ as a minor.
+        \item $G$ has neither $\clq{5}$ nor $\clq{3, 3}$ as a topological minor.
+    \end{enumerate}
+\end{customtheorem}
+Let's recall that if a graph $G$ has a topological minor $X$ then $X$ is also minor for $G$ but the opposite is not trivially true. Let's also recall that a subdivision is a graph obtained by replacing some edges by internally disjoint paths. The vertices of G are called the branch vertices of the subdivision and the new vertices are called subdivding vertices.
+\begin{customlemma}{4.14}
+\label{lemma:4.14}
+    No planar graph has $\clq{5}$ or $\clq{3, 3}$ as a topological minor.
+\end{customlemma}
+\begin{prf}
+    If $G$ is planar and has $\clq{5}$ or $\clq{3, 3}$ as a topological minor, then this induces a planar embedding of a subdivision of $\clq{5}$ or $\clq{3, 3}$ so we could obtain a planar embedding of $\clq{5}$ or $\clq{3, 3}$ simply by "erasing" the subdividing vertices and replacing the subdivided paths with an edge.\qed
+\end{prf}
+\begin{customlemma}{4.15}
+\label{lemma:4.15}
+    A graph contains $\clq{5}$ or $\clq{4, 4}$ as a minor $\iff$ it contains $\clq{5}$ or $\clq{3, 3}$ as a topological minor.
+\end{customlemma}
+\begin{customlemma}{4.16}
+\label{lemma:4.16}
+    Every $3$-connected graph without $\clq{5}$ or $\clq{3, 3}$ as a minor is planar.
+\end{customlemma}
+\begin{customlemma}{4.17}
+\label{lemma:4.17}
+    Let $\mathcal{X}$ be a set of $3$-connected graphs. Let $G$ be a graph, and let $G_1, G_2$ be proper induced subgraphs such that $G = G_1 \cup G_2$ and such that $V(G_1 \cap G_2)$ is a smallest separator of size $\leq 2$ (thus it's not a $3$-connected graph). If $G$ is edge-maximal without a topological minor in $\mathcal{X}$, then $G_1$ and $G_2$ are also edge-maximal and $G_1 \cap G_2 = \clq{2}$.
+\end{customlemma}
+Edge maximal in this case means adding an edge to $G$ generates a topological minor from $\mathcal{X}$.
+\begin{customlemma}{4.18}
+\label{lemma:4.18}
+    Every graph $G$ on $\geq 4$ vertices that is edge-maximal without $\clq{5}$ or $\clq{3, 3}$ as a topological minor is $3$-connected.
+\end{customlemma}
+\begin{prf}
+    \textbf{Proof for \ref{theorem:kuratowski}'s theorem}.
+
+    \begin{itemize}
+        \item[($(1.) \implies (3.)$)] Proven by Lemma \ref{4.14}
+        \item[($(2.) \iff (3.)$)] proven by Lemma \ref{lemma:4.15}
+        \item[($(3.) \iff (1.)$)] Let $G$ without $\clq{5}$ or $\clq{3, 3}$ as a topological minor. Add edges to $G$ to obtain the supergraph $G' \supseteq G$ which is edge-maximal with no $\clq{5}$ or $\clq{3, 3}$ as a topological minor.
+        
+        By Lemma \ref{lemma:4.18}, $G'$ is $3$-connected. By Lemma \ref{lemma:4.15}, $G'$ has no $\clq{5}$ or $\clq{3, 3}$ as a minor, so $G'$ is planar by Lemma \ref{lemma:4.16}. So $G$ is also planar (since the bigger graph is planar then the subgraph must be planar as well).\qed
+    \end{itemize}
+\end{prf}
