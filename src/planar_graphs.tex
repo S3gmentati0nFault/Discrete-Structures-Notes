@@ -1,0 +1,103 @@
+\chapter{Planar graphs}
+\begin{definition}[Planar graph]
+    A graph that can be drawn on the plane so that no two edges cross.
+\end{definition}
+Such an embedding on the plane is called a planar emberdding or planar drawing, A plane graph can be defined as a planar graph with a mapping from every node to a point on a plane, and from every edge to a plane curve on that plane, such that the extreme points of each curve are the points mapped from its end nodes, and all curves are disjoint except on their extreme points\footnote{\url{https://en.wikipedia.org/wiki/Planar_graph}}.
+
+An example of a planar graph is $\clq{4}$.
+% TODO: ADD GRAPH FOR K_4
+
+\begin{customtheorem}{Euler}
+\label{theorem:euler}
+    A connected plane graph on $n$ vertices with $m$ edges and $f$ faces satisfies the following equation:
+    \begin{equation*}
+        n  - m + f = 2
+    \end{equation*}
+\end{customtheorem}
+A plane graph $G$ is maximally plane if, for any non-adjacent vertices $x, y \in \v$, any drawing of the edge $xy$ would induce a crossing. An example is the following:
+% TODO: ADD EXAMPLE OF A MAXIMALLY PLANE PLANAR GRAPH
+\begin{definition}[Plane triangulation]
+    A plane triangulation is a plane graph whose faces are all bounded by a triangle.
+\end{definition}
+\begin{customlemma}{4.8}
+\label{lemma:4.8}
+    A plane graph on $\leq 3$ vertices is maximally plane $iff$ it is a plane triangulation
+\end{customlemma}
+\begin{prf}
+    \begin{itemize}
+        To prove the above lemma we will prove both directions
+        \item [($\impliedby$)] Suppose $G$ is a plane triangulation. The only edges that could be added without crossing are edges fully contained within a face of $G$ joining two vertices from the boundary of $f$. But every boundary is a triangle, which is a complete graph.
+        \item [($\implies$)] Suppose $G$ is maximally plane.
+        \begin{customclaim}{1}
+        \label{claim:4.8_1}
+            $G$ is $2$-connected.
+        \end{customclaim}
+        \begin{prf}
+            Suppose not, then we have either a cut vertex or a series of connected components, then $G = G_1 \cup G_2$, where $|\v[G_1] \cap \v[G_2]| \leq 1$ and $\v[G_1] \setminus \v[G_2] \neq \emptyset \neq \v[G_2] \setminus \v[G_1]$.
+
+            Let $x \in \v[G_1] \setminus \v[G_2]$ and $y \in \v[G_2] \setminus \v[G_1]$ both lying on the boundary of the outside face. Then we can draw the edge xy within the outside face, without crossings, but that contradicts the plane maximality, thus the graph is $2$-connected.\qed
+        \end{prf}
+        By Lemma \ref{lemma:4.6} all the faces of $G$ are bounded by a cycle. Suppose for a contradiction that $G$ has a face which is bounded by a cycle $\cycl$ of length $\geq 4$.
+
+        Let $x, y, z, w \in \v[\cycl]$ be distinct vertices in this order on $\cycl$, we could draw an edge $xz$ fully into $f$ without any crossing, so the fact that $G$ is maximally plane implies that $xz$ is already an edge in $G$, drawn outside of $f$.
+
+        Similarly $yw \in \e$ and it is drawn otuside of $f$, but then $xz$ and $yw$ must cross, and that is a contradiction.\qed
+    \end{itemize}
+\end{prf}
+\begin{customcorollary}{4.9}
+\label{corollary:4.9}
+    Any plane triangulation graph on $n$ vertices has $3n - 6$ edges and any plane graph has $\leq 3n - 6$ edges.
+\end{customcorollary}
+\begin{prf}
+    Let $G$ be a plane triangulation, double count the number $N$ of pairs $(e, f)$ where $f$ is a face of $G$ and $e$ is an edge on the boundary of $f$. Since plane triangulation means that every face has $3$ edges on its boundary then:
+    \begin{equation*}
+        N = 3 \cdot \text{\# faces of $G$}
+    \end{equation*}
+    % TODO: CHECK THE NUMBER OF THE LEMMA BELOW
+    every edge is on the boundary of $2$ faces (By Lemma \ref{lemma:4.4}) thus:
+    \begin{equation*}
+        2 \cdot \ne = N = \text{\# faces of $G$}
+    \end{equation*}
+    If we call $F(G)$ the set of faces of graph $G$ then:
+    \begin{equation*}
+        3 \cdot |F(G)| = 2 \cdot \ne
+    \end{equation*}
+    But by \ref{theorem:euler}'s formula:
+    \begin{align*}
+        &\nv - \ne + \frac{2}{3}\ne = 2 \\
+        &- \frac{1}{3}\ne = -\nv + 2 \\
+        &\ne = 3 \cdot \nv - 6
+    \end{align*}
+    For a general plane graph $G$ we add edges until we get a maximally plane graph $G'$. By Lemma \ref{lemma:4.8} and the above, $\ne[G'] = 3 \cdot n - 6$. Since $G \subseteq G' \implies \ne \leq \ne[G'] = 3 \cdot n - 6$.\qed
+\end{prf}
+\begin{definition}[Plane Quadrangulation]
+    A plane quadrangulation is a plane graph whose faces are all bounded by a cycle of length 4.
+\end{definition}
+\begin{customcorollary}{4.10}
+\label{corollary:4.10}
+    Any plane quadrangulation on $n$ vertices has $2 \cdot n - 4$ edges and any plane bipartite graph on $n \geq 4$ vertices has $\leq 2 \cdot n - 4$ edges.
+\end{customcorollary}
+\begin{prf}
+    Let $G$ be a plain graph on $n$ vertices. Double count the number $N$ of pairs $(e, f)$ where $f$ is a face and $e$ is an edge on the boundary. If $G$ is a plane quadrangulation:
+    \begin{equation*}
+        2 \cdot \ne = N = 4 \cdot \text{\# of faces}
+    \end{equation*}
+    So \ref{theorem:euler}'s formula gives $n - m + f = 2$ thus I get:
+    \begin{equation*}
+        m = 2 \cdot n - 4
+    \end{equation*}
+    Now suppose the graph is bipartite, we keep on adding edges as long as $G$ is still bipartite and plane. Let $G'$ be the resulting graph, note $G'$ is connected and $2$-connected (similar arguments as before). So all faces of $G$ are bounded by a cycle (By Lemma \ref{lemma:4.6}) of length $\geq 4$ to make it bipartite:
+    \begin{equation*}
+        2 \cdot \ne[G'] \geq N \geq 4 \cdot \text{\# faces}
+    \end{equation*}
+    So by \ref{theorem:euler}'s formula, again we have:
+    \begin{align*}
+        &n - \ne[G'] + \frac{\ne[G']}{2} \geq 2 \\
+        &\ne[G'] \leq 2 \cdot n - 4
+    \end{align*}
+    And that proves the corollary.\qed
+\end{prf}
+\begin{customcorollary}{4.11}
+\label{corollary:4.11}
+    $\clq{5}$ and $\clq{3, 3}$ are not planar.
+\end{customcorollary}

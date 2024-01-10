@@ -7,6 +7,16 @@
 
 \usepackage{tikz}
 
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdfpagemode=FullScreen,
+  }
+\urlstyle{same}
+
 % Definition of a generic environment with custom numbering
 \newtheorem{innercustomgeneric}{\customgenericname}
 \providecommand{\customgenericname}{}
@@ -25,6 +35,7 @@
 \newcustomtheorem{customlemma}{Lemma}
 \newcustomtheorem{customproposition}{Proposition}
 \newcustomtheorem{customcorollary}{Corollary}
+\newcustomtheorem{customclaim}{Claim}
 
 % Definition of the classic non-numbered environments
 \newtheorem*{definition}{Def}
@@ -95,7 +106,6 @@
 
 % Cliques and cycles
 \newcommand{\clq}[1]{\mathbb{K}_{#1}}
-\newcommand{\clbg}[2]{\mathbb{K}_{#1, #2}}
 \newcommand{\cycl}[1][C]{\mathcal{#1}}
 
 % Connected relationship, it indicates that there is a path between any two edges
