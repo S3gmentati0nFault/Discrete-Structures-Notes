@@ -210,7 +210,36 @@ Let's recall that if a graph $G$ has a topological minor $X$ then $X$ is also mi
 \label{lemma:4.17}
     Let $\mathcal{X}$ be a set of $3$-connected graphs. Let $G$ be a graph, and let $G_1, G_2$ be proper induced subgraphs such that $G = G_1 \cup G_2$ and such that $V(G_1 \cap G_2)$ is a smallest separator of size $\leq 2$ (thus it's not a $3$-connected graph). If $G$ is edge-maximal without a topological minor in $\mathcal{X}$, then $G_1$ and $G_2$ are also edge-maximal and $G_1 \cap G_2 = \clq{2}$.
 \end{customlemma}
-Edge maximal in this case means adding an edge to $G$ generates a topological minor from $\mathcal{X}$.
+\begin{prf}
+    Edge maximality here implies that for any $e \notin \e, G + e$ contains a subdivision of a graph in $\mathcal{X}$ which covers $e$.
+    \begin{itemize}
+        \item \boldmath$|\v[G_1] \cap \v[G_2]| = 0$\unboldmath
+        
+        Then, let $v_1 \in \v[G_1]$ and $v_2 \in \v[G_2]$. Edge maximality implies that $G + e$ contains a subdivision $S_0$ of $X_0 \in \mathcal{X}$ such that $v_1, v_2 \in \e[S_0]$, thus $X_0$ is not $3$-connected, since $v_1$ separates $G_1$ from $G_2$.
+        \item \boldmath$|\v[G_1] \cap \v[G_2] = 1|$\unboldmath 
+        
+        Then, let $v$ be our separator, $v_1 \in \ngbrs{v} \cap \v[G_1]$ and $v_2 \in \ngbrs{v} \cap \v[G_2]$. ($v_1$ and $v_2$ exist since $G_1$ and $G_2$ are proper, that means that $\v[G_1] \setminus \v[G_2] \neq \emptyset$ and $\v[G_2] \setminus \v[G_1] \neq \emptyset$ and by the above $G$ is connected).
+        
+        Since $\grf{v}$ is a separator, $v_1v_2 \in \e$ so edge by edge-maximality $G + v_1v_2$ contains a subdivision $S_1$ of some $X_1 \in \mathcal{X}$ with $v_1v_2 \in \e[S_1]$.
+
+        Note $\grf{v, v_1}$ separates $G_1$ and $G_2$ in $G + v_1v_2$ so since $X_1$ is $3$-connected, so tehe branch vertices (By \ref{theorem:menger}'s theorem we have $3$ vertex disjoint paths between any two branch vertices) of $S_1$ are in $G_2$ or $G_2$ (we can say this without loss of generality) and $\v{G_2}$ in $\v{S_1}$ is fully contained into a path $P \subseteq S$, between two branch vertices. NOte that $e \in \e[P]$ and $v \in \v[P]$ so we can obtain a new subdivision of $X_1$ by replacing $P$ in $S_1$ by $Pv_1vP$, but $S_1' \subseteq G$.
+        \item \boldmath$\v[G_1] \cap \v[G_2] = \grf{u, v}$\unboldmath
+        
+        Suppose for a contradiction that $uv \notin \e$, by edge maximaplity $G + uv$ contains a subdivision $S_2$ of some $X_2 \in \mathcal{X}$ such that $uv \in \e[S_2]$. Note $\grf{u, v}$ is still a separator in $G + uv$, so, as before, all branch vertices of $S_1$ are, without loss of generality, in $G_1$ (by \ref{theorem:menger}'s theorem).
+
+        Since $e \in \e[S_1]$, not that $S_1$ does not intersect $G_2 - G_1$ (no part of subdivision if going into $G_2$). Since $G$ is $2$-connected ($\grf{u, v}$ is a smallest separator), thus there is a $u-v$ path $Q$ in $G_2$ and we obtain a new subdivision $S_2'$ of $X_2$ by replacing $e$ with $Q$ in $S_2$. Thus $S_2' \subseteq G$, which is absurd because we said that $G$ has no subdivision.
+    \end{itemize}
+    It remains to show that $G_1$ and $G_2$ are also edge-maximal without topological minor in $\mathcal{X}$.
+
+    Note any subgraph of $G_1$ or $G_2$ is also a subgraph of $G$. So neigher $G_1$ nor $G_2$ contains a subdivision of a graph in $\mathcal{X}$. So we only need to show that adding an edge in $G_1$ or $G_2$ creates a topological minor of some $x \in \mathcal{X}$ in $G_1$ or $G_2$ respectively. The same can be proven for $G_1$ by symmetry.
+
+    Se let $v_1, v_2 \in \v[G_1]$ be non-adjacent, we want a subdivision from $\mathcal{X}$ in $G_1 + v_1v_2$. We know already that $G_1 + v_1v_2$ contains a subdivision $S$ of some $x \in \mathcal{X}$ with $e \in \e[S]$. Since $X$ is $3$-connected, by \ref{theorem:menger}'s theorem we know that all branch vertices are in $G_1$ or $G_2$.
+    \begin{itemize}
+        \item[Case 1: ] All branch vertices are in $G_2$. If $\v[S] \cap \v[G_2 - G_1] = \emptyset$, then we are done. Otherwise $\v[S] \cap \v[G_2 - G_1]$ is contained into a path $P$ between two branch vertices and goes through $u$ and $v$. (This is because $\grf{u, v}$ separates $G_1$ and $G_2$). Then obtain a subdivision $S'$ of $X$ in $G_1 + e$ by replacing $P$ with $PuvP$.
+        \item[Case 2: ] All branch vertices are in $G_2$. Same arguments given above, it yields a subdivision of $X$ in $G_2$  
+    \end{itemize}
+    And this proves the theorem.\qed
+\end{prf}
 \begin{customlemma}{4.18}
 \label{lemma:4.18}
     Every graph $G$ on $\geq 4$ vertices that is edge-maximal without $\clq{5}$ or $\clq{3, 3}$ as a topological minor is $3$-connected.
