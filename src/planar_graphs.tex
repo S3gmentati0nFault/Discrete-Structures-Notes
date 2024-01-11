@@ -151,10 +151,61 @@ Let's recall that if a graph $G$ has a topological minor $X$ then $X$ is also mi
 \label{lemma:4.15}
     A graph contains $\clq{5}$ or $\clq{4, 4}$ as a minor $\iff$ it contains $\clq{5}$ or $\clq{3, 3}$ as a topological minor.
 \end{customlemma}
+\begin{prf}
+    To prove this lemma we will prove both directions separately
+    \begin{itemize}
+        \item [($\implies$)] Clear by definintion (all topological minors are minors)
+        \item [($\impliedby$)] Let $G$ be a graph with $\clq{5}$ or $\clq{3, 3}$ as a minor, we need to find $\clq{5}$ or $\clq{3, 3}$ as a topological minor. By Proposition \ref{proposition:1.27}, if $\clq{3, 3} \minr G$, then $G$ contains a subdivision of $\clq{3, 3}$.
+        
+        Suppose $\clq{5} \minr G$. Let $H$ be a minimal subgraph of $G$ such that $\clq{5} \minr H$. For $x \in \v[\clq{5}]$, let $V_x$ denote the corresponding branch set in $H$.
+
+        By minimality we have the following properties:
+        \begin{itemize}
+            \item $H[V_x]$ is a tree $\fa x \in \v[\clq{5}]$.
+            \item There is a single edge between $V_x$ and $V_y, \fa xy \in \e[\clq{5}]$.
+            \item Each leaf of $H[V_x], x \in \v[\clq{5}]$ sends an edge to another $V_y, y \in \v[\clq{5}]$.
+        \end{itemize}
+        For each $x \in \v[\clq{5}]$, let $T_x \subseteq H$ be obtained from $H[V_x]$ by adding all edges with an endpoint in $V_x$, note that $T_x$ is a tree with $4$ leaves. if each $T_x$ contains a vertex of degree $4$m then these are branch vertices for a $\clq{5}$ subdivision.
+
+        % TODO: UNDERSTAND AND FIX THIS PROOF, FROM NOW ON IT MAKES LITTLE TO NO SENSE.
+        Suppose there is $T_x$ with no vertex of degree $4$, since only $4$ leaves, $\maxd[T_x] \leq 3$. Since in the case of $\maxd[T_x] = 1$ $X$ is an edge and in the case of $\maxd[T_x] = 2$ $X$ is a path (thus we have two leaves). So $\maxd[T_x] = 3$  and $T_x$ has exactly two vertices $u, v$ of degree $3$.
+
+        By Proposition \ref{proposition:1.27}, it is enough to find $\clq{3, 3}$ as a minor:
+        \begin{itemize}
+            \item Contract $V_x$ to a single edge between $u$ and $v$,
+            \item Contract each other $V_y$ to a single vertex, now we have (after deleting some edges) $\clq{3, 3}$ as a subgraph with bipartition $(\grf{u, v, v'}, \grf{v, w, w'})$ where $v'$ and $v"$ are neighbours of $v$ thus $\clq{3, 3} \minr H \implies \clq{3, 3}$ as a subdivision.\qed
+        \end{itemize}
+    \end{itemize}
+\end{prf}
 \begin{customlemma}{4.16}
 \label{lemma:4.16}
     Every $3$-connected graph without $\clq{5}$ or $\clq{3, 3}$ as a minor is planar.
 \end{customlemma}
+\begin{prf}
+    We prove the statement by induction on $n := \nv$. Let $G$ be $3$-connectew with $\clq{5}, \clq{3, 3} \nminr G$.
+
+    \textbf{Base case: } $n = 4 \implies G$ is $\clq{4}$, which is a planar clique. 
+    
+    \textbf{Induction hypothesis: }Suppose $n > 5$. By \ref{lemma:3.4}, there is $xy \in \e$ such that $G / xy$ is still $3$-connected. 
+    
+    \textbf{Inductive case: }Note $G / xy$ still does not contain $\clq{5}$ or $\clq{3, 3}$ as a minor, so by induction hypothesis $G / xy$ is planar. Let $V_xy$ be the new vertex in $G / xy$ and consider $G /xy$ as a plane graph (which means that we fix and work with an embedding). Let $f$ be the face of $G / xy - V_xy$ containing $V_xy$.
+
+    Note $G / xy$ is $3$-connected, so $G / xy - V_xy$ is 3 connected, thus by Lemma $f$ is bounded by a cycle $\cycl$. Note $\ngbrs{x} \cup \ngbrs{y} \setminus \grf{x, y} = \ngbrs[G / xy]{V_xy} \subseteq \v[\cycl]$.
+
+    If $|\ngbrs{x} \cap \ngbrs{y}| \geq 3$ then $G$ contains $\clq{5}$ as a minor, thus:
+    \begin{itemize}
+        \item Delete all vertices outside $\v[\cycl] \cup \grf{x, y}$,
+        \item Contract $\cycl$ to a triangle on $3$ common neighbours of $x$ and $y$.
+    \end{itemize}
+    If $\cycl$ contains $a, b, c, d$ in this cyclic order with $a, c \in \ngbrs{x}$ and $b, d \in \ngbrs{y}$, then $G$ contains $\clq{3, 3}$ as a minor. Thus:
+    \begin{itemize}
+        \item Delete all vertices outside $\v[\cycl] \cup \grf{x, y}$,
+        \item Contract $\cycl$ to cycle $abcd$,
+        \item Take $\tnd{\grf{x, b, d}, \grf{y, a, c}}$ as a bipartition.
+    \end{itemize}
+
+    So there exists a subgraph $P \subseteq \cycl$ such that $\ngbrs{y} \setminus \grf{x} \subseteq \v[P]$ and $\ngbrs{x}$ intersects $\v[P]$ only at its endpoints. So draw $x$ in $f$ and connect it to all its neighbours on $\cycl$ without crossings. Note $xuPvx$ is the boundary $\cycl'$ of a face $f$ and with $\ngbrs{u} \subseteq \v[\cycl'] \implies$ can embed $y$ in $f'$. 
+\end{prf}
 \begin{customlemma}{4.17}
 \label{lemma:4.17}
     Let $\mathcal{X}$ be a set of $3$-connected graphs. Let $G$ be a graph, and let $G_1, G_2$ be proper induced subgraphs such that $G = G_1 \cup G_2$ and such that $V(G_1 \cap G_2)$ is a smallest separator of size $\leq 2$ (thus it's not a $3$-connected graph). If $G$ is edge-maximal without a topological minor in $\mathcal{X}$, then $G_1$ and $G_2$ are also edge-maximal and $G_1 \cap G_2 = \clq{2}$.
@@ -168,7 +219,7 @@ Edge maximal in this case means adding an edge to $G$ generates a topological mi
     \textbf{Proof for \ref{theorem:kuratowski}'s theorem}.
 
     \begin{itemize}
-        \item[($(1.) \implies (3.)$)] Proven by Lemma \ref{4.14}
+        \item[($(1.) \implies (3.)$)] Proven by Lemma \ref{lemma:4.14}
         \item[($(2.) \iff (3.)$)] proven by Lemma \ref{lemma:4.15}
         \item[($(3.) \iff (1.)$)] Let $G$ without $\clq{5}$ or $\clq{3, 3}$ as a topological minor. Add edges to $G$ to obtain the supergraph $G' \supseteq G$ which is edge-maximal with no $\clq{5}$ or $\clq{3, 3}$ as a topological minor.
         

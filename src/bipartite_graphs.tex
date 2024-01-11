@@ -19,11 +19,11 @@ We say $(A, B)$ is a bipartition of $G$, we denote by $\clq{m, n}$ the complete 
 \section{Minors}
 A graph $H$ is a minor of $G$, denoted $H \minr G$ if $H$ can be obtained from $G$ via a series of vertex and edge deletions and edge contractions. Formally, contracting $xy \in \e$ means that we obtain a graph $G'$ with vertex set:
 \begin{equation*}
-    \v[G'] = \v \setminus \{x, y\} \cup \{V_{xy}\} \text{ where } V_{xy} \notin \v
+    \v[G'] = \v \setminus \grf{x, y} \cup \grf{V_{xy}} \text{ where } V_{xy} \notin \v
 \end{equation*}
 and edge set:
 \begin{equation*}
-    \e[G'] = \{e \in \e: |xy \cap e| < 2\}
+    \e[G'] = \grf{e \in \e: |xy \cap e| < 2}
 \end{equation*}
 \begin{customproposition}{1.25}
     \label{proposition:1.25}
@@ -36,7 +36,7 @@ and edge set:
 \begin{prf}
     To prove this theorem we will have to prove both directions.
     \begin{itemize}
-        \item [($\impliedby$)] Suppose $\ex \{V_x \subseteq \v \st x \in \v[X]\}$ as in the statement.
+        \item [($\impliedby$)] Suppose $\ex \grf{V_x \subseteq \v \st x \in \v[X]}$ as in the statement.
         
         Firts, delete all vertices outside of $V_x$, then contract each $V_x$ to a single vertex $v_x$. Whenever $xy \in \e[X]$, we had a $V_x - V_y$ edge, so $v_xv_y$ is now an edge. So we obtain $X$ by deleting any extra edges $V_xV_z$ for $xz \notin \e[X]$
         \item [($\implies$)] Suppose $X \minr G$ and fix a set of edge deletions, vertex deletions and edge contractions to obtain $X$ from $G$. For each $x \in \v[X]$ set $\v[X]$ to be the set of vertices which are contracted into $x$ to obtain $X$. Note that these sets are disjoint and induce connected graphs.
@@ -57,7 +57,7 @@ If G contains a subdivision of $H$, then $H$ is a topological minor of $G$. If $
     Suppose $X \minr G$ with $\maxd[X] \leq 3$, then $X$ is a topological minor of $G$.
 \end{customproposition}
 \begin{prf}
-    Let $H$ be a minimal subgraph of $G$ which still contains $X$ as a minor. Let $\{V_x \subseteq \v[H] \st x \in \v[X]\}$ be the branch sets guaranteed by Proposition \ref{proposition:1.25} then:
+    Let $H$ be a minimal subgraph of $G$ which still contains $X$ as a minor. Let $\grf{V_x \subseteq \v[H] \st x \in \v[X]}$ be the branch sets guaranteed by Proposition \ref{proposition:1.25} then:
     \begin{itemize}
         \item $H[V_x]$ is minimally connected (by minimality of $H$) thus the induced subgraphs are trees by Theorem \ref{theorem:1.15}.
         \item Each leaf of $H[V_x]$ has a neighbour outside of $V_x$ (otherwise we could delete it and preserve $x$ as a minor).

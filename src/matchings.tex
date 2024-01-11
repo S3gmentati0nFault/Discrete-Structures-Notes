@@ -48,11 +48,11 @@ Given a graph $G$ and $A \subseteq \v$, a matching of $A$ in $G$ is a matching $
     To prove the theorem we will prove the two directions separately
     \begin{itemize}
         \item [($\implies$)] Let $M$ be a matching of $A$ note that for each $X \subseteq A$, each $x \in X$ is matched to a different $b_x \in B$.
-        \item [($\impliedby$)] $|\ngbrs{X}| \geq |\{b_x \st x \in X\} = |X|$
+        \item [($\impliedby$)] $|\ngbrs{X}| \geq |\grf{b_x \st x \in X} = |X|$
         
         By Theorem \ref{theorem:konig}, $G$ has a matching $M$ and a vertex cover $U$ of the same cardinality. We want to show that $M$ is a matching of $A$.
 
-        Since $|M| = |U|, U$ consists of precisely one endpoint of each edge of $M$. Let $A_U = A \cap U$ and $B_U = B \cap U$ and $A' = \{a \in A \st \ex b \in B_U \st ab \in M\}$. By the observation above, $U = A_U \cap B_U$ and $A_U \cap A' \neq \emptyset$, moreover each vertex is in $A_U \cup A'$ is incident to an edge of $M$. And $|A'| = |B_U|$ thus
+        Since $|M| = |U|, U$ consists of precisely one endpoint of each edge of $M$. Let $A_U = A \cap U$ and $B_U = B \cap U$ and $A' = \grf{a \in A \st \ex b \in B_U \st ab \in M}$. By the observation above, $U = A_U \cap B_U$ and $A_U \cap A' \neq \emptyset$, moreover each vertex is in $A_U \cup A'$ is incident to an edge of $M$. And $|A'| = |B_U|$ thus
         \begin{equation*}
             |A \setminus A'| \leq |\ngbrs{A \setminus A_U}| \leq |B_U|
         \end{equation*}

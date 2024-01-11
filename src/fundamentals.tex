@@ -3,12 +3,12 @@
     A graph is a pair $(V, E)$ of finite disjoint sets where:
     \begin{itemize}
         \item $V$ is the set of vertices
-        \item $E$ is a set of pairs, $E \subseteq \binom{V}{2}\footnote{The binomial coefficient has an interpretation in the field of combinatorics: it gives the number of ways, disregarding order, that $k$ objects can be chosen among $n$ objects. More formally: it defines the number of $k$-element subsets of an $n$-element set.} = \{(u, v): u \neq v, \text{with } u, v \in V\}.$
+        \item $E$ is a set of pairs, $E \subseteq \binom{V}{2}\footnote{The binomial coefficient has an interpretation in the field of combinatorics: it gives the number of ways, disregarding order, that $k$ objects can be chosen among $n$ objects. More formally: it defines the number of $k$-element subsets of an $n$-element set.} = \grf{(u, v): u \neq v, \text{with } u, v \in V}.$
     \end{itemize}
 \end{definition}
 As a default, for the rest of the course, we will be considering simple graphs, which means that between any two $u, v$ vertices, there cannot be more than one edge. Moreover, between any vertex $v$ and himself, there cannot be an edge.
 
-We say that two vertices are adjacent if $\{u, v\} \in E$, an edge $\{u, v\} \in E$ is always incident to its extremes. Any edge will be named, by convention, using the labels for its extremes e.g. $\{u, v\}$ is translated to $uv$.
+We say that two vertices are adjacent if $\grf{u, v} \in E$, an edge $\grf{u, v} \in E$ is always incident to its extremes. Any edge will be named, by convention, using the labels for its extremes e.g. $\grf{u, v}$ is translated to $uv$.
 \begin{definition}[Neighbour]
     Given $u, v \in V$ two adjacent vertices, $v$ is neighbour of $u$. The set of neighbours of $u$ is called the neighbourhood of $u$ and we denote it with $\ngbrs{u}$. The degree of $u$ is $\deg{u} = |\ngbrs{u}|$.
 \end{definition}
@@ -30,7 +30,7 @@ We say that two vertices are adjacent if $\{u, v\} \in E$, an edge $\{u, v\} \in
 For any $U \subseteq \v$ we write $G[U]$ for the subgraph $G$ induced by $U$, that is:
 \begin{align*}
     \v[{G[U]}] &= U \\
-    \e[{G[U]}] &= \{vw \in \e: v, w \in U\}
+    \e[{G[U]}] &= \grf{vw \in \e: v, w \in U}
 \end{align*}
 We can also define the difference between two graphs as:
 \begin{equation*}
@@ -183,7 +183,7 @@ Let $G$ and $G'$ be two graphs, we say that $G$ and $G'$ are isomorphic ($G \con
     \end{equation*}
     Now suppose $\mind \geq 2$.
 
-    Let $i$ be the first index such that $v_iv_l \in \e \implies \ngbrs{v_l} \subseteq \{v_i, \dots, v_{l - 1}\}$, since $\mind \geq 2, i \neq l - 1$. So $v_i \dots v_lv_i$ is a cycle of length $\geq \mind + 1$ \qed
+    Let $i$ be the first index such that $v_iv_l \in \e \implies \ngbrs{v_l} \subseteq \grf{v_i, \dots, v_{l - 1}}$, since $\mind \geq 2, i \neq l - 1$. So $v_i \dots v_lv_i$ is a cycle of length $\geq \mind + 1$ \qed
 \end{prf}
 \begin{definition}[Diameter]
     The diameter of a graph $diam(\smth)$ is the greatest shortest path in the graph.

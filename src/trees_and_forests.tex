@@ -5,7 +5,7 @@ A forest is a graph without cycles and a tree is a connected graph without cycle
     Any tree with at least $2$ vertices must have at least two leaves.
 \end{customlemma}
 \begin{prf}
-    Let $P$ be a largest path, by maximality of $P$ the extremities do not have neighbours outside the path $P$ and have just one neighbour inside the path, since there are no cycles we have $N(v_1) = \{v_1\}$ and $N(v_l) = \{v_{l - 1}\}$
+    Let $P$ be a largest path, by maximality of $P$ the extremities do not have neighbours outside the path $P$ and have just one neighbour inside the path, since there are no cycles we have $N(v_1) = \grf{v_1}$ and $N(v_l) = \grf{v_{l - 1}}$
 \end{prf}
 \begin{customtheorem}{1.15}
     \label{theorem:1.15}
@@ -24,7 +24,7 @@ A forest is a graph without cycles and a tree is a connected graph without cycle
 
     \boldmath$2 \implies 3$\unboldmath
 
-    Let's suppose by contradiction $T$ is minimally connected but contains a cycle, if we take $u, v \in \v[\cycl]$ and $u \in N_{\cycl}(v)$ then we know $uv \in \e[\cycl]$ thus removing the edge from the set $E(\cycl)$ should disconnect the tree because it's minimally connected, but there is at least one pair of vertices $x, y \in \v[\cycl]$ (possibly $\{x, y\} = \{u, v\}$) such that:
+    Let's suppose by contradiction $T$ is minimally connected but contains a cycle, if we take $u, v \in \v[\cycl]$ and $u \in N_{\cycl}(v)$ then we know $uv \in \e[\cycl]$ thus removing the edge from the set $E(\cycl)$ should disconnect the tree because it's minimally connected, but there is at least one pair of vertices $x, y \in \v[\cycl]$ (possibly $\grf{x, y} = \grf{u, v}$) such that:
     \begin{itemize}
         \item There is a $u - x$ path in $\cycl$ that doesn't contain $uv$
         \item There is a $x - y$ path in $\cycl$ that doesn't contain $uv$
@@ -87,16 +87,16 @@ A graph $G$ and a vertex $s \in \v$
 A spanning tree of the component containing $s$. More precisely, $R \subseteq \v$ and $T \subseteq \e$ such that $(R, T)$ is a spanning tree of the component containing $s$ (assuming you could have a forest).
 \subsection{Algorithm}
 \begin{enumerate}
-    \item Set $R = \{s\}, Q = \{s\}, T = \emptyset$
+    \item Set $R = \grf{s}, Q = \grf{s}, T = \emptyset$
     \item \label{tag:condition} If $Q$ is empty then stop
     \begin{enumerate}
         \item Else $v \in Q$
     \end{enumerate}
     \item If possible choose $w \in \v \setminus R$ such that $vw \in \e$
     \begin{enumerate}
-        \item If there is no such $w$ let $Q = Q \setminus \{v\}$ and go to \ref{tag:condition}
+        \item If there is no such $w$ let $Q = Q \setminus \grf{v}$ and go to \ref{tag:condition}
     \end{enumerate}
-    \item Set $R = R \cup \{w\}, Q = Q \cup \{w\}$ and $T = T \cup \{w\}$ and go to \ref{tag:condition}
+    \item Set $R = R \cup \grf{w}, Q = Q \cup \grf{w}$ and $T = T \cup \grf{w}$ and go to \ref{tag:condition}
 \end{enumerate}
 \begin{customlemma}{1.18}
     \label{lemma:1.18}
