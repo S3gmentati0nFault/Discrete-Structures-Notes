@@ -129,7 +129,7 @@ An example of a platonic solid is a cube.
     \end{itemize}
     Since the possibilities are just these $5$ this proves our theorem.\qed
 \end{prf}
-\section*{Kuratowski's theorem}
+\section{Kuratowski's theorem}
 \begin{customtheorem}{Kuratowski}
 \label{theorem:kuratowski}
     The following are equivalent:
@@ -149,13 +149,13 @@ Let's recall that if a graph $G$ has a topological minor $X$ then $X$ is also mi
 \end{prf}
 \begin{customlemma}{4.15}
 \label{lemma:4.15}
-    A graph contains $\clq{5}$ or $\clq{4, 4}$ as a minor $\iff$ it contains $\clq{5}$ or $\clq{3, 3}$ as a topological minor.
+    A graph contains $\clq{5}$ or $\clq{3, 3}$ as a minor $\iff$ it contains $\clq{5}$ or $\clq{3, 3}$ as a topological minor.
 \end{customlemma}
 \begin{prf}
     To prove this lemma we will prove both directions separately
     \begin{itemize}
-        \item [($\implies$)] Clear by definintion (all topological minors are minors)
-        \item [($\impliedby$)] Let $G$ be a graph with $\clq{5}$ or $\clq{3, 3}$ as a minor, we need to find $\clq{5}$ or $\clq{3, 3}$ as a topological minor. By Proposition \ref{proposition:1.27}, if $\clq{3, 3} \minr G$, then $G$ contains a subdivision of $\clq{3, 3}$.
+        \item [($\impliedby$)] Clear by definintion (all topological minors are minors)
+        \item [($\implies$)] Let $G$ be a graph with $\clq{5}$ or $\clq{3, 3}$ as a minor, we need to find $\clq{5}$ or $\clq{3, 3}$ as a topological minor. By Proposition \ref{proposition:1.27}, if $\clq{3, 3} \minr G$, then $G$ contains a subdivision of $\clq{3, 3}$.
         
         Suppose $\clq{5} \minr G$. Let $H$ be a minimal subgraph of $G$ such that $\clq{5} \minr H$. For $x \in \v[\clq{5}]$, let $V_x$ denote the corresponding branch set in $H$.
 
@@ -204,7 +204,7 @@ Let's recall that if a graph $G$ has a topological minor $X$ then $X$ is also mi
         \item Take $\tnd{\grf{x, b, d}, \grf{y, a, c}}$ as a bipartition.
     \end{itemize}
 
-    So there exists a subgraph $P \subseteq \cycl$ such that $\ngbrs{y} \setminus \grf{x} \subseteq \v[P]$ and $\ngbrs{x}$ intersects $\v[P]$ only at its endpoints. So draw $x$ in $f$ and connect it to all its neighbours on $\cycl$ without crossings. Note $xuPvx$ is the boundary $\cycl'$ of a face $f$ and with $\ngbrs{u} \subseteq \v[\cycl'] \implies$ can embed $y$ in $f'$. 
+    So there exists a subgraph $P \subseteq \cycl$ such that $\ngbrs{y} \setminus \grf{x} \subseteq \v[P]$ and $\ngbrs{x}$ intersects $\v[P]$ only at its endpoints. So draw $x$ in $f$ and connect it to all its neighbours on $\cycl$ without crossings. Note $xuPvx$ is the boundary $\cycl'$ of a face $f$ and with $\ngbrs{u} \subseteq \v[\cycl'] \implies$ can embed $y$ in $f'$.\qed
 \end{prf}
 \begin{customlemma}{4.17}
 \label{lemma:4.17}
