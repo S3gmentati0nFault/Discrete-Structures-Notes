@@ -245,8 +245,34 @@ Let's recall that if a graph $G$ has a topological minor $X$ then $X$ is also mi
     Every graph $G$ on $\geq 4$ vertices that is edge-maximal without $\clq{5}$ or $\clq{3, 3}$ as a topological minor is $3$-connected.
 \end{customlemma}
 \begin{prf}
-    \textbf{Proof for \ref{theorem:kuratowski}'s theorem}.
+    We can prove this lemma by induction over the number of edges, $e := \ne$. Suppose $G$ is not $3$-connected, this means that $G = G_1 \cup G_2$ for $G_1$ and $G_2$ as in Lemma \ref{lemma:4.17}.
 
+    Lemma \ref{lemma:4.17} with $\mathcal{X} = {\clq{5}, \clq{3, 3}}$ gives that $G_1$ and $G_2$ are also edge-maximal because $\clq{5}$ and $\clq{3, 3}$ jas a topological minor and $G_1 \cap G_2 = \clq{2}$.
+
+    By induction hypothesis each of $G_1$ and $G_2$ either has $< 4$ vertices or is $3$-connected. So Lemma \ref{lemma:4.16} gives that $G_1$ and $G_2$ are planar. So consider $G_1$ and $G_2$ as plane graphs. Let $f_1, f_2$ be faces of $G_1$ and $G_2$ respectively, which have $uv$ on their boundary ($\{u, v\} = G_1 \cap G_2$).
+
+    Since $G_1$ and $G_2$ are $2$-connected the boundaries of $f_1$ and $f_2$ are cycles $\cycl_1$ and $\cycl_2$ so we can let $z_1 \in \v[\cycl_1] \setminus \{u, v\}$ and $z_2 \in \v[\cycl_2] \setminus \{u, v\}$, with separator $\{u, v\}$ thus $z_1z_2 \notin \e$. By edge maximality $G + z_1z_2$ contains a subdivision $S$ of $\clq{5}$ or $\clq{3, 3}$ containing $z_1, z_2$.
+    
+    
+    We now want to prove that $G = G_1 \cup G_2$ is planar, we have two possible cases:
+    \begin{enumerate}
+        \item All of the branch vertices are in $G_1$ or all are in $G_2$ (we choose $G_1$) without loss of generality.
+
+        Since $\{u, v, z_1, z_2\}$ separates $G_1$ and $G_2$ we know that $G_2 \cap K$ lies on a path $P$ between tro branch vertices. By assumption $z_1z_2 \in \e[P]$ moreover $P$ traverses $u$ or $v$, say $v$ without loss of generality.
+
+        So we can replace $P$ by $Pz_1vP$ to get a subdivision of $\clq{5}$ or $\clq{3, 3}$ with $z_1v$, note that $G_1 + z_1v$ is planar (either $z_1v \in \e$ or we could just draw it without creating any crossing via $f_1$).
+        \item Both $G_1$ and $G_2$ contain branch vertices. Note that, since $\{u, v, z_1, z_2\}$ separates $G_1$ and $G_2$ we have at most $3$ paths between branch vertices in $G_1$ and $G_2$.
+        \begin{itemize}
+            \item $G_1$ or $G_2$ contains exactly one branch vertex. Say $G_2$ without loss of generality.
+            \item $K$ is a $\clq{3, 3}$ subdivision.
+        \end{itemize}
+        So $G_2 \cap K$ consists of a fan of $3$ paths $u, z_2, v$. Note that $z_1$ is the neighbour of $z_2$ in the subdivided path using $z_2$. Se we can obtain a subdivision $K'$ of $\clq{3, 3}$ by replacing the fan with the $3$ edges $yz_1, yu, yv$.
+
+        Now $K' \subseteq G_1'$ where $G_1'$ is obtained by adding a new vertex $y$ and the edges $yz, yu, yv$. We can simply draw $G_1$ in $f_1$ and goin it to its $3$ neighbours without crossings via $f$.\qed
+    \end{enumerate}
+\end{prf}
+\begin{prf}
+    We can now prove \ref{theorem:kuratowski}'s theorem.
     \begin{itemize}
         \item[($(1.) \implies (3.)$)] Proven by Lemma \ref{lemma:4.14}
         \item[($(2.) \iff (3.)$)] proven by Lemma \ref{lemma:4.15}
@@ -255,3 +281,7 @@ Let's recall that if a graph $G$ has a topological minor $X$ then $X$ is also mi
         By Lemma \ref{lemma:4.18}, $G'$ is $3$-connected. By Lemma \ref{lemma:4.15}, $G'$ has no $\clq{5}$ or $\clq{3, 3}$ as a minor, so $G'$ is planar by Lemma \ref{lemma:4.16}. So $G$ is also planar (since the bigger graph is planar then the subgraph must be planar as well).\qed
     \end{itemize}
 \end{prf}
+\begin{customcorollary}{4.19}
+\label{corollary:4.19}
+    Let $G$ be a plane triangulation, then $G$ is $3$-connected and for any $v \in \v$ there exists a cycle $\cycl$ with $\v[\cycl] = \ngbrs{v}$
+\end{customcorollary}
