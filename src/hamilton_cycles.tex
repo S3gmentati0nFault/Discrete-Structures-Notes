@@ -1,0 +1,27 @@
+\chapter{Hamilton cycles}
+\begin{definition}[Hamilton cycle]
+    Let $G$ be a graph, an Hamilton cycle in $G$ is a spanning cycle and an Hamilton path is a spanning path.
+\end{definition}
+We say $G$ is Hamiltonian if it contains an Hamilton cycle. The following is the sufficient condition for hamiltonicity.
+\begin{customtheorem}{Dirac}
+\label{theorem:dirac}
+    Let $G$ be a graph on $n \geq 3$ vertices, with $\mind \geq \frac{n}{2}$. Then $G$ is Hamiltonian.
+\end{customtheorem}
+\begin{prf}
+    Note $G$ is connected, since otherwise $G$ woudl have a component of size $\leq \frac{n}{2}$ and the vertices in that component would have degree $\leq \frac{n}{2} - 1$.
+
+    Let $P = v_0v_1\dots v_l$ be a maximum path in $G$, by maximality, we know that $\ngbrs{v_0}, \ngbrs{v_l} \subseteq \v[P]$. If $v_0v_l \in \e$ then $P + v_0v_l$ is a cycle $\cycl$ in $G$ with $\v[\cycl] = \v[P]$. Otherwise, let $I \subseteq \{1, \dots, l - 1\}$ be the set of $i$ such that $v_lv_i \in \e, |I| \geq \mind = \frac{n}{2}$.
+
+    Recall $\ngbrs{v_0} \subseteq \{v_1, \dots, v_{l - 1}\}$ where $|\{v_1, \dots, v_{l - 1}\}| \leq n - 2$. So $v_0$ has $< n - 2 - \frac{n}{2} = \frac{n}{2} - 2$ non neighbours in $\{v_1, \dots, v_{l - 1}\}$. Thus there is $i \in I$ such that $v_{i + 1} \in \ngbrs{v_0}$, thus we have a cycle $\cycl = v_0v_1 \dots v_iv_lv_{l - 1} \dots v_{i + 1}v_0$ in $G$ with $\v[\cycl] = \v[P]$.
+
+    Since $G$ is connected, then if $\v[\cycl] \neq \v[G]$ then we have a vertex $v \in \v \setminus \v[\cycl]$ with a neighbour on $\cycl$. Let $w'$ be a neighbour of $w$ on $\cycl$. Now $vw\cycl w'$ is a path in $G$ with one more vertex than $P$. This contradicts the maximality of $P$ so $\v[\cycl] = \v$. This means that $\cycl$ is an Hamilton cycle.\qed
+\end{prf}
+Recall that an independent set in $G$ is a set of pairwise non adjacent vertices. The independence number $\ind$ is the maximum size of an independent set in $G$ (we recall that $K(G)$ is the connectivity).
+\begin{customtheorem}{5.2}
+\label{theorem:5.2}
+    If we have a graph $G$ on $\geq 3$ vertices, if $\ind \leq K(G)$ then $G$ is Hamiltonian.
+\end{customtheorem}
+\begin{definition}[Degree sequence]
+    Let $G$ be a graph on $n$ vertices with degrees $d_1 \leq d_2 \leq \dots \leq d_n$ then the $n$-tuple $d_1 \dots d_n$ is the degree sequence of $G$.
+\end{definition}
+An $n$-tuple $d_1 \dots d_n$ with $d_1 \leq \dots \leq d_n$ is Hamiltonian if any graph with degree sequnce pointwise greater than $d_1 \dots d_n$ is Hamiltonian.
