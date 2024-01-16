@@ -152,3 +152,77 @@ Then $G$ has a matching which covers all but at most $\mathit{q}(G - S^*) - |S^*
         \item[($\implies$)] Let $S \subseteq \v$ and $M$ a perfect matching for each odd component $C$ of $G - S$. There is a vertex of $C$ which is matchied to a vertex, that is $|S| \geq \mathit{q}(G, S)$\qed
     \end{itemize}
 \end{prf}
+We are now gonig to prove \ref{theorem:gallai-edmonds}.
+\begin{prf}
+    By induction on $\nv$, let $S^* \subseteq \v$ satisfy the following.
+    \begin{enumerate}[label=\alph*)]
+        \item $\mathit{q}(G - S^*) - |S^*|$ maximum and subject to that.
+        \item The number of odd components of $G - S^*$ that are not factor-critical is minimum and subject to that.
+        \item $|S^*|$ minimum.
+    \end{enumerate}
+    \textit{We will start by proving the second statement}.
+
+    Suppose for a contradiction that $K$ is an even component of $G - S^*$ which does not have a perfect matching. Let $v \in \v[K]$ and apply the induction hypothesis in $K - v$ then obtain $T \subseteq \v[K] \setminus \{v\}$ such that both the first and the third statement hold in $K - v$. What is $mathit{q}((K - v) - T)$? $|T|$ by the third statement - which holds by induction hypothesis.
+
+    If $mathit{q}((K - v) - T) > |T| + 1$, then:
+    \begin{align*}
+        & mathit{q}(G(S^* \cup T \cup \{v\}) - |S^* \cup T \cup \{v\}) = \\
+        &= mathit{q}(G - S^*) + mathit{q}((K - v) - T) =\\
+        &= - S^* - (|T| + 1) > mathit{q}(G - S^*) |S^*|
+    \end{align*}
+    Which contradicts the first statement.
+
+    Suppose $v$ has a neighbour in a factor critical component of $K - v - T$. By the induction hypothesis the first and the third statement add in $K$ with $T \cup \{v\}$ playing the role of $S^*$. Let $\emptyset \neq X \subseteq T \cup \{v\}$. how many odd components of $K - T - v$ intersect $\ngbrs[K]{X}$? If $v \notin X$, then $> |X|$ by induction hypothesis.
+
+    If $X = \{v\}$ then $\geq 1$ by assumption. So can assume $X \setminus \{v\} = \emptyset$. So $v$ has no such neighbour and so:
+    \begin{equation*}
+        mathit{q}(G - S^* - T) - |S^* \cup T| = mathit{q}(G - S^*) + mathit{q}(K - v - T) + 1
+    \end{equation*}
+    $v$ has no neighbours in odd components, thus it forms a new odd component. If $v \in X$ then $\geq |X|$ by induction hypothesis. Thus the third complementary statement holds for $T - v$ playing the role of $S^*$, thus $K$ has a matching missing
+    \begin{align*}
+        \leq &mathit{q}(K - v - T) - (|T| + 1) =\\
+        = &|T| + 1 - (|T| + 1) = 0
+    \end{align*}
+    Thus we have a perfect matching in $K$, which is absurd, that proves that the second statement holds.\qed
+
+    \textit{We will not move to proving the first statement}
+
+    Suppose for a contradiction that $G - S^*$ has an odd component $K$ which is not factor critical. So there exists $v \in \v[K]$ such that $K - v$ has no perfect matching. Apply the induction hypothesis to $K - v$ to obtain $T \subseteq (K - v)$ such that all of the statements hold with $K - v$ and $T$ playing the roles of $G$ and $S^*$. By Lemma \ref{lemma:2.8}, $K - v$ has a matching missing at most $\mathit{q}(K - v - T) - |T|$ vertices, but $K - v$ has no perfect matching, so any matching in $K - v$ misses at least $1$ vertex, but in addition $K - v$ has an even number of vertices, so each matching misses, in fact, at least two vertices, thus: $\mathit{q}(K - v - T) - |T| \geq 2$, if $\mathit{q}(K - v - T) - |T| > 2$, then:
+    \begin{align*}
+        &\mathit{q}(G - (S^* \cup T \cup \{v\}) - |S^* \cup T \cup \{v\}) =\\
+        &= (\mathit{q}(G - S^*) - 1) + \mathit{q}(K - v - T) - |S^*| - |T| - 1\\
+        &= \mathit{q}(G - S^*) - |S^*| + (|T| + 2) - |T| - 2 
+    \end{align*}
+    Which contradicts the first statement, that means that $\mathit{q}(K - v - T) - |T| = 2$, then:
+    \begin{align*}
+        \mathit{q}(G - (S^* \cup T \cup \{v\})) - |S^* \cup T \cup \{v\}| =\\
+        &=(\mathit{q}(G - S^*) - 1) + \mathit{q}(K - v - T)
+    \end{align*}
+    Thus $S^*$ and $S^* \cup T \cup \{v\}$ are equally good choices with respect to the first statement. Note that $k$ is no longer an odd non factor critical in $G - (S^* \cup T \cup \{v\})$ and by the induction hypothesis the first statement holds in $K - v$, that is all the odd components of $G - (S^* \cup T \cup \{v\})$ which lie in $K$ are factor critical then $G - S^*$ has $1$ more non factor critical component than $G - (S^* \cup T \cup \{v\})$ which is in contradiction with the second statement. \qed
+
+    \textit{Now we will prove the third and final statement}
+    Before proving that we need to prove a claim:
+    \begin{customclaim}{1}
+    \label{claim:gallai-edmonds_1}
+        The thirs statement with $\geq |X|$ rather than $> |X|$ holds.
+    \end{customclaim}
+    \begin{prf}
+        Suppose for a contradiction that $\ex \emptyset \neq X \subseteq S^*$ with $N(X)$ meeting $< |X|$ odd components, then:
+        \begin{equation*}
+            \mathit{q}(G(S^* - X)) - |S^* - X| > (\mathit{q}(G - S^*) - |X|) - (|S^*| - |X|)
+        \end{equation*}
+        Which is a contradiction to the first statement.\qed
+    \end{prf}
+    So we may assume, for a contradiction that $\ex \emptyset \neq X \subseteq S^*$ such that $N(X)$ intesects exactly $|X|$ odd components of $G - S^*$. Take such $X$ with |X| minimum. Let $H$ be the subgraph of $G$ induced by $X$ and the odd components intersecting $N(X)$:
+    \begin{itemize}
+        \item $H$ is connected by Claim \ref{claim:gallai-edmonds_1} any component of $L$ of $H$ consists of as many vertices from $X$ as odd components of $G - S^*$. By minimality of $|X|$, $H$ must be connected.
+        \item $H$ is even: $H$ consists of $|X|$ vertices and $|X|$ odd components.
+        \item Every componen of $G - (S^* \setminus X)$ which is not a component of $G - S^*$ is even, any new component of $G - (S^* \setminus X)$ consists of $H$ and even components of $G - S^*$ thus it's even.
+    \end{itemize}
+    \begin{align*}
+        &\mathit{q}(G - (S^* \setminus X)) - |S^* \setminus X| =\\ 
+        &\mathit{q}(G - (S^* \setminus X) - X) - |S^* \setminus X| =\\
+        &\mathit{q}(G - S^*) - |S^*|
+    \end{align*}
+    So $S$ and $S^*$ are equally good with respect to the first statement, by the first statement the odd components in $G - S^*$ are all factor critical, so since $(G - (S^* \setminus X))$ has no new odd comonent $S^*$ and $S^* \setminus X$ are also equally good with respect to the second statement. But $|S^* - X| < |S^*|$ is an absurd with respect to the third statement.\qed
+\end{prf}
