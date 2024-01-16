@@ -76,3 +76,79 @@ Let $G$ be a graph. A matching $M$ in $G$ is perfect if $\v[M] = \v$. A perfect 
     \end{equation*}
     And that proves the theorem.\qed
 \end{prf}
+\begin{customcorollary}{2.5}
+\label{corollary:2.5}
+    Let $k \geq 1$. Any $2k$-regular graph has a $2$-factor.
+\end{customcorollary}
+\begin{prf}
+    Let $G$ be a $2k$-regular graph. If $G$ is disconnected then if is enough to find a $2$-factor in each component, os we can assume without loss of generality that $G$ is connected. So by Theorem \ref{theorem:euler} $G$ has an Euler tour.
+
+    If we take a generic graph, we can then split any vertex into two (we can split for example $v$ into $v^+$ and $v^-$, where $v^-$ is the incoming portion and $v^+$ is the outgoing portion). Thus every vertex has $k$ incoming edges and $k$ outgoing edges. Now the graph is bipartite because we can divide the vertices keeping the links that are already in the graph. If we merge vertices again we get a $2$-factor.
+
+    % TODO: CHECK THE FORMULA FOR THE EDGE SET
+    Define a directed graph $D$, by orienting the edges along $w$, more precisely $\v[D] = \v$ and $\e[D] = \{(v_i, v_{i + 1}): i \in [\dots]\}$. Note that each vertex in $D$ is incident to $k$ ingoing edges and $k$ outgoing edges in $D$.
+
+    Define an auxiliary undirected graph $H$ as follows:
+    \begin{itemize}
+        \item $\v[H] = \{v^+, v^-: v \in \v[D]\}$
+        \item $\e[H] = \{v^+, v^-: (u, v) \in \e[D]\}$ thus $\ngbrs[H]{v^+}$ is the set of out-neihbours of $v$ in $D$ and $\ngbrs[H]{v^-}$ is the set of in-neighbours in $D$.
+    \end{itemize}
+    Note that $H$ is $k$-regular and bipartite with bipartition $(V^+, V^-)$ where:
+    \begin{itemize}
+        \item $V^+ = \{v^+: v \in \v[D]\}$
+        \item $V^- = \{v^-: v \in \v[D]\}$
+    \end{itemize}
+    By Corollary \ref{corollary:2.4} $H$ has perfect matching $M$. We construct a $2$-factor $F$ from $M$ as follows
+    \begin{align*}
+        &\v[F] = \v[M] = \v[H] = \v[D] = \v\\
+        &\e[F] = \{uv\st u^-v^+ \in M \lor v^-u^+ \in M\}
+    \end{align*}
+    Note that for $v \in \v$, $v^+$ and $v^-$ are incident to an edge in $M$ and $v^-v^+ \notin M$. Since otherwise there would have been a loop at $v$ in $G$. We check $F \subseteq G$. Suppose $uv \in \e[F]$ then without loss of generality $u^-v^+ \in M \subseteq \e[H]$ thus $(u, v) \in \e[D] \implies uv \in \e$ \qed
+\end{prf}
+Let $G$ be a graph. We denote by $\mathit{q}$ the number of odd components of $G$.
+\begin{customtheorem}{Tutte}
+\label{theorem:tutte}
+    A graph $G$ has a perfect matching if and only if, for every subset $U$ of $V$ the subgraph $G - U$ has at omost $|U|$ odd components.
+\end{customtheorem}
+\begin{customtheorem}{Gallai-Edmonds decomposition}
+\label{theorem:gallai-edmonds}
+    For any graph $G$ there exists $S^* \subseteq \v$ such that:
+    \begin{enumerate}
+        \item All odd components of $G - S^*$ are factor critical.
+        \item All even components of $G - S^*$ have a perfect matching.
+        \item For all $\emptyset \neq X \subseteq S^*$, the set $\ngbrs{X}$ intersects $> |X|$ odd components of $G - S^*$.
+    \end{enumerate}
+\end{customtheorem}
+A graph $G$ is factor-critical if $G - v$ has a perfect maching for each $v \in \v$ any odd cycle and odd complete graph are factor-critical.
+% TODO: UNDERSTAND WHAT IS THIS
+\begin{enumerate}
+    \item Keep the matchings.
+    \item Match $S^*$ to the odd components.
+    \item Removing the vertices in the odd components because of factor criticality.
+\end{enumerate}
+\begin{customlemma}{2.8}
+\label{lemma:2.8}
+    Let $G$ be a graph and suppose $S^* \subseteq \v$ satisfies properly $1$ and $2$ of the last theorem, as well as $3'$ and $3$ but with $\geq |X|$.
+\end{customlemma}
+Then $G$ has a matching which covers all but at most $\mathit{q}(G - S^*) - |S^*|$ vertices.
+\begin{prf}
+    Let $V_E$ be the set of vertices in an even component of $G - S^*$. By \ref{theorem:gallai-edmonds} (second point) $G[V_E]$ has a perfect matching $M_E$.
+
+    Let $C$ be the set of odd components of $G - S^*$. Define an auxiliary bipartite graph $H$ on $(S^*, C)$ such that $S \in S^*, C \in \mathcal{C}$ are adjacent in $H$ if and only if $S$ has a neighbour in $C$. By $3'$ for all $X \subseteq S^*, |\ngbrs[H]{X}| \geq |X|$. Then, by \ref{theorem:hall}'s theorem: $H$ has a matching $M$ of $S^*$.
+
+    By definition of $H$, for each edge $sC \in M$, there exists a vertex $V_S \in \v[C] \cap \ngbrs{S}$ thus this induces a matching $M_{S^*}$ of $S^*$ in $G$. By construction, $M_{S^*}$ covers $\leq 1$ vertex from each component in $\mathcal{C}$.
+
+    Let $M_O$ consist of:
+    \begin{itemize}
+        \item For each $C \in \mathcal{C}$ not coverted by $M_{S^*}$ a matching of $C$ missing one vertex (exists by 1).
+        \item For each $C \in \mathcal{C}$ such that $\ex v \in \v[C] \cap \v[M^*]$ a perfect matching of $C - V$.
+    \end{itemize}
+    Then $M_E \cup M_{S^*} \cup M_O$ is a matching in $G$ missing $\mathit{q}(G - S^*) - |S^*|$ vertices.\qed
+\end{prf}
+\begin{prf}
+    We are now going to prove \ref{theorem:tutte}'s theorem.
+    \begin{itemize}
+        \item[($\impliedby$)] Apply \ref{theorem:gallai-edmonds} to get $S^*$. By Lemma \ref{lemma:2.8} we have a matching missing $\leq \mathit{q}(G - S^*) - |S^*| \leq 0$ (this by \ref{theorem:tutte}'s theorem condition). But that is the amount of vertices missing from a perfect matching.
+        \item[($\implies$)] Let $S \subseteq \v$ and $M$ a perfect matching for each odd component $C$ of $G - S$. There is a vertex of $C$ which is matchied to a vertex, that is $|S| \geq \mathit{q}(G, S)$\qed
+    \end{itemize}
+\end{prf}
