@@ -24,4 +24,57 @@ Recall that an independent set in $G$ is a set of pairwise non adjacent vertices
 \begin{definition}[Degree sequence]
     Let $G$ be a graph on $n$ vertices with degrees $d_1 \leq d_2 \leq \dots \leq d_n$ then the $n$-tuple $d_1 \dots d_n$ is the degree sequence of $G$.
 \end{definition}
-An $n$-tuple $d_1 \dots d_n$ with $d_1 \leq \dots \leq d_n$ is Hamiltonian if any graph with degree sequnce pointwise greater than $d_1 \dots d_n$ is Hamiltonian.
+An $n$-tuple $d_1 \dots d_n$ with $d_1 \leq \dots \leq d_n$ is Hamiltonian if any graph with degree sequnce pointwise greater than $d_1 \dots d_n$ is Hamiltonian. $(a_1, \dots, a_n)$ Hamiltonian if all $n$-vertex $G$ with degree sequence pointwise greater than $(a_1, \dots, a_n)$ is Hamiltonian.
+\begin{customproposition}{5.2}
+\label{proposition:5.2}
+    Any $G$ on $n \geq 3$ vertices with $\ind \leq k(G)$ is Hamiltonian.
+\end{customproposition}
+\begin{prf}
+    Suppose not and let $\cycl$ be a cycle of max length in $G$ and let $u \in \v \setminus \v[\cycl]$ let $F$ be a maximum $U - \cycl$ fan.
+
+    Note that $\cycl$ exists since $n \geq 3$ implies either any $3$ vertices form a cycle or there is an independent set of size $2$ which means that $k(G) \geq \ind \geq 2$ in which case we also have a cycle. Denote $C = v_1v_2 \dots v_l$ and let $I = \{i \in [l]: F$ contains a $u-v_i$ path $\}$.
+
+    By \ref{theorem:menger}'s theorem the number of paths in $F$ is
+    \begin{equation}
+        \label{equation:1_5.2}
+        |I| \geq min\{k(G), |\cycl|\}
+    \end{equation}
+    if there is $i \in [l]$ such that both $i, i + 1 \in I$ then we obtain a cycle $v_{i + 1} \cycl v_i F u F v_{i + 1}$ which contradicts the maximality of $\cycl$ thus $|I| < |\cycl|$ thus \ref{equation:1_5.2} implies $|I| \geq k(G)$.
+
+    If $i, j \in I$ such that $v_{i + 1}v_{j + 1} \in \e$, then we obtain a new cycle $v_{j + 1} \cycl v_i F u F v_j \cycl v_{i + 1}$ which contradicts the maximality of $\cycl$. So $\{i + 1: i \in I\}$ is an independent set of size $|I| \geq k(G) \geq \ind$ of size $I \geq k(G) \geq \alpha(G)$ which means that $|J| = \alpha(G)$.
+
+    But note $J \cap I = \emptyset$ by the above, then, by maximality of $F$, we have $uv_{i + 1} \notin \e$ for each $i + 1 \in J$ then $J \cup \{u\}$ is an independent set of size $\alpha(G) + 1$.\qed
+\end{prf}
+\begin{customtheorem}{Chvátal}
+\label{theorem:chvatal}
+    Let $(a_1, \dots, a_n)$ be an integer sequence with $0 \leq a_1 \leq \dots \leq a_n \leq n - 1$ and $n \geq 3$ then $(a_1, \dots, a_n)$ is Hamiltonian if and only if
+    \begin{equation}
+        \label{equation:1_chvatal}
+        \fa i < \frac{n}{2} \st a_n \leq i \implies a_{n - i} \geq n - i
+    \end{equation}
+\end{customtheorem}
+Note that \ref{theorem:dirac}'s theorem gives that $(\cel{\frac{n}{2}}, \dots, \cel{\frac{n}{2}})$ is Hamiltonian.
+\begin{prf}
+    To prove this theorem we have to prove the two different directions separately.
+    \begin{itemize}
+        \item [($\impliedby$)] Let $(a_1, \dots, a_n)$ be an integer sequence as in the statement satisfying \ref{equation:1_chvatal}, let's suppose for a contradiction it's not Hamiltonian. This means that there is an $n$-vertex $G$ with degree sequence $(d_1, \dots, d_n)$ such that $d_i \geq a_i \fa i \in [n]$ and $G$ has no Hamiltonian cycle. We take such a $G$ with $\ne$ maximum. Note $(d_1, \dots, d_n)$ satisfies \ref{equation:1_chvatal}.
+        
+        Let $x \neq y \in \v$ be non adjacent vertices with $d(x) \leq d(y)$ and $d(x) + d(y)$ is maximum. We can find these two vertices because if we couldn't we would have a complete graph and thus an Hamilton cycle, by \ref{theorem:dirac}'s theorem. Note that the degree sequence of $G + xy$ is pointwise greater than $(d_1, \dots, d_n)$ and so than $(a_1, \dots, a_n)$ then by maximality of $\ne$ implies that $G + xy$ contains an Hamilton cycle $v_1v_2 \dots v_n$ where $v_1 = x$ and $v_n = y$.
+
+        Note that $v_1v_2 \dots v_1$  is a Hamilton path in $G$. let $I = \{i \in [n]: xv_{i + 1} \in \e\}$ and $J = \{i \in [n]: yv_i \in \e\}$. Same argument as \ref{theorem:dirac}'s proof: $\fa i \in J, i \notin I$ otherwise $v_1 v_{i + 1} v_{i + 2} \dots v_n v_i v_{i - 1} \dots v_1$ is a Hamilton cycle in $G$ (not using $xy = v_1v_n$ anymore) and that is absurd.
+
+        From that comes that $I \cap J = \emptyset \implies |I \cup J| = d(x) + d(y) \leq n - 1$, because $I \subseteq \{1, \dots, n - 2\}$ and $J \subseteq \{2, \dots, n - 1\}$.
+
+        We will now define an $h$ value as follows:
+        \begin{equation*}
+            h := d(x) \leq \frac{n - 1}{2} < \frac{n}{2}
+        \end{equation*}
+        We showed that $v_i \in \ngbrs{y} \fa i \in I$, id est $v_i$ and $y$ are not adjacent, so the maximality of $d(x) + d(y)$ implies that $d(v_i) \leq d(x) = h$.
+
+        In other words, $I$ is a set of $|I| = d(x) = h$ indices $i$ such that $d(v_i) \leq h$ which means that there are $h + 1$ vertices of degree $\leq h \implies x $ and the ones indexed by $I$. So $d_h \leq h \implies$ \ref{equation:1_chvatal} implies that $d_{n - h} \geq n - h$, this means that we have a degree sequence like this:
+        \begin{equation*}
+            (\underbrace{\leq h, \leq h, \dots, \leq h, \leq h}_\text{$h + 1$ times}, \dots, \underbrace{\geq n - h, \geq n - h, \dots, \geq n - h, \geq n - h}_\text{$h + 1$ times})
+        \end{equation*}
+        Which means that there are $h + 1$ vertices with degree $\geq n - h$, since $d(x) = h, \ex z \in \v$ with $d(z) \geq n - h$ such that $xz \notin \e$, but $d(x) + d(z) \geq h + (n - h) = n > d(x) + d(y)$ contradicting the maximality of $d(x) + d(y)$.
+    \end{itemize}
+\end{prf}
