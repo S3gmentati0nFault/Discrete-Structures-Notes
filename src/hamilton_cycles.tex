@@ -57,7 +57,7 @@ Note that \ref{theorem:dirac}'s theorem gives that $(\cel{\frac{n}{2}}, \dots, \
 \begin{prf}
     To prove this theorem we have to prove the two different directions separately.
     \begin{itemize}
-        \item [($\impliedby$)] Let $(a_1, \dots, a_n)$ be an integer sequence as in the statement satisfying \ref{equation:1_chvatal}, let's suppose for a contradiction it's not Hamiltonian. This means that there is an $n$-vertex $G$ with degree sequence $(d_1, \dots, d_n)$ such that $d_i \geq a_i \fa i \in [n]$ and $G$ has no Hamiltonian cycle. We take such a $G$ with $\ne$ maximum. Note $(d_1, \dots, d_n)$ satisfies \ref{equation:1_chvatal}.
+        \item[($\impliedby$)] Let $(a_1, \dots, a_n)$ be an integer sequence as in the statement satisfying \ref{equation:1_chvatal}, let's suppose for a contradiction it's not Hamiltonian. This means that there is an $n$-vertex $G$ with degree sequence $(d_1, \dots, d_n)$ such that $d_i \geq a_i \fa i \in [n]$ and $G$ has no Hamiltonian cycle. We take such a $G$ with $\ne$ maximum. Note $(d_1, \dots, d_n)$ satisfies \ref{equation:1_chvatal}.
         
         Let $x \neq y \in \v$ be non adjacent vertices with $d(x) \leq d(y)$ and $d(x) + d(y)$ is maximum. We can find these two vertices because if we couldn't we would have a complete graph and thus an Hamilton cycle, by \ref{theorem:dirac}'s theorem. Note that the degree sequence of $G + xy$ is pointwise greater than $(d_1, \dots, d_n)$ and so than $(a_1, \dots, a_n)$ then by maximality of $\ne$ implies that $G + xy$ contains an Hamilton cycle $v_1v_2 \dots v_n$ where $v_1 = x$ and $v_n = y$.
 
@@ -76,5 +76,14 @@ Note that \ref{theorem:dirac}'s theorem gives that $(\cel{\frac{n}{2}}, \dots, \
             (\underbrace{\leq h, \leq h, \dots, \leq h, \leq h}_\text{$h + 1$ times}, \dots, \underbrace{\geq n - h, \geq n - h, \dots, \geq n - h, \geq n - h}_\text{$h + 1$ times})
         \end{equation*}
         Which means that there are $h + 1$ vertices with degree $\geq n - h$, since $d(x) = h, \ex z \in \v$ with $d(z) \geq n - h$ such that $xz \notin \e$, but $d(x) + d(z) \geq h + (n - h) = n > d(x) + d(y)$ contradicting the maximality of $d(x) + d(y)$.
+        \item[($\implies$)] We need to show that for any $(a_1, \dots, a_n)$ not satisfying \ref{equation:1_chvatal} there exists a graph $G$ with degree sequence pointwise greater than $(a_1, \dots a_n)$ which has no Hamiltonian cycle. Let $(a_1, \dots, a_n)$ as ub tge statenebt not satisfying \ref{equation:1_chvatal}, this means there is $h < \frac{n}{2}$ such that $a_h \leq h$ and $a_{n - h} < n - h$ the degree sequence is.
+        \begin{equation*}
+            (
+                \underbrace{h, \dots, h}_{h},
+                \underbrace{n - h - 1, \dots, n - h - 1}_{n - 2h},
+                \underbrace{n - 1, \dots, n - 1}_{h}
+            )
+        \end{equation*}
+        Thus it's pointwise greater than $(a_1, \dots, a_n)$ but $G$ has no Hamilton cycle, because any Hamilton cycle $\cycl$ needs to contain two edges incident to each $v_i$ for $i \in [h]$ and these lie in the $\clq{h,h} \implies$ any cycle in $G$ covering $\{v_1, \dots, v_h\}$ is a cycle on $\{v_1, \dots, v_{2h}\}$. Since $h < \frac{n}{2}$ such a cycle is not Hamiltonian.\qed
     \end{itemize}
 \end{prf}
