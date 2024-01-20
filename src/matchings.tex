@@ -201,6 +201,7 @@ We are now gonig to prove \ref{theorem:gallai-edmonds}.
     Thus $S^*$ and $S^* \cup T \cup \{v\}$ are equally good choices with respect to the first statement. Note that $k$ is no longer an odd non factor critical in $G - (S^* \cup T \cup \{v\})$ and by the induction hypothesis the first statement holds in $K - v$, that is all the odd components of $G - (S^* \cup T \cup \{v\})$ which lie in $K$ are factor critical then $G - S^*$ has $1$ more non factor critical component than $G - (S^* \cup T \cup \{v\})$ which is in contradiction with the second statement. \qed
 
     \textit{Now we will prove the third and final statement}
+
     Before proving that we need to prove a claim:
     \begin{customclaim}{1}
     \label{claim:gallai-edmonds_1}
@@ -225,4 +226,68 @@ We are now gonig to prove \ref{theorem:gallai-edmonds}.
         &\mathit{q}(G - S^*) - |S^*|
     \end{align*}
     So $S$ and $S^*$ are equally good with respect to the first statement, by the first statement the odd components in $G - S^*$ are all factor critical, so since $(G - (S^* \setminus X))$ has no new odd comonent $S^*$ and $S^* \setminus X$ are also equally good with respect to the second statement. But $|S^* - X| < |S^*|$ is an absurd with respect to the third statement.\qed
+\end{prf}
+\begin{customlemma}{2.9}
+\label{lemma:2.9}
+    Any $3$-regular $2$-edge-connected graph has a perfect matching.
+\end{customlemma}
+Note: not any $3$-regular graph has a perfect matching.
+\begin{prf}
+    We will check \ref{theorem:tutte}'s condition. Let $S \subseteq \v$ let $\mathcal{C}$ be the set of odd components of $G - S$. For only $C \in \mathcal{C}$
+    \begin{equation*}
+        3 \cdot \nv = \sum_{v \in \v}\deg{v} = 2|\e[C]| + |\e[C, S]|
+    \end{equation*}
+    $\e[C, S]$ means the set of edges between $c$ and $S$, its cardinality is odd but $|\e[C, S]| \neq 1$ otherwise this edge would disconnect te graph, contradicting the $2$-edge-connectedness. This means that $|\e[C, S]| \geq 3$ then:
+    \begin{equation*}
+        \cancel{3}|S| \geq \sum_{C \in \mathcal{C}}{|\e[C, S]| \geq 3|\mathcal{C}| = \cancel{3} \cdot \mathit{q}(G - S)}
+    \end{equation*}
+    This means that $S \geq \mathit{q}(G - S)$ as desired. \qed
+\end{prf}
+A graph $G$ is vertex transitive if, for any $u, v \in \v$ there is an automorphism that maps $u$ to $V$.
+\begin{definition}[Automorphism]
+    An automorphism is an isomorphism between a set and itself.    
+\end{definition}
+\begin{customtheorem}{2.10}
+\label{theorem:2.10}
+    Any connected vertex-transitive graph has a matching which misses at most one vertex.
+\end{customtheorem}
+\begin{prf}
+    \begin{customclaim}{1}
+    \label{claim:theorem_2.10_1}
+        Let $u, v$ be vertices such that no maximum matching misses both of them. Then, for any maximum matching $M_u$ and $M_v$ missing $u$ and $v$ respectively, $M_u \bigtriangleup M_v$\footnote{This operation defines a symmetric set difference, $A \bigtriangleup B = (A \setminus B) \cup (B \setminus A)$} contains a component which is a $u - v$ path of even length.
+    \end{customclaim}
+    \begin{prf}
+        \begin{align*}
+            &u \notin M_u, u \in M_v\\
+            &v \notin M_v, v \in M_u
+        \end{align*}
+        By assumption $u \in \v[M_v \setminus M_u]$ and $v \in \v[M_u \setminus M_v]$ therefore each have degree 1 in $M_u \bigtriangleup M_v$ thus each of $u$ and $v$ is the endpoint of a path in $M_u \bigtriangleup M_v$.
+
+        Note: Any odd path in $M_u \bigtriangleup M_v$ would be an augmenting path with respect to $M_u$ or $M_v$, contradicting maximality of $|M_u|$ and $|M_v|$ by Lemma \ref{lemma:2.1}. So all paths in $M_u \bigtriangleup M_v$ are even, thus, if $u$ and $v$ lie on distinct paths $P_u, P_v$ in $M_u \bigtriangleup M_v$, then we can construct a maximum matching missing both $u$ and $v$, which is absurd.
+        
+        Namely $(M_u \setminus \e[P_v]) \cup (\e[P_v] \cap M_v)$ then $u$ and $v$ are on the same even path, as desired.\qed
+    \end{prf}
+    We say a vertex is critical if it is contained in every maximum matching.
+    \begin{customclaim}{2}
+    \label{claim:theorem_2.10_2}
+        Let $u \neq v \in \v$ and $P$ a $u - v$ path in $G$. If no internal vertex of $P$ is critical, then no maximum matching misses both $u$ and $v$.
+    \end{customclaim}
+    \begin{prf}
+        To prove this theorem we will reason inductively on the length of $P$.
+        \begin{itemize}
+            \item[\textbf{Base case:}] $P = uv$
+            
+            If a matching misses both $u$ and $v$, we cann add the edge $uv$ to it, so it is not maximum.
+            \item[\textbf{Inductive step:}] Suppose $P$ has an internal vertex $x$. By assumption the internal vertices of $uPx$ are not critical, therefore, the induction hypothesis gives us that no maximum matching misses both $u$ and $x$. Similarly, by applying the induction hypothesis to $xPv$, no maximum matching misses both $x$ and $v$.
+            
+            Since $x$ is not critical, there exists a maximum matching $M_x$ which misses $x$. So note $u, v \in \v[M_x]$.
+
+            Note: If $u$ is critical, then no maximum-matching misses $u$ and so no such matching misses both $u$ and $v$, and so we are done. So we may assume there is a maximum matching $M_u$ which misses $u$.
+
+            Suppose for a contradiction that $M$ is a maximum matching that misses both $u$ and $v$, by Claim \ref{claim:theorem_2.10_1} with $x$ playing the role of $v$, $M \bigtriangleup M_x$ has a component which is a $u - x$ path of even length. Similarly, applying \ref{claim:theorem_2.10_1} with $x$ playing the role of $u$ gives that $M_x \bigtriangleup M$ has a component which is an $x - v$ path of even length, thus $u = v$. Which is absurd.\qed
+        \end{itemize}
+    \end{prf}
+    If $G$ has a critical vertex (in all maximum matchings) then all vertices are actually critical since $G$ is vertex-transitive. In that case, we have then a perfect matching.
+
+    If $G$ has no critical vertex, then, for any $uv$ distinct, then for any $u \neq v \in \v$ we can find a $u - v$ path $P$ (as $G$ is connected) with no critical vertex, so Claim \ref{claim:theorem_2.10_2} gives that no max matching misses both $u$ and $v$. This is true for any pair of vertices, so any maximum matching misses at most $1$ vertex.\qed
 \end{prf}
