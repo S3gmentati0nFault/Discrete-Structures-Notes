@@ -2,13 +2,17 @@
 
 \usepackage[english]{babel}
 
-\usepackage{amsthm, amsmath, amssymb}
+\usepackage{amsthm, amsmath, amssymb, amsfonts}
 \usepackage[makeroom]{cancel}
 \usepackage{centernot}
+
+\usepackage{graphicx}
 
 \usepackage{tikz}
 
 \usepackage{enumitem}
+
+\usepackage{mathtools}
 
 \usepackage{hyperref}
 \hypersetup{
@@ -78,10 +82,10 @@
 \newcommand{\T}{\mathcal{\Theta}}
 
 % Sets associated to a graph G
-\renewcommand{\v}[1][G]{V(#1)}
-\newcommand{\e}[1][G]{E(#1)}
-\newcommand{\nv}[1][G]{n(#1)}
-\renewcommand{\ne}[1][G]{e(#1)}
+\renewcommand{\v}[1][G]{V\tnd{#1}}
+\newcommand{\e}[1][G]{E\tnd{#1}}
+\newcommand{\nv}[1][G]{n\tnd{#1}}
+\renewcommand{\ne}[1][G]{e\tnd{#1}}
 
 % Macro for problem title
 \newcommand{\prblm}[1]{\texttt{\MakeUppercase{#1}}}
@@ -133,6 +137,12 @@
 
 % Independence number
 \newcommand{\ind}[1][G]{\alpha(#1)}
+
+% Symmetrized network
+\newcommand{\snet}[1][G]{\stackrel{\mathclap{\leftrightarrow}}{#1}}
+
+% Left arrow vector
+\newcommand{\cev}[1][e]{\reflectbox{\ensuremath{\vec{\reflectbox{\ensuremath{#1}}}}}}
 
 % Various other macros
 \newcommand{\smth}{\cdot}

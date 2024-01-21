@@ -90,7 +90,160 @@ We call $G / e$ "G contracted e" and $/$ is the contraction operator.
 
     Let $k(A, B)$ be the size of the smallest $A - B$ separator. Show by induction on the number of vertices $P$. If $P$ contains fewer paths than $k(A, B)$ paths, then there is a path system $Q$ that exceeds $P$ with $|Q| = |P| + 1$ and $k(A, B_Q) \geq k(A, B)$\qed
 \end{prf}
+\begin{definition}[$A - B$ fan]
+    A family of $k$ internally disjoint $(A, B)$-paths whose terminal vertices are distinct is an $A - B$ fan.
+\end{definition}
+\begin{customcorollary}{3.7}
+\label{corollary:3.7}
+    Let $G$ be a graph, $a \in \v$ and $B \subseteq \v \setminus \{a\}$. Then $G$ contains an $a - B$ fan with $k$ paths if and only if there is no $A - B$ separator (not containing $a$).
+\end{customcorollary}
+\begin{customcorollary}{3.8}
+\label{corollary:3.8}
+    For any $2$ non adjacent vertices $a, b$ in a graph $G$. There are $k$ internally vertex disjoint $a - b$ paths if and only if there is no $a - b$ separator $X \subseteq \v \setminus \{a, b\}$ of size at most $k - 1$.
+\end{customcorollary}
+\begin{customcorollary}{3.9}
+\label{corollary:3.9}
+    A graph $G$ is $k$-connected if and only if it contains $k$ vertex-disjoint $a - b$ paths for all $a, b \in \v$.
+\end{customcorollary}
+\begin{prf}
+    Assume $G$ is $k$-connected. Let $a, b \in \v$, if $ab \notin \e$ then we use Corollary \ref{corollary:3.8}. Assume that $ab \in \e$, consider $G' = G - ab$ that means that $G'$ is $(k - 1)$-connected, then, because of Corollary \ref{corollary:3.8}, we have $k - 1$ internally vertex disjoint $ab$ paths in $G'$, this means that we can add $ab$.\qed
+\end{prf}
+\begin{definition}[Line graph]
+    $\v[L(G)] = \e$
+    
+    $e, f \in \v[L(G)]$ are adjacent in $L(G)$ if $e, f$ share a common vertex.
+\end{definition}
+\begin{customcorollary}{3.10}
+\label{corollary:3.10}
+    Let $A, B \subseteq \v$ be two disjoint vertex sets in a graph $G$, then there are $k$ edge disjoint $A - B$ paths in $G$ if and only if there is no set of at most $k - 1$ edges that separate $A$ from $B$.
+\end{customcorollary}
+\begin{customcorollary}{3.11}
+\label{corollary:3.11}
+    Let $G$ be a graph and $a, b \in \v$ be distinct. Then $G$ contains $k$ edge disjoint $a - b$ paths if and only if there is no set of edges $F$ such that $|F| \leq k - 1$ and $G - F$ has no $a - b$ path.
+\end{customcorollary}
+\begin{customcorollary}{3.12}
+\label{corollary:3.12}
+    A graph $G$ is $k$ edge connected if and only if there exist $k$ edge disjoint paths between any two vertices in $G$.
+\end{customcorollary}
+\section{Maximum flow minimum cut}
+We want to build an algorithm that can compute disjoint $a - b$ paths. Suppose $G$ is a directed graph. In addition, we have capacities on the edges $u: \e \rightarrow \R$.
+
+We have two special vertices: source $s$ and target $t$.
+
+The quadruple $(G, u, s, t)$ is known as a network. Given a network, the flow is a function $f: \e \rightarrow \R^0_+$ if $f(e) \leq u(e) \fa e \in \e$. The excess of a flow $f$ at a vertex $v$ is:
+\begin{equation*}
+    ex_f(v) = \sum_{e \in d^-(v)}f(e) - \sum_{e \in d^+(v)}f(e)
+\end{equation*}
+where $d^-(v)$ refers to the edges entering $v$ and $d^+(v)$ refers to the edges exiting $v$. An $s - t$ flow is a flow $f$ such that $ex_f(s) \leq 0$ and $ex_f(v) = 0, \fa v \in \v \setminus \{s, t\}$, we define the value of $f$ by $- ex_f(s)$.\qed
 \section{\texttt{Max flow problem}}
 \subsection{Input}
+Given a network $(G, u, s, t)$
 \subsection{Output}
-\subsection{Algorithm}
+Find an $s - t$ flow of max value.
+
+An $s - t$ cut in $G$ is an edge set $\delta^+(X)$ with $s \in X$ and $t \notin X$, where $\delta^+(X)$ refers to the set of edges leaving $X$. The capacity of a cut is the sum of all capacities of its elements, we refer to it as $c(S, T)$.
+\begin{customlemma}{3.13}
+\label{lemma:3.13}
+    Given a network $(G, u, s, t)$, a set $A \subseteq \v$ with $s \in A, t \notin A$ and $s - t$ flow $f$, then:
+    \begin{enumerate}
+        \item\label{lemma:3.13_1} $Value(f) = \sum_{e \in \delta^+(A)}f(e) - \underbrace{\sum_{e \in \delta^-(A)}f(e)}_{\geq 0}$.
+        \item\label{lemma:3.13_2} $Value(f) = \sum_{e \in \delta^+(A)}f(e)$.
+    \end{enumerate}
+\end{customlemma}
+\begin{prf}
+    \begin{align*}
+        Value(f) &= \sum_{e \in \delta^+(s)}f(e) - \sum_{e \in \delta^-(s)}f(e)\\
+        &=\sum_{v \in A}(\sum_{e \in \delta^+(v)}f(e) - \sum_{e \in \delta^-(v)}f(e))\\
+        &=\sum_{e \in \delta^+(A)}f(e) - \sum_{e \in \delta^-(A)}f(e)
+    \end{align*}
+    The second point of Lemma \ref{lemma:3.13} follows from the first.\qed
+\end{prf}
+\begin{customtheorem}{Ford - Fulkerson}
+\label{theorem:ford-fulkerson}
+    In any network the maximum value of an $s - t$ flow equals the minimum capacity of an $s - t$ cut.
+\end{customtheorem}
+Now we are going through some more notation.
+
+Given a directed graph $G$, let $\snet$ be obtained from $G$ by adding for each edge $e = (u, v)$, the edge $\cev$. Given a directed graph $G$ and a capacity function $u$, and a flow $f$, we define the residual capacities $u_f: \e[\snet]$ bu $u_f = u(e) - f(e)$ and $u_f(\cev) = f(e) \fa e \in \e$. The residual graph $G_f$ is the graph with vertex set $\v$ and edge set $\{e \in \e[\snet]\st u_f(e) > 0\}$.
+
+Given a flow $f$ and a path or cycle $P$ in $G_f$, we say we augment $P$ by $\gamma$ if we perform the following operation for each $e \in \e[P]$ such that if $e \in \e$ then increase $f(e)$ by $\gamma$ and otherwise $e = \cev[e']$ we decrease $f(e')$ by $\gamma$.
+
+In a network $(G, u, s, t)$ and $s - t$ flow $f$, an $f$-augmenting path is an $s - t$ path in the residual graph $G_f$.
+\begin{customtheorem}{3.1}
+\label{theorem:3.1}
+    Let $(G, u, s, t)$ be a network and $f$ a flow. Then the following statements are equivalent:
+    \begin{enumerate}
+        \item $Value(f)$ is max.
+        \item $G$ has no $f$-augmenting path.
+        \item There is an $s - t$ cut $(S, T)$ with $Value(f) = c(S, T)$.
+    \end{enumerate}
+\end{customtheorem}
+\begin{prf}
+    To prove the theorem we will prove all the possible combinations, to show that the statements are equivalent.
+    \begin{itemize}
+        \item[($1 \implies 2$)] Trivial proof
+        \item[($2 \implies 3$)] We construct an $s - t$ cut. Let $S$ be the set of all vertices reachable from $s$ in $G_f$. Let $T = \v \setminus S$. Then $s \in S$ and $t \in T$ because of our assumption. By Lemma \ref{lemma:3.13_1}
+        \begin{align*}
+            Value(f) &= \sum_{e \in \delta^-_{G_f}(v)}f(e) - \sum_{e \in \delta^+_{G_f}(v)}f(e)\\
+                     &= \sum_{e \in \delta^+_{G_f}(v)} u(e) - 0 = c(S, T)
+        \end{align*}
+        \item[($3 \implies 1$)] Suppose there is an $s - t$ cut $(S, T)$ with $Value(f) = c(S, T)$. Let $f'$ be a flow where $Value(f')$ is maximal:
+        \begin{equation*}
+            c(S, T) = Value(f) \leq Value(f') \underbrace{\leq}_{\text{By Lemma \ref{lemma:3.13}.2}} c(S, T)
+        \end{equation*}
+        Which means that:
+        \begin{equation*}
+            Value(f) = Value(f')
+        \end{equation*}
+        Having proven all the possible implications we have proven the theorem.\qed
+    \end{itemize}
+\end{prf}
+\subsection{\texttt{Floyd-Fulkerson's algirithm}}
+\subsubsection{Input}
+    Given a network $(G, u, s, t)$
+\subsubsection{Output}
+    Compute the flow $f$ from $s$ to $t$ of maximum value.
+\subsubsection{Algorithm}
+\begin{enumerate}
+    \item Set $f(e) = 0 \fa e \in \e$
+    \item \texttt{while} there is a path $p$ from $s$ to $t$ in $G_f$, such that $c_f(e) > 0$ for all edges $e \in P$ \texttt{do}:
+    \begin{enumerate}[label=\Alph*]
+        \item Find $c_f(p) = min\{c_f(e)\st e \in p\}$
+        \item \texttt{for each} $(u, v) \in p$ \texttt{do}:
+        \begin{enumerate}[label=\alph*]
+            \item $f(u, v) = f(u, v) + c_f(p)$ \hspace{2cm} (Send flow along the path)
+            \item $f(v, u) = f(v, u) - c_f(p)$ \hspace{2cm} (The flow might be "returned" later)
+        \end{enumerate}
+    \end{enumerate}
+\end{enumerate}
+\begin{customcorollary}{3.16}
+\label{corollary:3.16}
+    If the capacities of a network are integers, then there exists an integral flow of max value, that is, the flow sends only integer values along the edges.
+\end{customcorollary}
+\begin{customtheorem}{3.17}
+\label{theorem:3.17}
+    Let $(G, u, s, t)$ be a network and $f$ be a flow in $G$. Then there exists a family $\mathcal{P}$ of $s - t$ paths and a family $\mathcal{C}$ of cycles in $G$ along with the weights $w: (\mathcal{P} \cup \mathcal{C}) \rightarrow \R_+$ such that.
+    \begin{equation*}
+        f(e) = \sum_{P \in \{\mathcal{P} \cup \mathcal{C}: e \in \e[P]\}} w(P) \hspace{2cm} \fa e \in \e
+    \end{equation*}
+    and
+    \begin{equation*}
+        Value(f) = \sum_{P \in \mathcal{P}} w(P)
+    \end{equation*}
+    as well as $|\mathcal{P}| + |\mathcal{C}| \leq \ne$ moreover if $f$ is integral, then $w$ can also be chosen integral.
+\end{customtheorem}
+\begin{prf}
+    We construct $\mathcal{P}, \mathcal{C}$ and $w$ by induction on the number of edges with nonzero flow.
+
+    If $f \equiv 0$, then the statement is trivial.
+
+    Assume $\ex e^+ \in \e$ with $f(e^+) > 0$, consider a walk $W$ containing $e^+$ in which every edge carries positive flow and no vertex appears twice except possibly if it is one of the endpoints. Observe that $W$ contains at most $|\v|$ edges and it contains a cycle or it is a path/ If it is a path then it is an $s - t$ path and
+    \begin{equation*}
+        f(\delta^-(s)) = f(\delta^+(t)) = 0
+    \end{equation*}
+    Let $w(P) = min_{e \in \e[P]}f(e)$, set $f'(e ) = f(e) - w(P) \fa e \in \e[P]$ and $f'(e) = f(e) \fa e \in \e \setminus \e[P]$. Applying the induction hypothesis finishes the proof.\qed
+\end{prf}
+\begin{customcorollary}{3.18}
+\label{corollary:3.18}
+    Let $G$ be a (directed or undirected) graph, let $s$ and $t$ be two vertices. Then there are $k$-edge-disjoint $s - t$ paths if and only if after deleting $k - 1$ edges $t$ is still reachable from $s$.
+\end{customcorollary}
