@@ -254,16 +254,16 @@ A graph $G$ is vertex transitive if, for any $u, v \in \v$ there is an automorph
 \begin{prf}
     \begin{customclaim}{1}
     \label{claim:theorem_2.10_1}
-        Let $u, v$ be vertices such that no maximum matching misses both of them. Then, for any maximum matching $M_u$ and $M_v$ missing $u$ and $v$ respectively, $M_u \bigtriangleup M_v$\footnote{This operation defines a symmetric set difference, $A \bigtriangleup B = (A \setminus B) \cup (B \setminus A)$} contains a component which is a $u - v$ path of even length.
+        Let $u, v$ be vertices such that no maximum matching misses both of them. Then, for any maximum matching $M_u$ and $M_v$ missing $u$ and $v$ respectively, $\ssdf{M_u}{M_v}$\footnote{This operation defines a symmetric set difference, $\ssdf{A}{B} = (A \setminus B) \cup (B \setminus A)$} contains a component which is a $u - v$ path of even length.
     \end{customclaim}
     \begin{prf}
         \begin{align*}
             &u \notin M_u, u \in M_v\\
             &v \notin M_v, v \in M_u
         \end{align*}
-        By assumption $u \in \v[M_v \setminus M_u]$ and $v \in \v[M_u \setminus M_v]$ therefore each have degree 1 in $M_u \bigtriangleup M_v$ thus each of $u$ and $v$ is the endpoint of a path in $M_u \bigtriangleup M_v$.
+        By assumption $u \in \v[M_v \setminus M_u]$ and $v \in \v[M_u \setminus M_v]$ therefore each have degree 1 in $\ssdf{M_u}{M_v}$ thus each of $u$ and $v$ is the endpoint of a path in $\ssdf{M_u}{M_v}$.
 
-        Note: Any odd path in $M_u \bigtriangleup M_v$ would be an augmenting path with respect to $M_u$ or $M_v$, contradicting maximality of $|M_u|$ and $|M_v|$ by Lemma \ref{lemma:2.1}. So all paths in $M_u \bigtriangleup M_v$ are even, thus, if $u$ and $v$ lie on distinct paths $P_u, P_v$ in $M_u \bigtriangleup M_v$, then we can construct a maximum matching missing both $u$ and $v$, which is absurd.
+        Note: Any odd path in $\ssdf{M_u}{M_v}$ would be an augmenting path with respect to $M_u$ or $M_v$, contradicting maximality of $|M_u|$ and $|M_v|$ by Lemma \ref{lemma:2.1}. So all paths in $\ssdf{M_u}{M_v}$ are even, thus, if $u$ and $v$ lie on distinct paths $P_u, P_v$ in $\ssdf{M_u}{M_v}$, then we can construct a maximum matching missing both $u$ and $v$, which is absurd.
         
         Namely $(M_u \setminus \e[P_v]) \cup (\e[P_v] \cap M_v)$ then $u$ and $v$ are on the same even path, as desired.\qed
     \end{prf}
@@ -284,10 +284,53 @@ A graph $G$ is vertex transitive if, for any $u, v \in \v$ there is an automorph
 
             Note: If $u$ is critical, then no maximum-matching misses $u$ and so no such matching misses both $u$ and $v$, and so we are done. So we may assume there is a maximum matching $M_u$ which misses $u$.
 
-            Suppose for a contradiction that $M$ is a maximum matching that misses both $u$ and $v$, by Claim \ref{claim:theorem_2.10_1} with $x$ playing the role of $v$, $M \bigtriangleup M_x$ has a component which is a $u - x$ path of even length. Similarly, applying \ref{claim:theorem_2.10_1} with $x$ playing the role of $u$ gives that $M_x \bigtriangleup M$ has a component which is an $x - v$ path of even length, thus $u = v$. Which is absurd.\qed
+            Suppose for a contradiction that $M$ is a maximum matching that misses both $u$ and $v$, by Claim \ref{claim:theorem_2.10_1} with $x$ playing the role of $v$, $\ssdf{M}{M_x}$ has a component which is a $u - x$ path of even length. Similarly, applying \ref{claim:theorem_2.10_1} with $x$ playing the role of $u$ gives that $\ssdf{M_x}{M}$ has a component which is an $x - v$ path of even length, thus $u = v$. Which is absurd.\qed
         \end{itemize}
     \end{prf}
     If $G$ has a critical vertex (in all maximum matchings) then all vertices are actually critical since $G$ is vertex-transitive. In that case, we have then a perfect matching.
 
     If $G$ has no critical vertex, then, for any $uv$ distinct, then for any $u \neq v \in \v$ we can find a $u - v$ path $P$ (as $G$ is connected) with no critical vertex, so Claim \ref{claim:theorem_2.10_2} gives that no max matching misses both $u$ and $v$. This is true for any pair of vertices, so any maximum matching misses at most $1$ vertex.\qed
+\end{prf}
+\begin{customtheorem}{Lovasz conjecture}
+\label{theorem:lovasz}
+    Any connected vertex-transitive graph has a spanning tree with specific structure
+\end{customtheorem}
+\begin{customlemma}{2.12}
+\label{lemma:2.12}
+    Let $G$ be a graph and $M$ a matching in $G$. Let $P$ be an augmenting path of minimum length. Let $P'$ be an $\ssdf{M}{P}$ augmenting path. Then $l(P') \geq l(P) + \ne[P \cap P']$
+\end{customlemma}
+\begin{prf}
+    Let $N: \ssdf{(\ssdf{M}{P})}{P'}$. Then $N$ is a matching and $|N| = |M| + 2$, this means that $\ssdf{M}{N}$ contains $2 - M$ augmenting paths $P_1$ and $P_2$ ($\ssdf{M}{N}$ consists of cycles of even length and paths. The two extra edges in $N$ give two odd paths starting and ending with an edge of $N$).
+
+    Note $l(P_1), l(P_2) \geq l(P)$ and $\ssdf{M}{N} = \ssdf{P}{P'}$
+    \begin{align*}
+        &\underbrace{\ne{\ssdf{P}{P'}}}_{\text{since }l(P) + l(P') - \ne[P \cap P']} \geq l(P_1) + l(P_2) \geq 2l(P)\\
+        &l(P') \geq l(P) + \ne[P \cap P']
+    \end{align*}
+    Which proves the theorem.\qed
+\end{prf}
+\section{\texttt{Hopcroft - Karp}}
+\subsection{Input}
+    A bipartite graph $G$ with bipartition $(A, B)$
+\subsection{Output}
+    A maximum matching
+\subsection{Algorithm}
+\begin{enumerate}
+    \item Set $M = \emptyset, x = 1$
+    \item \label{algorithm:hk_cycle_head}\texttt{While} $x = 1$, \texttt{do}:
+    \begin{enumerate}[label = \Alph*]
+        \item Perform a \texttt{BFS} at each evertex in $A \setminus \v[M]$ in turn, alternate between edges of $G - M$ and $M$.
+        \item Perform a \texttt{DFS} to find a maximal set $S$ of minimum augmenting paths.
+        \item Flip the augmenting path and make it $M$.
+        \item \texttt{if} $S = \emptyset \implies x = 0$
+    \end{enumerate}
+\end{enumerate}
+\begin{customlemma}{2.13}
+\label{lemma:2.13}
+    The \texttt{Hopcroft - Karp} algorithm runs properly and in $\O(m\sqrt{n})$
+\end{customlemma}
+\begin{prf}
+    The algorithm works since, when it stops, there is no augmenting path left to consider. \texttt{BFS} and \texttt{DFS} run in $\O(m)$ time. Suppose $M$ is the current matching, the shortest augmenting path has length $\geq \sqrt{n}$ and let $M^*$ be a maximum matching. So $\ssdf{M}{M^*}$ contains at most $\frac{n}{\sqrt{n}} = \sqrt{n}$ augmenting paths\footnote{The $\sqrt{n}$ at the denominator is an acto of faith imposed by the professor.}.
+
+    So $M^*$ can be obtained from $M$ in $\leq \sqrt{n}$ iterations of \ref{algorithm:hk_cycle_head}. By Lemma \ref{lemma:2.12} we need $\leq \sqrt{n}$ iterations of \ref{algorithm:hk_cycle_head} to reach the augmenting path of length $\sqrt{n}$, which means $\leq 2\sqrt{n}$ iterations.\qed
 \end{prf}

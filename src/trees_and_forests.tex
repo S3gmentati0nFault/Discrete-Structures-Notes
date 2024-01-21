@@ -88,13 +88,13 @@ A spanning tree of the component containing $s$. More precisely, $R \subseteq \v
 \subsection{Algorithm}
 \begin{enumerate}
     \item Set $R = \grf{s}, Q = \grf{s}, T = \emptyset$
-    \item \label{tag:condition} If $Q$ is empty then stop
+    \item \label{tag:condition} \texttt{if} $Q$ is empty \texttt{then} stop
     \begin{enumerate}
-        \item Else $v \in Q$
+        \item \texttt{else} $v \in Q$
     \end{enumerate}
-    \item If possible choose $w \in \v \setminus R$ such that $vw \in \e$
+    \item \texttt{if} possible choose $w \in \v \setminus R$ such that $vw \in \e$
     \begin{enumerate}
-        \item If there is no such $w$ let $Q = Q \setminus \grf{v}$ and go to \ref{tag:condition}
+        \item \texttt{if} there is no such $w$ let $Q = Q \setminus \grf{v}$ and go to \ref{tag:condition}
     \end{enumerate}
     \item Set $R = R \cup \grf{w}, Q = Q \cup \grf{w}$ and $T = T \cup \grf{w}$ and go to \ref{tag:condition}
 \end{enumerate}
@@ -177,9 +177,9 @@ Minimum spanning tree
         c(e_1) \leq c(e_2) \leq \dots \leq c(e_m)
     \end{equation*}
     \item Set $T = (\v, \emptyset)$
-    \item For $i = 1$ to $m$ do:
+    \item \texttt{for} $i = 1$ to $m$ \texttt{do}:
     \begin{enumerate}
-        \item if $T + e_i$ does not contain a cycle, set $T = T + e_i$
+        \item \texttt{if} $T + e_i$ does not contain a cycle, set $T = T + e_i$
     \end{enumerate}
 \end{enumerate}
 \begin{customtheorem}{1.23}
