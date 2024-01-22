@@ -1,4 +1,4 @@
-\chapter{Trees and forests}
+\section{Trees and forests}
 A forest is a graph without cycles and a tree is a connected graph without cycles.
 \begin{customlemma}{1.14}
     \label{lemma:1.14}
@@ -42,7 +42,7 @@ A forest is a graph without cycles and a tree is a connected graph without cycle
 
     Suppose there exists a unique $u - v$ path between any two $u, v \in \v[T]$. Then, in particular, $T$ is connected. Moreover, if $T$ contained a cycle $\cycl$, any two vertices $u, v \in \v[\cycl]$ would be joined by two different paths.\qed
 \end{prf}
-\section{Spanning trees}
+\subsection{Spanning trees}
 \begin{definition}
     The spanning tree for a connected graph $G$ is a subgraph $T \subseteq G$ which is a tree with $\v[T] = \v$
 \end{definition}
@@ -80,12 +80,12 @@ A forest is a graph without cycles and a tree is a connected graph without cycle
     Starting from a  vertex $v \in V$ we say that $w$ is reachable from $v$ if $w$ is inside $v$'s component.
 \end{definition}
 We will now see the first example of an algorithm in this course.
-\section{\texttt{Graph Scanning algorithm}}
-\subsection{Input}
+\subsection{\texttt{Graph Scanning algorithm}}
+\subsubsection{Input}
 A graph $G$ and a vertex $s \in \v$
-\subsection{Output}
+\subsubsection{Output}
 A spanning tree of the component containing $s$. More precisely, $R \subseteq \v$ and $T \subseteq \e$ such that $(R, T)$ is a spanning tree of the component containing $s$ (assuming you could have a forest).
-\subsection{Algorithm}
+\subsubsection{Algorithm}
 \begin{enumerate}
     \item Set $R = \grf{s}, Q = \grf{s}, T = \emptyset$
     \item \label{tag:condition} \texttt{if} $Q$ is empty \texttt{then} stop
@@ -149,7 +149,7 @@ A spanning tree of the component containing $s$. More precisely, $R \subseteq \v
 
     There is an $x - y$ path $P'$ in $T$, thus $P \cup P'$ is an $s - y$ path using $x$ and $y$. Note that $P \cup P'$ is indeed a path since $T$ is a tree. If $y$ is a leaf, we are done, otherwise we can keep extending $P \cup P'$ until we hit a leaf.\qed
 \end{prf}
-\section{\texttt{Minimum Spanning Tree problem}}
+\subsection{\texttt{Minimum Spanning Tree problem}}
 \begin{customlemma}{1.22}
     \label{lemma:1.22}
     Let $G$ be a connected graph and $c: \e \rightarrow \R$. Let $T$ be a spanning tree. Then $T$ is a minimum spanning tree $iff xy \in \e$, there is no edge $e$ in the unique $x - y$ path in $T$ such that $c(e) > c(xy)$. 
@@ -165,12 +165,16 @@ A spanning tree of the component containing $s$. More precisely, $R \subseteq \v
         Suppose not, so there exists $xy \in \e[T']\setminus\e[T]$, let $P$ be the $x - y$ path in $T$. By assumption each edge in $P$ has weight $\leq c(xy)$. Since $T'$ is a tree, $\exists e \in \e[P] \setminus \e[T']$ (otherwise $P + xy$ would be a cycle in $T'$). By the same arguments as above, $T' + e - xy$ is still a spanning tree but has weight no larger than $T'$. Since $c(e) \leq c(xy)$. But $T' + e - xy$ has one more edge in common with $T$, which is absurd.\qed
     \end{itemize}
 \end{prf}
-\subsection{\texttt{Kruskal's algorithm}}
-\subsubsection{Input}
+\subsubsection{\texttt{Kruskal's algorithm}}
+\textbf{Input}
+
 Connected graph $G$, weights $c: \e \rightarrow \R$
-\subsubsection{Output}
+
+\noindent\textbf{Output}
+
 Minimum spanning tree
-\subsubsection{Algorithm}
+
+\noindent\textbf{Algorithm}
 \begin{enumerate}
     \item Label the edges of $G$ with $e_1, \dots, e_m$ such that
     \begin{equation*}

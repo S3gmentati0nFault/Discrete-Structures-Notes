@@ -1,4 +1,4 @@
-\chapter{Bipartite graphs}
+\section{Bipartite graphs}
 \begin{definition}[Bipartite Graph]
     A graph $G$ is bipartite if there is a partition $A \cup B = \v$ such that all edges have one extreme in $A$ and the other in $B$.
 \end{definition}
@@ -16,7 +16,7 @@ We say $(A, B)$ is a bipartition of $G$, we denote by $\clq{m, n}$ the complete 
         We claim that $(A, B)$ is also a bipartition for $G$. Suppose not and say, without loss of generality, that $\ex aa' \in \e$ with $a, a' \in A$. Let $P$ be a $a - a'$ path in $T$, then $P$ alternates between $A$ and $B$, thus having even length. This means that $P + aa'$ is actually an odd cycle. But that contradicts our hypothesis, thus $G$ must have bipartition $(A, B)$\qed
     \end{itemize}
 \end{prf}
-\section{Minors}
+\subsection{Minors}
 A graph $H$ is a minor of $G$, denoted $H \minr G$ if $H$ can be obtained from $G$ via a series of vertex and edge deletions and edge contractions. Formally, contracting $xy \in \e$ means that we obtain a graph $G'$ with vertex set:
 \begin{equation*}
     \v[G'] = \v \setminus \grf{x, y} \cup \grf{V_{xy}} \text{ where } V_{xy} \notin \v

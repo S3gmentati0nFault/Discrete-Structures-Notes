@@ -1,4 +1,4 @@
-\chapter{Eulerian tours}
+\section{Eulerian tours}
 \begin{definition}[Walk]
     A walk is an alternating sequence $v_1, e_1, \dots, v_{k + 1}$ of vertices and edges such that $e_i = v_i v_{i + 1}$ for all $i \in k$. 
 \end{definition}
@@ -38,12 +38,12 @@ We say that the walk is simple if all the edges are distinct and we say that it'
         Since $G$ is connected there is $v_i \in \v[w]$ such that $\deg[G']{v_i} \neq 0$. Let $w'$ be a maximal walk in $G'$ starting at $v_i$. By Claim \ref{claim:euler_2} $w'$ is closed. Then $v_1, e_1, \dots, e_{i - 1}, w", e_i, \dots, v_1$ is a larger walk in $G$ containing $w$, which is a contradiction to the maximality of $w$.\qed
     \end{enumerate}
 \end{prf}
-\section{\texttt{Euler's algorithm}}
-\subsection{Input}
+\subsection{\texttt{Euler's algorithm}}
+\subsubsection{Input}
     A connected graph $G$ whose degrees are all even.
-\subsection{Output}
+\subsubsection{Output}
     An Euler tour $w$.
-\subsection{Algorithm}
+\subsubsection{Algorithm}
 The following is the main procedure
 \begin{enumerate}
     \item Let $v_1$ be an arbitrary vertex and return $w$ = \texttt{Euler($v_1$)}
