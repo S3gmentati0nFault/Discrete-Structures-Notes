@@ -87,3 +87,77 @@ Note that \ref{theorem:dirac}'s theorem gives that $(\cel{\frac{n}{2}}, \dots, \
         Thus it's pointwise greater than $(a_1, \dots, a_n)$ but $G$ has no Hamilton cycle, because any Hamilton cycle $\cycl$ needs to contain two edges incident to each $v_i$ for $i \in [h]$ and these lie in the $\clq{h,h} \implies$ any cycle in $G$ covering $\{v_1, \dots, v_h\}$ is a cycle on $\{v_1, \dots, v_{2h}\}$. Since $h < \frac{n}{2}$ such a cycle is not Hamiltonian.\qed
     \end{itemize}
 \end{prf}
+\section{Travelling salesman problem}
+\textbf{Instance}
+
+A $\clq{n}$ and edge weights $c: \e[\clq{n}] \rightarrow \R$
+
+\textbf{Task}
+
+A Hamilton cycle $H$ with minimum weights.
+
+TSP is still NP-hard even under some restrictions / semplifications thus we need to accept the fact that our result will be approximated. A $k$-factor approximation for TSP is a polynomial time algorithm which outputs a Hamilton cycle of weight $\leq k \cdot min c(H)$. For TSP, there is no $k$-factor algorithm with $k \geq 1$.
+
+\section{Metric TSP}
+\textbf{Instance}
+
+A $\clq{n}$ with edge-weights $c: \e \rightarrow \R$ satisfying the triangle inequality.
+
+\textbf{Task}
+
+Find a minimum weight Hamiltonian cycle $H$.
+
+\begin{customlemma}{5.4}
+\label{lemma:5.4}
+    Given an instance $(\clq{n}, c)$ of a metric TSP and a connected spanning subgraph $G$ of $\clq{n}$, possibly with parallel edges, such that $\deg{v}$ is even for all $v \in \v$, then there exists an algorithm which outputs a Hamiltonian cycle $H$ of $\clq{n}$ with weight $\leq \sum_{e \in \e}c(e)$ and we can do this in linear time.
+\end{customlemma}
+\begin{prf}
+    Since the degrees are even in the subgraph $G$ we can find an Euler tour $W$ and we can do that through Euler's algorithm in $\O(m)$ time, let $H$ be the Hamilton cycle of $\clq{n}$ whichi orders the vertices in the order they were first traversed in $W$.
+
+    Note that for each $e = xy \in \e[H]$, we have a corresponding $x, y$-path, $P_e$ in $W$ and these are all edge-disjoint.
+
+    The triangle inequality gives us:
+    \begin{equation*}
+        c(H) \leq \sum_{e \in \e[H]}c(P_e) \leq \sum_{e \in \e} c(e)
+    \end{equation*}
+    And that proves the theorem.\qed
+\end{prf}
+The best approximation algorithm for Metric TSP is Christofides' algorithm.
+\section{\texttt{Christofides' algorithm}}
+\subsection{Input}
+    An instance $(\clq{n}, c)$ of metric TSP.
+\subsection{Output}
+    A Hamilton cycle of $\clq{n}$
+\subsection{Algorithm}
+\begin{enumerate}
+    \item Find a minimum spanning tree $T$ of $\clq{n}$
+    \item Let $W$ be the set of vertices of odd degree in $T$.
+    \begin{enumerate}[label=\Alph*]
+        \item Find a matching $J$ of minimum weight in $\clq{n}[W]$
+        \item Let $G = (\v[\clq{n}], \e[H] \cup J)$. Let $T$ be a Hamilton cycle of $\clq{n}$ obtained by applying Lemma \ref{lemma:5.4}.
+    \end{enumerate}
+\end{enumerate}
+\begin{customtheorem}{5.5}
+\label{theorem:5.5}
+    Christofides' algorithm is a $\frac{3}{2}$-factor approximation of Metric TSP and runs in $\O(n^3)$ time.
+\end{customtheorem}
+\begin{prf}
+    For the running time we know that:
+    \begin{enumerate}
+        \item $\O(m + nlogn)$
+        \item $\O(n^3)$
+        \item By Lemma \ref{lemma:5.4} $\implies \O(m)$
+    \end{enumerate}
+    Overall $\O(n^3)$.
+
+    Note that removing any edge from a Hamilton cycle gives a spanning tree, which means $c(H) \leq \text{minimum weight of Hamilton cycle in }\clq{n}$. Any Hamilton cycle in $\clq{n}[W]$ consists of two perfect matchings of $\clq{n}[W]$, so 
+    \begin{align*}
+        c(J) &\leq \text{minimum weight of Hamilton cycle of }\clq{n}[W]\\
+             &\leq \frac{1}{2} \cdot \text{minimum weight of Hamilton cycle}
+    \end{align*}
+    therefore:
+    \begin{equation*}
+        c(H) \leq \frac{3}{2} \cdot \text{minimum weight of Hamilton cycle in } \clq{n}
+    \end{equation*}
+    and that proves our theorem.\qed
+\end{prf}
