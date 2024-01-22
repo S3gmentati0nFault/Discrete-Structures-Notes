@@ -1,0 +1,11 @@
+\chapter{Colourings}
+A proper colouring is a function $c: \v \rightarrow \text{set of colours}$ such that no two adjacent vertices in $G$ receive the same colour. The set of colours is generally a set of "real" colours or the set $[h] = \{1, \dots, k\}$ for some integer $k$. We say $G$ is $k$-colourable if there exists a proper colouring $c$ of $G$ with $\leq k$ colours. The minimum $k$ such that $G$ is $k$-colourable is called the chromatic number of $G$ and is denoted with $\mathcal{X}(G)$.
+
+Note that $\cn[\clq{n}] = n$, in particular, $\clq{n} \subseteq G \implies \cn(G) \geq n$.
+\begin{customtheorem}{6.1}
+\label{theorem:6.1}
+    Every planar graph is $4$-colourable.
+\end{customtheorem}
+If we want to colour vertices we have a very simple and greedy algorithm that works in the following way: Given an ordering $v_1, \dots, v_n$ of $\v$ we colour $G$ in this order at stage $i$ we colour $v_i$ with the lowest colour not used for any of its already coloured neighbours.
+
+Note that we use at most $\mind + 1$ colours, thus $\cn \leq \mind + 1$
