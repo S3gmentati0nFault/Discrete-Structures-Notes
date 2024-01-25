@@ -6,6 +6,97 @@ Note that $\cn[\clq{n}] = n$, in particular, $\clq{n} \subseteq G \implies \cn(G
 \label{theorem:6.1}
     Every planar graph is $4$-colourable.
 \end{customtheorem}
-If we want to colour vertices we have a very simple and greedy algorithm that works in the following way: Given an ordering $v_1, \dots, v_n$ of $\v$ we colour $G$ in this order at stage $i$ we colour $v_i$ with the lowest colour not used for any of its already coloured neighbours.
+If we want to colour vertices we have a very simple and greedy algorithm that works in the following way: Given an ordering $v_1, \dots, v_n$ of $\v$ we colour $G$ in this order at stage $i$ we colour $v_i$ with the lowest colour not used for any of its already coloured neighbours. Therefore $v_i$ is coloured with colour $\leq \deg[v_i] + 1$, which means that we use at most $\maxd + 1$ colours, thus $\cn \leq \maxd + 1$.
 
-Note that we use at most $\mind + 1$ colours, thus $\cn \leq \mind + 1$
+Remark: The colouring is not order-invariant, which means that the ordering off the vertices matters.
+
+Intuition: To minimise the number of colours used, it seems sensible to put vertices of large degree at the start and small degree vertices at the end.
+
+For a partial ordering $v_n, \dots, v_{i + 1}$ denote $G_i = G - \{v_n, \dots, v_{i + 1}\}$
+
+Now chose an ordering as follows: Let $v_n$ be a vertex of degree $\mind$ in $G$ for $i = n - 1, \dots, 1$ in turn, choose a vertex $v_i$ of degree $\mind$ in $G_i$. Now apply the greedy algorithm with ordering $v_1, \dots, v_n$. Then, $\fa i \in [n]$, $v_i$ is coloured with a colour $\leq d[G_i]{v_i} + 1 \das \mind[G_i] + 1$. Therefore:
+\begin{equation*}
+    \cn \leq \max_{i \in [n]}\mind[G_i] + 1
+\end{equation*}
+\begin{customproposition}{6.2}
+\label{proposition:6.2}
+    For any graph $G$, $\cn \leq \max_{H \subseteq G} \mind[H] + 1$
+\end{customproposition}
+\begin{customcorollary}{6.3}
+\label{corollary:6.3}
+    Every graph $G$ has a subgraph of minimum degree $\geq \cn - 1$
+\end{customcorollary}
+\begin{customtheorem}{Headwood}
+\label{theorem:headwood}
+    Every planar graph is $5$-colourable.
+\end{customtheorem}
+\begin{prf}
+    We prove the theorem by induction on $\nv$, the base case is trivial, we just have the one vertex.
+
+    Let $G$ be a plane graph on at least two vertices. Without loss of generality we may add edges to $G$ so that it is maximally plane. So by Proposition \ref{lemma:4.8}, $G$ is a plane triangulation and has $3n - 6$ edges (by Corollary \ref{corollary:4.9}). By Handshaking lemma we know that
+    \begin{equation*}
+        \avgd = \frac{2 - (3n - 6)}{n} \leq 6
+    \end{equation*}
+    Therefore there exists a vertex $v \in \v$ of degree $\leq 5$.
+
+    Apply the induction hypothesis to $G - v$ to obtain a $5$-colouring $c$ of $G - v$. If $c$ uses at most $4$ colours on $\ngbrs{v}$, then there is a free colour for $v$ and we can directly extend $C$ to a $5$-colouring of $G$. So, we may assume that $N(v) = \{v_1, \dots, v_5\}$ where $c(v_i) = i \fa i$.
+
+    By Corollary \ref{corollary:4.19}, $G$ contains a cycle $\cycl$ with $\v[\cycl] = N(v)$. Without loss of generality we can say that $\cycl = v_1v_2\dots v_5$. Let $G_{1, 3}$ ne the subgraph of $G - v$ induced by the vertices coloured with $1$ or $3$.
+
+    If $v_1$ and $v_3$ lie in distinct components $K^1$ and $K^3$ of $G_{1, 3}$, then we may swap colours $1$ and $3$ in $K^1$. This is still a colouring of $G - v$ but now $c(v_1) = 3$, so we can colour $v$ with $1$ and we may assume $v_1$ and $v_3$ are in a common component of $G_{1, 3}$, which implies that $G - v$ contains a $v_1 - v_3$ path $P_{1, 3}$ which only uses vertices coloured with $\{1, 3\}$.
+
+    Similarly, we may assume that $G - v$ contains a $v_2 - v_5$ path $P_{2, 5}$ using vertices coloured with $\{2, 5\}$.
+
+    So $G$ contains a subdivision for $\clq{5}$, with branch vertices $v, v_1, v_2, v_3, v_5$, but this contradicts \ref{theorem:kuratowski}'s theorem.\qed
+\end{prf}
+\begin{coolfact}
+    A simple argument shows that any triangle-free planar graph has minimum degree at most $3$, so can show inductively that such graphs are $4$-colourable.
+\end{coolfact}
+\begin{customtheorem}{9.5}
+\label{theorem:9.5}
+    Every triangle free planar graph is $3$-colourable.
+    \begin{equation*}
+        \cn \leq \maxd + 1
+    \end{equation*}
+\end{customtheorem}
+\begin{customtheorem}{Brooks}
+\label{theorem:brooks}
+    Let $G$ be a connected graph which is neither complete nor it is an odd cycle, then:
+    \begin{equation*}
+        \cn \leq \maxd
+    \end{equation*}
+\end{customtheorem}
+\begin{prf}
+    By induction on $\nv$:
+    \begin{itemize}
+        \item[(Base case: )] If $\maxd \leq 2$, then $G$ is a path or a cycle, and so $G$ is $2$-colourable by assumption.
+        \item[(Inductive case: )] If we suppose that $\Delta \das \maxd \geq 3$.
+        
+        Suppose for a contradiction that $G$ is not $\Delta$-colourable and let $v \in \v$. Let $H = G - v$, if $H$ is neither complete nor an odd cycle, then by Induction Hypothesis $H$ is $\Delta$-colourable.
+
+        If $H$ is complete or an odd cycle then it is $(\maxd[H] + 1)$-colourable but $H$ is $\maxd[H]$-regular, so as $G$ is connected, $v$ as a neighbour $w \in \v[H]$, which has degree $\maxd[H] + 1$ in $G$. Therefore $\Delta = \maxd[H] + 1$. Which means that, in all cases $H$ is $\Delta$-colourable.
+
+        \begin{customclaim}{1}
+        \label{claim:brooks_1}
+            Each $\Delta$-colouring of $H$ uses all colours $1, \dots, \Delta$ on $\ngbrs{v}$.
+        \end{customclaim}
+        \begin{prf}
+            If not then there would be a free colour that I can use, which means that $\cn > \Delta$, which is a contradiction.\qed
+        \end{prf}
+        Given a $\Delta$-colouring of $G$ we always denote by $v_1, \dots, v_\Delta$ the neighbours of $v$ with $v_i$ of colour $i$. And for colour $i$ and $j$ we denote by $H_{i, j}$ the subgraph of $G$ induced by the vertices of colours $i$ and $j$.
+        \begin{customclaim}{2}
+        \label{claim:brooks_2}
+            For any $\Delta$-colouring of $H$ $v_i$ and $v_j$ lie in a common component of $H_{i, j}$.
+        \end{customclaim}
+        \begin{prf}
+            If not, then we can swap colours $i$ and $j$ in the component containing $v_i$ so that now both $v_i$ and $v_j$ have colour $j$, a contradiction to Claim \ref{claim:brooks_1}.\qed
+        \end{prf}
+        \begin{customclaim}{3}
+        \label{claim:brooks_3}
+            For any $\Delta$-colouring of $H$ and $i, j \in [\Delta]$ the component $C_{i, j}$ of $H_{i, j}$ containing $v_i$ and $v_j$ is a $v_i - v_j$ path.
+        \end{customclaim}
+        \begin{prf}
+            First, note that $\deg[H]{v_i} \leq \Delta - 1$ ($v_iv \in \e$) so if $v_i$ has $2$ neighbours of the same colour, then there is a colour $k \in [\Delta] \setminus \{i\}$ which is not used on $\ngbrs[H]{v_i}$ and so now $i$ is no longer used in $\ngbrs{v}$, a contradiction to Claim \ref{claim:brooks_1}. Since all neighbours of $v_i$ in $C_{i, j}$ are coloured $j$, this implies that $\deg[C_{i, j}]{v_i} = 1$, similarly $\deg[C_{i, j}]{v_j} = 1$. Let $P$ be a $v_i - v_j$ path in $H_{i, j}$ and suppose for a contradiction that $P \neq C_{i, j}$. Since $v_i$ and $v_j$ have degree $1$ in $C_{i, j}$ this means that $P$ has an internal vertex of degree $3$ in $C_{i, j}$. Let $u$ be the first one in $P$. And note that all $3$ neighbours of $u$ in $C_{i, j}$ have the same colour. So, since $\deg{u} \leq \Delta$, there is a colour $h \in [\Delta] \setminus \{i, j\}$ which is not used on $\ngbrs[H]{u}$. Recolouring $u$ with $h$ gives a colouring where $v_i$ and $v_j$ lie in distinct components of $H_{i, j}$ a contradiction to Claim \ref{claim:brooks_2}.\qed
+        \end{prf}
+    \end{itemize}
+\end{prf}
