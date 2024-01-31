@@ -1,0 +1,13 @@
+\begin{tikzpicture}
+    \node[defv] (n1) at (-1.5,-1.5) {$v_1$};
+    \node[defv] (n2) at (-1.5,1.5) {$v_2$};
+    \node[defv] (n3) at (1.5,-1.5) {$v_3$};
+    \node[defv] (n4) at (1.5,1.5) {$v_4$};
+
+    \draw[defe] (n1) edge node[above] {} (n2);
+    \draw[defe] (n2) edge node[above] {} (n3);
+    \draw[defe] (n3) edge node[above] {} (n4);
+    \draw[defe] (n4) edge node[above] {} (n1);
+    \draw[defe] (n2) edge node[above] {} (n4);
+    \draw[defe] (n1) edge node[above] {} (n3);
+\end{tikzpicture}

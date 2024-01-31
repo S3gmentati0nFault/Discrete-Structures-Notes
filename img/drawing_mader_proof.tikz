@@ -1,0 +1,25 @@
+\begin{tikzpicture}
+    \node[defv] (n1) at (-1.25,0) {$v_1$};
+    \node[defv] (n2) at (-2,2) {$v_2$};
+    \node[defv] (n3) at (1.25,0) {$v_3$};
+    \node[defv] (n4) at (2,2) {$v_4$};
+    \node[defv] (n5) at (0,3) {$v_5$};
+
+    \draw[defe] (n1) edge node[above] {} (n2);
+    \draw[defe] (n2) edge node[above] {} (n3);
+    \draw[defe] (n3) edge node[above] {} (n4);
+    \draw[defe] (n4) edge node[above] {} (n1);
+    \draw[defe] (n2) edge node[above] {} (n4);
+    \draw[defe] (n1) edge node[above] {} (n3);
+    \draw[defe] (n5) edge node[above] {} (n1);
+    \draw[defe] (n5) edge node[above] {} (n2);
+    \draw[defe] (n5) edge node[above] {} (n3);
+    \draw[defe] (n5) edge node[above] {} (n4);
+
+    \draw[ultra thick, rede, dashed] (n5) edge node[above] {} (n1);
+    \draw[ultra thick, rede, dashed] (n5) edge node[above] {} (n4);
+    \draw[ultra thick, rede, dashed] (n5) edge node[above] {} (n3);
+    \draw[ultra thick, rede, dashed] (n4) edge node[above] {} (n1);
+    \draw[ultra thick, rede, dashed] (n3) edge node[above] {} (n4);
+    \draw[ultra thick, rede, dashed] (n1) edge node[above] {} (n3);
+\end{tikzpicture}

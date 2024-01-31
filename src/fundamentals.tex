@@ -155,11 +155,11 @@ Now we will prove a very important lemma
     \end{equation*}
     By the induction hypothesis $\ex H \subseteq G'$ such that
     \begin{equation*}
-        \mind[H] > \ed[H] \geq \ed[G'] \geq \ed
+        \mind > \ed[H] \geq \ed[G'] \geq \ed
     \end{equation*}
     And that proves our proposition.\qed
 \end{prf}
-Let $G$ and $G'$ be two graphs, we say that $G$ and $G'$ are isomorphic ($G \cong G'$) if there is a bijection $\phi: \v \rightarrow V(G')$ where, for any $u, v \in \v, uv \in \e \iff \phi(u)\phi(v) \in \e[G']$. $\phi$ is called isomorphism, if domain and codomain are the same then the function is colled an automorphism.
+Let $G$ and $G'$ be two graphs, we say that $G$ and $G'$ are isomorphic ($G \cong G'$) if there is a bijection $\phi: \v \rightarrow V(G')$ where, for any $u, v \in \v, uv \in \e \iff \phi(u)\phi(v) \in \e[G']$. $\phi$ is called isomorphism, if domain and codomain are the same then the function is called an automorphism.
 \begin{coolfact}
     The \prblm{Graph isomorphism problem} consists in determining whether two graphs are isomorphic, and it is one of the problems suspected to be in between \P and \NP.
 \end{coolfact}
@@ -225,11 +225,18 @@ Let $\delta, g \geq 3$ and $G$ a graph with $\mind \geq \delta$ and $g(G) \geq g
     \label{lemma:1.11}
     Let $G$ be a graph, the relation $\conn$ defined by:
     \begin{equation*}
-        x \conn y \iff \exists x-y \text{path in } G
+        x \conn y \iff \exists x-y \text{ path in } G
     \end{equation*}
     For $x, y \in \v$ is an equivalence relation.
 \end{customlemma}
-Since the proof is trivial we will not be showing it. Having defined an equivalence relation we can see different connected components as equivalence classes, more formally:
+Since the proof is trivial we will not be showing it. Equivalence classes are associated to equivalence relations, formally:
+\begin{definition}
+    An equivalence class for a relation $\sim$ is the set:
+    \begin{equation*}
+        [a] = \{x \in X: a \sim x\}
+    \end{equation*}
+\end{definition}
+Having defined an equivalence relation we can see different connected components as equivalence classes, more formally:
 \begin{definition}[Component]
     The components of a graph $G$ are its maximal connected subgraphs, i.e. the subgraphs induced by the equivalence classes.
 \end{definition}
@@ -239,7 +246,19 @@ Since the proof is trivial we will not be showing it. Having defined an equivale
 Let's think about a couple of examples:
 \begin{itemize}
     \item A $1$-connected graph is a simply connected graph. Removing one node will just break connectivity.
+    \begin{figure}[h]
+        \centering
+        \input{img/1_connected_graph.tikz}
+        \label{fig:1_connected_graph_example}
+        \caption{An example of a 1 connected graph}
+    \end{figure}
     \item Any cycle is at most $2$-connected.
+    \begin{figure}[h]
+        \centering
+        \input{img/K_4.tikz}
+        \label{fig:2_connected_example}
+        \caption{Any graph is 2 connected}
+    \end{figure}
 \end{itemize}
 The largest $k$ such that $G$ is $k$-connected is called connectivity and we denote it with $k(G)$.
 \begin{definition}[Separator]
@@ -249,6 +268,12 @@ The largest $k$ such that $G$ is $k$-connected is called connectivity and we den
     \label{theorem:mader}
     Any graph $G$ with average degree $\geq 4k, k \in \N$, has a subgraph $H$ which is $(k + 1)$-connected and satisfies $\ed[H] > \ed - k$
 \end{customtheorem}
+\begin{figure}[h]
+    \centering
+    \input{img/drawing_mader_proof.tikz}
+    \label{fig:mader_proof}
+    \caption{$k = 1, \avgd = 5, H = 2-\text{connected}, \varepsilon(G) = 2 \implies \varepsilon(H)> 1$ ($H$ in red)}
+\end{figure}
 \begin{prf}
     Let $\varepsilon \das \ed$, now choose $H$ to be a subgraph of $G$ satisfying the following
     \begin{itemize}
@@ -329,9 +354,9 @@ The largest $k$ such that $G$ is $k$-connected is called connectivity and we den
 \end{prf}
 \begin{customtheorem}{(Carmensin)}
     \label{theorem:carmesin}
-    Evey graph $G$ with $\avgd \geq (3 + \frac{1}{3})k$ has a $k + 1$-connected subgraph with more than $2k$ vertices.
+    Evey graph $G$ with $\avgd \geq \tnd{3 + \frac{1}{3}}k$ has a $k + 1$-connected subgraph with more than $2k$ vertices.
 \end{customtheorem}
-We can extend the concept of connetivity to edges, we say that a graph with at least $2$ vertices is $k$-edge-connected if removing less than $k$ edges does not disconnect the graph. Any cycle, for example, other than being $2$-connected, is also $2$-edge connected.
+We can extend the concept of connetivity to edges, we say that a graph with at least $2$ vertices is $k$-edge-connected if removing less than $k$ edges does not disconnect the graph. Any cycle, for example, other than being $2$-connected, is also $2$-edge-connected.
 \begin{definition}[Edge-connectivity]
     The edge-connectivity of a graph $G$ is the maximum $k$ such that the graph is $k$-edge-connected.    
 \end{definition}
