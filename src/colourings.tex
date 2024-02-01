@@ -98,5 +98,96 @@ Now chose an ordering as follows: Let $v_n$ be a vertex of degree $\mind$ in $G$
         \begin{prf}
             First, note that $\deg[H]{v_i} \leq \Delta - 1$ ($v_iv \in \e$) so if $v_i$ has $2$ neighbours of the same colour, then there is a colour $k \in [\Delta] \setminus \{i\}$ which is not used on $\ngbrs[H]{v_i}$ and so now $i$ is no longer used in $\ngbrs{v}$, a contradiction to Claim \ref{claim:brooks_1}. Since all neighbours of $v_i$ in $C_{i, j}$ are coloured $j$, this implies that $\deg[C_{i, j}]{v_i} = 1$, similarly $\deg[C_{i, j}]{v_j} = 1$. Let $P$ be a $v_i - v_j$ path in $H_{i, j}$ and suppose for a contradiction that $P \neq C_{i, j}$. Since $v_i$ and $v_j$ have degree $1$ in $C_{i, j}$ this means that $P$ has an internal vertex of degree $3$ in $C_{i, j}$. Let $u$ be the first one in $P$. And note that all $3$ neighbours of $u$ in $C_{i, j}$ have the same colour. So, since $\deg{u} \leq \Delta$, there is a colour $h \in [\Delta] \setminus \{i, j\}$ which is not used on $\ngbrs[H]{u}$. Recolouring $u$ with $h$ gives a colouring where $v_i$ and $v_j$ lie in distinct components of $H_{i, j}$ a contradiction to Claim \ref{claim:brooks_2}.\qed
         \end{prf}
+        \begin{customclaim}{4}
+        \label{claim:brooks_4}
+            For any $\Delta$-colouring of $H$ and any distinct $i, j, k \in [\Delta]$, $C_{i, j}$ and $C_{j, k}$ only intersect in $v_i$.
+        \end{customclaim}
+        \begin{prf}
+            Suppose for a contradiction that $\ex u \neq v_i$ with $u \in \v[C_{i, j}] \cap \v[C_{j, k}]$.
+
+            Note $v$ has to be coloured $i$ and so is an internal vertex of $C_{i, j}$ and $C_{i, k} \implies u$ has two neighbours coloured $j$ and two neighbours coloured $k$. So $\ngbrs{u}$ ised $\leq \Delta - 2$ colours, which means, in turn, that there is $L \in [\Delta] \setminus \{i\}$ such that no neighbour of $u$ is coloured $L$. So we could recolour $u$ with $L$ but then $v_i$ and $v_j$ would lie in distinct components of $H_{i, j}$, a contradiction to Claim \ref{claim:brooks_2}. \qed
+        \end{prf}
+        Suppose $\ngbrs{v}$ is complete. Then $G[v \cup \ngbrs{v}] \cong \clq{\Delta + 1}$. So, since $\maxd = \Delta$ and $G$ is connected, we have $G = G[v \cup \ngbrs{v}] \cong \clq{\Delta + 1}$. Which is a contradiction.
+
+        So we may assume withour loss of generality that $v_1v_2 \notin \e$ in some colouring $C$. By Claim \ref{claim:brooks_3}, $C_{1, 2}$ is a path and by assumption, of length at least $2$. So let neighbours of $v_1$ on $C_{1, 2}$. note $C(v) = 2$.
+
+        Recall that $\Delta \geq 3$, so again, by Claim \ref{claim:brooks_3} implies that $C_{1, 3}$ is a $v_1 - v_3$ path which only intersects $C_{1, 2}$ at $v_1$ (by Claim \ref{claim:brooks_4}).
+
+        Now define a new $\Delta$-colouring $C'$ of $H$ by swapping the colours $1$ and $3$ along $C_{1, 3}$. This means that $v_1' = v_3$ and $v_2' = v_2$.
+
+        Applying Claim \ref{claim:brooks_3}, $C_{1, 2}$ is a $v_1' - v_2$ path and since $uC_{1, 2}v_2$ was not recoloured, we get that $uC_{1, 2}v_2 \subseteq C'_{1, 2}$. So $u$ is an internal vertex of $C'_{1, 2}$ which means that $u$ has $2$ neighbours of colour $1$ on $C'_{1, 2}$ and these are not $v_1$ and also not on $C_{1, 3}$ so $u$ actually has $3$ neighbours in $C_{1, 2}$. This contradicts the fact that $C_{1, 2}$ is a path (by Claim \ref{claim:brooks_3}). \qed
+    \end{itemize}
+\end{prf}
+\noindent The clique number $w(G)$ is the largest $k$ such that $G$ contains a $\clq{k}$ as a subgraph. As an example, if $w(G) = 2$ then $G$ is a bipartite graph.
+
+\noindent\textbf{Conjecture (Barodin - Kostochka)} - Let $G$ be a graph with $\maxd \geq 9$. Then $\cn \leq \maxd - 1$ unless $w(G) \geq \maxd$.
+
+Why $\maxd \geq 9$? Because there is a graph $G$ with $\maxd = 8, w(G) < 8 \land \cn \geq 8$.
+
+\begin{customlemma}{6.8}
+\label{lemma:6.8}
+    For any graph $G$,
+    \begin{equation*}
+        \cn \geq \frac{\nv}{\alpha(G)}
+    \end{equation*}
+\end{customlemma}
+\begin{prf}
+    Fix an optimal colouring of $G$ (a $\cn$ colouring).
+
+    Let $C_1, \dots, C_{\cn}$ be the colour classes (which means $C_i$ is the set of vertices coloured $i$). Note that each $C_i$ induces an independent set so $|C_i| \leq \alpha(G) \fa i$ therefore:
+    \begin{equation*}
+        \nv = \sum_{i \in [\cn]}|C_i| \leq \cn \cdot \alpha(G)
+    \end{equation*}
+    And this proves the theorem.\qed
+\end{prf}
+
+\begin{customlemma}{6.9}
+\label{lemma:6.9}
+    For any $G$, we have $\cn \geq w(G)$. On the other hand, there is no function $f$ such that $\cn \leq f(w(G))$ for all $G$.
+\end{customlemma}
+In fact, there are triangle-free graphs $(w(G) = 2)$ with arbitrarily large chromatic number.
+\begin{customtheorem}{Mycielski}
+\label{theorem:mycielski}
+    For any positive integer $k$, there exists a triangle-free graph with chromatic number $k$.
+\end{customtheorem}
+\begin{customlemma}{6.11}
+\label{lemma:6.11}
+    For any optimal colouring of $G$ and any $i \in [\cn]$, there exists $v_i \in \v$ coloured $i$ such that all colours appear in $\{v_i\} \cap \ngbrs{v_i}$.
+\end{customlemma}
+\begin{prf}
+    Suppose for a contradiction that there is $i \in [\cn]$ such that for all $v \in \v$ coloured $i$ there is $j_v \in [\cn] \setminus \{i\}$ which is not on $\ngbrs{v}$. now recolour each $v$ of colour $i$ with colour $j_v$ which means that we have a $(\cn - 1)$ colouring. Which is contradictiory.\qed
+\end{prf}
+We can now prove \ref{theorem:mycielski}'s theorem.
+\begin{prf}
+    Induction on $k$.
+
+    $G_1 =$ one certex.
+
+    $G_2 =$ bipartite graph.
+    \begin{itemize}
+        \item[(Base case)] Let $G_3$ be an odd cycle of length $\geq 5$. Clearly triangle-free and $\cn[G_3] = 3$.
+        \item[(Inductive case)] Suppose inductively that we have constructed $G_k$ such that it's triangle-free with $\cn[G_k] = k$.
+        
+        We define $G_{k + 1}$ as follows: Let $V_k = \v[G_k]$ and let $W_k$ consist of one copy $v'$ of each $v \in V_k$. Let $z$ be a new vertex $\notin V_k \cup W_k$.
+
+        Let $\v[G_{k + 1}] = V_k \cup W_k \cup \{z\}$
+
+        Now let $G_{k + 1}[V_k] \cong G_k$ and let $N(z) \das W(k)$ and for each $v' \in W_k$, let $N(v') \das N(v)$.
+
+        $G_{k + 1}$ is triangle free:
+        \begin{itemize}
+            \item $W_k$ is an independent set of $z$ is not in a triangle and a triangle contains at most $1$ vertex from $W_k$.
+            \item By the induction hypothesis we have no triangle in $G_{k + 1}[V_k]$
+            \item So the only remaining possibility is a triangle $w'uv$ for $w' \in W_k$ and $u, v \in V_k$. But $w'uv$ is a triangle, which means that $wuv$ is also a triangle in $G_k$, which is contradicting the inductive hypothesis.
+        \end{itemize}
+        $\cn[G_{k + 1} \leq k + 1]$: Construct a $(k + 1)$-colouring $c$ of $G_{k + 1}$ as follows
+        \begin{itemize}
+            \item By induction hypothesis it's possible to colour $V_k$ with $k$ colours.
+            \item Then for each $v \in W_k$, colour $v'$ as $v$.
+            \item Colour $z$ with colour $k + 1$.
+        \end{itemize}
+        $\cn[G_{k + 1} \leq k + 1]$: Suppose not, and let $\emptyset$ be a $k$-colouring of $G_k$ and so, by Lemma \ref{lemma:6.11} gives that $\fa i \in [k]$, there exists $v_i \in V_k \st \emptyset(v_i) = i$ and $\emptyset(\{v_i\} \cup (N(v_i) \cap V_k)) = [k]$. But then $N(v_i') \cap V_k = N(v_i) \cap V_k$ so $\emptyset(v_i') = i$.
+
+        Therefore $W_k = N(z)$ has a vertex of each colour. So $z$ has a neighbour of colour $\emptyset(z)$, which is a contradiction.\qed
     \end{itemize}
 \end{prf}
