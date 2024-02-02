@@ -191,3 +191,62 @@ We can now prove \ref{theorem:mycielski}'s theorem.
         Therefore $W_k = N(z)$ has a vertex of each colour. So $z$ has a neighbour of colour $\emptyset(z)$, which is a contradiction.\qed
     \end{itemize}
 \end{prf}
+\section{Edge Colourings}
+An edge colouring of $G$ is a function from $\e$ to a set of colours such that no two adjacent edges have the same colour. We say $G$ is $k$-edge-colourable if it can be edge-coloured with $k$ colours.
+
+The chromatic index $\ci$ is the minimum $k$ such that $G$ is $k$-edge-colourable. Let's now go through a couple of observations:
+\begin{itemize}
+    \item $\ci \geq \maxd$
+    \item An edge colouring of $G$ is equivalent to a vertex colouring of $L(G)$, which is the line graph.
+    \item The colour classes in the vertex colourings induce independent sets, while edge colourings induce matchings.
+\end{itemize}
+Therefore the graph induced by two colour classes is always a union of disjoint paths and cycles.
+\begin{customtheorem}{6.15}
+\label{theorem:6.15_konig}
+    For any bipartite graph $G_i, \ci = \maxd$    
+\end{customtheorem}
+\begin{customproposition}{6.16}
+\label{proposition:6.16}
+    For any graph $G$ there exists a $\maxd$-regular graph which contains $G$ as a subgraph. Moreover, if $G$ is bipartite then we can take $G'$ to be bipartite as well.
+\end{customproposition}
+We can now prove Theorem \ref{theorem:6.15_konig}, or König's theorem.
+\begin{prf}
+    Let $G$ be a bipartite graph. by proposition \ref{proposition:6.16} we may assume without loss of generality that $G$ is regular, since we can find a supergraph containing $G$ and $\maxd$-regular and bipartite, therefore any $\maxd$-edge-colouring for $G'$ is a $\maxd$-edge-colouring in $G'$.
+
+    By Corollary \ref{corollary:2.4} $G$ has a perfect matching $M$, inductively we may assume $G - M$ is $(\maxd - 1)$-edge-colourable therefore we can extend the edge colouring by adding one colour and colouring every edge in $M$ the same.\qed
+\end{prf}
+\begin{customtheorem}{Vizing}
+\label{theorem:vizing}
+    For any graph $G, \maxd \leq \ci \leq \maxd + 1$
+\end{customtheorem}
+Note that because of the above theorem we can divide edge-colourable graphs into two classes:
+\begin{itemize}
+    \item Class 1 - $\ci = \maxd$
+    \item Class 2 - $\ci = \maxd + 1$
+\end{itemize}
+We can now move to the proof for the theorem.
+\begin{prf}
+    Fix $\Delta$. We will show that, for any graph $G$, with $\maxd \leq \Delta$, we have $\ci \leq \Delta + 1$.
+
+    In this proof, whenever we say "edge colouring" we mean an edge colouring with colours $1, \dots, \Delta + 1$. We will reason by induction on $\ne$.
+    \begin{itemize}
+        \item[Base case] If there are no edges then we have a colouring with $0$ colours.
+        \item[Inductive case] Suppose that $\ne \geq 1$ Let $xy_0 \in \e$ by induction we know that $G - xy_0$ is $(\Delta + 1)$-edge-colourable.
+        
+        We can guarantee that, since $x$ is using $\Delta - 1$ colours and $y_0$ is using $\Delta - 1$ colours as well, this means that I have at most $2$ free colours. We say that the colour $\alpha$ is missing from vertex $x$.
+
+        If $\alpha$ is missinga at a generic vertex $v$ and $\beta$ is another colour, then the component of the graph induced by colours $\alpha$ and $\beta$ which contains $v$ is a path with $v$ as an endpoint (potentially of length $0$ if $\beta$ is also missing at $v$). This path will be called the $\alpha,\beta$-path from $v$.
+
+        Fix an edge colouring of $G - xy_0$. now let $y_0y_1\dots y_k$ be a maximal sequence of distinct neighbours of $x$ such that for each $i \in [k], c(xy_i)$ is missing at $y_{i - 1}$. Let $\alpha$ ne a colour missing at $y_k$. Let $P$ be the $\alpha, \beta$-path from $y_k$.
+        \begin{itemize}
+            \item[Case 1] \textbf{$\bm{P}$ does not end at $\bm{x}$}
+            
+            Note that $x \notin \v[P]$ because $\alpha$ is missing at $x$. We can swap colours $\alpha$ and $\beta$ along $P \implies y_k$ was missing $\beta$ but now $y_k$ is missing $\alpha$.
+
+            For each $i \in k$ we recolour the edge $xy_{i - 1}$ with colour $c(xy_1)$ and this is possible since, by assumption, $c(xy_i)$ is missing at $y_{i - 1}$.
+            \item[Case 2] \textbf{$\bm{P}$ ends at $\bm{x}$}
+            
+            Say $y = y_j$ swap the colour $\alpha$ and $\beta$ along $P$. Note $xy_j$ is now coloured $\alpha$ and $\beta$ is no longer used at $x$. For all $i \in [j]$ recolour $xy_{i - 1}$ with $c(xy_i)$.\qed
+        \end{itemize}
+    \end{itemize}
+\end{prf}
