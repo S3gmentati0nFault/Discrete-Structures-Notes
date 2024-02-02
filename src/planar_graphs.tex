@@ -184,11 +184,11 @@ Let's recall that if a graph $G$ has a topological minor $X$ then $X$ is also mi
 \begin{prf}
     We prove the statement by induction on $n \das \nv$. Let $G$ be $3$-connectew with $\clq{5}, \clq{3, 3} \nminr G$.
 
-    \textbf{Base case: } $n = 4 \implies G$ is $\clq{4}$, which is a planar clique. 
+    \textbf{(Base case)} $n = 4 \implies G$ is $\clq{4}$, which is a planar clique. 
     
-    \textbf{Induction hypothesis: }Suppose $n > 5$. By \ref{lemma:3.4}, there is $xy \in \e$ such that $G / xy$ is still $3$-connected. 
+    \textbf{(Inductive case)}Suppose $n > 5$. By \ref{lemma:3.4}, there is $xy \in \e$ such that $G / xy$ is still $3$-connected. 
     
-    \textbf{Inductive case: }Note $G / xy$ still does not contain $\clq{5}$ or $\clq{3, 3}$ as a minor, so by induction hypothesis $G / xy$ is planar. Let $V_xy$ be the new vertex in $G / xy$ and consider $G /xy$ as a plane graph (which means that we fix and work with an embedding). Let $f$ be the face of $G / xy - V_xy$ containing $V_xy$.
+    Note $G / xy$ still does not contain $\clq{5}$ or $\clq{3, 3}$ as a minor, so by induction hypothesis $G / xy$ is planar. Let $V_xy$ be the new vertex in $G / xy$ and consider $G /xy$ as a plane graph (which means that we fix and work with an embedding). Let $f$ be the face of $G / xy - V_xy$ containing $V_xy$.
 
     Note $G / xy$ is $3$-connected, so $G / xy - V_xy$ is 3 connected, thus by Lemma $f$ is bounded by a cycle $\cycl$. Note $\ngbrs{x} \cup \ngbrs{y} \setminus \grf{x, y} = \ngbrs[G / xy]{V_xy} \subseteq \v[\cycl]$.
 

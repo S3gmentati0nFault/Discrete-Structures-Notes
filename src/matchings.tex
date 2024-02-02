@@ -275,10 +275,10 @@ A graph $G$ is vertex transitive if, for any $u, v \in \v$ there is an automorph
     \begin{prf}
         To prove this theorem we will reason inductively on the length of $P$.
         \begin{itemize}
-            \item[\textbf{Base case:}] $P = uv$
+            \item[\textbf{(Base case)}] $P = uv$
             
             If a matching misses both $u$ and $v$, we cann add the edge $uv$ to it, so it is not maximum.
-            \item[\textbf{Inductive step:}] Suppose $P$ has an internal vertex $x$. By assumption the internal vertices of $uPx$ are not critical, therefore, the induction hypothesis gives us that no maximum matching misses both $u$ and $x$. Similarly, by applying the induction hypothesis to $xPv$, no maximum matching misses both $x$ and $v$.
+            \item[\textbf{(Inductive case)}] Suppose $P$ has an internal vertex $x$. By assumption the internal vertices of $uPx$ are not critical, therefore, the induction hypothesis gives us that no maximum matching misses both $u$ and $x$. Similarly, by applying the induction hypothesis to $xPv$, no maximum matching misses both $x$ and $v$.
             
             Since $x$ is not critical, there exists a maximum matching $M_x$ which misses $x$. So note $u, v \in \v[M_x]$.
 

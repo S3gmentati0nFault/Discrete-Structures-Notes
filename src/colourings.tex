@@ -69,8 +69,8 @@ Now chose an ordering as follows: Let $v_n$ be a vertex of degree $\mind$ in $G$
 \begin{prf}
     By induction on $\nv$:
     \begin{itemize}
-        \item[(Base case: )] If $\maxd \leq 2$, then $G$ is a path or a cycle, and so $G$ is $2$-colourable by assumption.
-        \item[(Inductive case: )] If we suppose that $\Delta \das \maxd \geq 3$.
+        \item[\textbf(Base case)] If $\maxd \leq 2$, then $G$ is a path or a cycle, and so $G$ is $2$-colourable by assumption.
+        \item[\textbf(Inductive case)] If we suppose that $\Delta \das \maxd \geq 3$.
         
         Suppose for a contradiction that $G$ is not $\Delta$-colourable and let $v \in \v$. Let $H = G - v$, if $H$ is neither complete nor an odd cycle, then by Induction Hypothesis $H$ is $\Delta$-colourable.
 
@@ -165,8 +165,8 @@ We can now prove \ref{theorem:mycielski}'s theorem.
 
     $G_2 =$ bipartite graph.
     \begin{itemize}
-        \item[(Base case)] Let $G_3$ be an odd cycle of length $\geq 5$. Clearly triangle-free and $\cn[G_3] = 3$.
-        \item[(Inductive case)] Suppose inductively that we have constructed $G_k$ such that it's triangle-free with $\cn[G_k] = k$.
+        \item[\textbf(Base case)] Let $G_3$ be an odd cycle of length $\geq 5$. Clearly triangle-free and $\cn[G_3] = 3$.
+        \item[\textbf(Inductive case)] Suppose inductively that we have constructed $G_k$ such that it's triangle-free with $\cn[G_k] = k$.
         
         We define $G_{k + 1}$ as follows: Let $V_k = \v[G_k]$ and let $W_k$ consist of one copy $v'$ of each $v \in V_k$. Let $z$ be a new vertex $\notin V_k \cup W_k$.
 
@@ -230,8 +230,8 @@ We can now move to the proof for the theorem.
 
     In this proof, whenever we say "edge colouring" we mean an edge colouring with colours $1, \dots, \Delta + 1$. We will reason by induction on $\ne$.
     \begin{itemize}
-        \item[Base case] If there are no edges then we have a colouring with $0$ colours.
-        \item[Inductive case] Suppose that $\ne \geq 1$ Let $xy_0 \in \e$ by induction we know that $G - xy_0$ is $(\Delta + 1)$-edge-colourable.
+        \item[\textbf(Base case)] If there are no edges then we have a colouring with $0$ colours.
+        \item[\textbf(Inductive case)] Suppose that $\ne \geq 1$ Let $xy_0 \in \e$ by induction we know that $G - xy_0$ is $(\Delta + 1)$-edge-colourable.
         
         We can guarantee that, since $x$ is using $\Delta - 1$ colours and $y_0$ is using $\Delta - 1$ colours as well, this means that I have at most $2$ free colours. We say that the colour $\alpha$ is missing from vertex $x$.
 
