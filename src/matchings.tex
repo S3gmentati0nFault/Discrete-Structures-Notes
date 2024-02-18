@@ -11,7 +11,10 @@ This means that:
 \begin{equation}
     \text{\textbf{Maximum}} \implies \text{\textbf{Maximal}} \:\:\text{but}\:\: \text{\textbf{Maximal}} \nimplies \text{\textbf{Maximum}}
 \end{equation}
-Let $G$ be a graph and $M$ a matching in $G$, an augmenting path in $G$ with respect to $M$ is a path in $G$ which starts at an unmatched vertex and alternates between edges of $\e \setminus M$ and $M$, and ends at an unmatched vertex. Note that $\e[P] \setminus M$ is a matching containing one edge more than $M$.
+\begin{definition}[Augmenting path]
+    Let $G$ be a graph and $M$ a matching in $G$, an augmenting path in $G$ with respect to $M$ is a path in $G$ which starts at an unmatched vertex and alternates between edges of $\e \setminus M$ and $M$, and ends at an unmatched vertex.    
+\end{definition}
+Note that $\e[P] \setminus M$ is a matching containing one edge more than $M$.
 \begin{customlemma}{2.1}
 \label{lemma:2.1}
     A matching is maximum $\iff$ it has no augmenting path.
@@ -39,9 +42,9 @@ An alternating path is a path starting at an unmatched vertex and alternates bet
 Given a graph $G$ and $A \subseteq \v$, a matching of $A$ in $G$ is a matching $M$ such that every $a \in A$ is incident to an edge of $M$. For $X \subseteq \v, \ngbrs{X} = \bigcup_{x \in X} \ngbrs{x} \setminus X$.
 \begin{customtheorem}{(Hall)}
 \label{theorem:hall}
-    Let $G = (A \cup B, E)$ be a bipartite graph. Then $G$ has a matching of $A$ if an only if
+    Let $G = (A \cup B, E)$ be a bipartite graph. Then $G$ has a matching of $A$ if and only if
     \begin{equation*}
-        |\ngbrs{X}| \geq |X| \text{for all $X \subseteq A$}
+        |\ngbrs{X}| \geq |X| \fa X \subseteq A
     \end{equation*}
 \end{customtheorem}
 \begin{prf}
@@ -59,10 +62,10 @@ Given a graph $G$ and $A \subseteq \v$, a matching of $A$ in $G$ is a matching $
         but $|B_U| = |A'| \leq |A \setminus A_U|$, thus the equality holds throughout this string of inequalities. In particular, $|A'| = |A \setminus A_U|$. So $A = A_U \cup A'$ and, as already observed, each vertex of $A$ is matched.\qed
     \end{itemize}
 \end{prf}
-Let $G$ be a graph. A matching $M$ in $G$ is perfect if $\v[M] = \v$. A perfect matching is also called a $1$-factor. More generally, a $k$-factor in $G$ is a spanning $k$-regular subgraph in $G$.
+Let $G$ be a graph. A matching $M$ in $G$ is perfect if $\v[M] = \v$. A perfect matching is also called a $1$-factor. More generally, a $k$-factor in $G$ is a spanning $k$-regular subgraph in $G$. An interesting concept is that any graph containing an Hamilton cycle contains a $2$-factor.
 \begin{customcorollary}{2.4}
 \label{corollary:2.4}
-    Let $k \geq 1$ and $k$-regular bipartite graph has a perfect matching.
+    Given $k \geq 1$, any $k$-regular bipartite graph has a perfect matching.
 \end{customcorollary}
 \begin{prf}
     Let $(A, B)$ be the bipartition of $G$. Since $G$ is $k$-regular then $k \cdot |A| = \ne = k \cdot |B|$.
@@ -108,8 +111,11 @@ Let $G$ be a graph. A matching $M$ in $G$ is perfect if $\v[M] = \v$. A perfect 
 Let $G$ be a graph. We denote by $\mathit{q}$ the number of odd components of $G$.
 \begin{customtheorem}{Tutte}
 \label{theorem:tutte}
-    A graph $G$ has a perfect matching if and only if, for every subset $U$ of $V$ the subgraph $G - U$ has at omost $|U|$ odd components.
+    A graph $G$ has a perfect matching if and only if, for every subset $U$ of $V$ the subgraph $G - U$ has at most $|U|$ odd components.
+
+    In other terms, we know that $\fa S \subseteq \v, q(G - S) \leq |S|$
 \end{customtheorem}
+A graph $G$ is factor-critical if $G - v$ has a perfect maching for each $v \in \v$ any odd cycle and odd complete graph are factor-critical.
 \begin{customtheorem}{Gallai-Edmonds decomposition}
 \label{theorem:gallai-edmonds}
     For any graph $G$ there exists $S^* \subseteq \v$ such that:
@@ -119,7 +125,6 @@ Let $G$ be a graph. We denote by $\mathit{q}$ the number of odd components of $G
         \item For all $\emptyset \neq X \subseteq S^*$, the set $\ngbrs{X}$ intersects $> |X|$ odd components of $G - S^*$.
     \end{enumerate}
 \end{customtheorem}
-A graph $G$ is factor-critical if $G - v$ has a perfect maching for each $v \in \v$ any odd cycle and odd complete graph are factor-critical.
 % TODO: UNDERSTAND WHAT IS THIS
 \begin{enumerate}
     \item Keep the matchings.
@@ -129,8 +134,9 @@ A graph $G$ is factor-critical if $G - v$ has a perfect maching for each $v \in 
 \begin{customlemma}{2.8}
 \label{lemma:2.8}
     Let $G$ be a graph and suppose $S^* \subseteq \v$ satisfies properly $1$ and $2$ of the last theorem, as well as $3'$ and $3$ but with $\geq |X|$.
+
+    Then $G$ has a matching which covers all but at most $\mathit{q}(G - S^*) - |S^*|$ vertices.
 \end{customlemma}
-Then $G$ has a matching which covers all but at most $\mathit{q}(G - S^*) - |S^*|$ vertices.
 \begin{prf}
     Let $V_E$ be the set of vertices in an even component of $G - S^*$. By \ref{theorem:gallai-edmonds} (second point) $G[V_E]$ has a perfect matching $M_E$.
 
@@ -252,6 +258,7 @@ A graph $G$ is vertex transitive if, for any $u, v \in \v$ there is an automorph
     Any connected vertex-transitive graph has a matching which misses at most one vertex.
 \end{customtheorem}
 \begin{prf}
+    Before proving the theorem we will prove two claims.
     \begin{customclaim}{1}
     \label{claim:theorem_2.10_1}
         Let $u, v$ be vertices such that no maximum matching misses both of them. Then, for any maximum matching $M_u$ and $M_v$ missing $u$ and $v$ respectively, $\ssdf{M_u}{M_v}$\footnote{This operation defines a symmetric set difference, $\ssdf{A}{B} = (A \setminus B) \cup (B \setminus A)$} contains a component which is a $u - v$ path of even length.
@@ -297,10 +304,13 @@ A graph $G$ is vertex transitive if, for any $u, v \in \v$ there is an automorph
 \end{customtheorem}
 \begin{customlemma}{2.12}
 \label{lemma:2.12}
-    Let $G$ be a graph and $M$ a matching in $G$. Let $P$ be an augmenting path of minimum length. Let $P'$ be an $\ssdf{M}{P}$ augmenting path. Then $l(P') \geq l(P) + \ne[P \cap P']$
+    Let $G$ be a graph and $M$ a matching in $G$. Let $P$ be an augmenting path of minimum length. Let $P'$ be an $\ssdf{M}{P}$ augmenting path. Then 
+    \begin{equation*}
+        l(P') \geq l(P) + \ne[P \cap P']
+    \end{equation*}
 \end{customlemma}
 \begin{prf}
-    Let $N: \ssdf{(\ssdf{M}{P})}{P'}$. Then $N$ is a matching and $|N| = |M| + 2$, this means that $\ssdf{M}{N}$ contains $2 - M$ augmenting paths $P_1$ and $P_2$ ($\ssdf{M}{N}$ consists of cycles of even length and paths. The two extra edges in $N$ give two odd paths starting and ending with an edge of $N$).
+    Let $N \das \ssdf{(\ssdf{M}{P})}{P'}$. Then $N$ is a matching and $|N| = |M| + 2$, this means that $\ssdf{M}{N}$ contains $2 - M$ augmenting paths $P_1$ and $P_2$ ($\ssdf{M}{N}$ consists of cycles of even length and paths. The two extra edges in $N$ give two odd paths starting and ending with an edge of $N$).
 
     Note $l(P_1), l(P_2) \geq l(P)$ and $\ssdf{M}{N} = \ssdf{P}{P'}$
     \begin{align*}
@@ -319,7 +329,7 @@ A graph $G$ is vertex transitive if, for any $u, v \in \v$ there is an automorph
     \item Set $M = \emptyset, x = 1$
     \item \label{algorithm:hk_cycle_head}\texttt{While} $x = 1$, \texttt{do}:
     \begin{enumerate}[label = \Alph*]
-        \item Perform a \texttt{BFS} at each evertex in $A \setminus \v[M]$ in turn, alternate between edges of $G - M$ and $M$.
+        \item Perform a \texttt{BFS} at each vertex in $A \setminus \v[M]$ in turn, alternate between edges of $G - M$ and $M$.
         \item Perform a \texttt{DFS} to find a maximal set $S$ of minimum augmenting paths.
         \item Flip the augmenting path and make it $M$.
         \item \texttt{if} $S = \emptyset \implies x = 0$

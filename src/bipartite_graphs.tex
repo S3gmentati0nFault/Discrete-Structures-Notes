@@ -27,12 +27,25 @@ and edge set:
 \end{equation*}
 \begin{customproposition}{1.25}
     \label{proposition:1.25}
-    $X \minr G \iff$ there exist disjoint sets $V_x \subseteq \v, x \in \v[X]$ such that:
-    \begin{itemize}
-        \item $\fa x \in V_x, G[V_x]$ is connected
-        \item For each $xy \in \e[X]$, there exists an edge in $G$ between $V_x$ and $V_y$
-    \end{itemize}
+    A graph $X$ is a minor of $G \iff$ there is a collection of disjoint sets $(V_x)_{x \in \v[X]}$ in $G$ such that: $xy \in \e[X] \implies$ there is an edge between some $v \in V_x$ and some $w \in V_y$ in $G$, and such that each $V_x, x \in \v[X]$, induces a connected subgraph of $G$.
 \end{customproposition}
+Before going through the proof let's consider an example. Let's consider the graph shown in Figure \ref{fig:original_graph_1.25}.
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[h]{0.4\textwidth}
+        \input{img/Proposition_1.25_example.tikz}
+        \caption{Original Graph $G$}
+        \label{fig:original_graph_1.25}
+    \end{subfigure}
+    \begin{subfigure}[h]{0.4\textwidth}
+        \input{img/Proposition_1.25_example_1.tikz}
+        \caption{Minor $X$}
+        \label{fig:minor_graph_1.25}
+    \end{subfigure}
+\end{figure}
+The theorem asserts that there must be an edge in $G$ connecting every set of disjoint vertices $V_k$, for example in \ref{fig:minor_graph_1.25} we have an edge between $v_2$ and $v_4$ and if we choose $V_4 = \{v_3, v_4, v_8\}$ and $V_2 = \{v_2\}$ then we have an edge between $V_4$ and $V_2$ in the original graph.
+
+Furthermore it's easy to see that for the particular $V_4$ and $V_2$ that we have taken the induced subgraph is connected, thus the theorem holds for this particular case. Now let's go through the proof.
 \begin{prf}
     To prove this theorem we will have to prove both directions.
     \begin{itemize}
