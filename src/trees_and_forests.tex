@@ -102,6 +102,19 @@ A spanning tree of the component containing $s$. More precisely, $R \subseteq \v
     \end{enumerate}
     \item Set $R = R \cup \grf{w}, Q = Q \cup \grf{w}$ and $T = T \cup \grf{w}$ and go to \ref{tag:condition}
 \end{enumerate}
+\begin{figure}
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+        \input{img/BFS_tree.tikz}
+        \caption{Result of the BFS visit strategy}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \input{img/DFS_tree.tikz}
+        \caption{Result of the DFS visit strategy}
+    \end{subfigure}
+    \label{fig:graph_scanning_algorithm}
+\end{figure}
 \begin{customlemma}{1.18}
     \label{lemma:1.18}
     The graph spanning algorithm works properly.
@@ -169,16 +182,16 @@ A spanning tree of the component containing $s$. More precisely, $R \subseteq \v
         Suppose not, so there exists $xy \in \e[T']\setminus\e[T]$, let $P$ be the $x - y$ path in $T$. By assumption each edge in $P$ has weight $\leq c(xy)$. Since $T'$ is a tree, $\exists e \in \e[P] \setminus \e[T']$ (otherwise $P + xy$ would be a cycle in $T'$). By the same arguments as above, $T' + e - xy$ is still a spanning tree but has weight no larger than $T'$. Since $c(e) \leq c(xy)$. But $T' + e - xy$ has one more edge in common with $T$, which is absurd.\qed
     \end{itemize}
 \end{prf}
-\subsubsection{\texttt{Kruskal's algorithm}}
-\textbf{Input}
+\subsection{\texttt{Kruskal's algorithm}}
+\subsubsection{Input}
 
 Connected graph $G$, weights $c: \e \rightarrow \R$
 
-\noindent\textbf{Output}
+\subsubsection{Output}
 
 Minimum spanning tree
 
-\noindent\textbf{Algorithm}
+\subsubsection{Algorithm}
 \begin{enumerate}
     \item Label the edges of $G$ with $e_1, \dots, e_m$ such that
     \begin{equation*}

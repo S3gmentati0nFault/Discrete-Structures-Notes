@@ -18,6 +18,7 @@ We say that two vertices are adjacent if $\grf{u, v} \in E$, an edge $\grf{u, v}
 \begin{definition}[Subgraph]
     Given two graphs $G, H$: We say $H$ is a subgraph of $G$ if $\v[H] \subseteq \v$ and $\e[H] \subseteq \e$, we denote this by saying that $H \subseteq G$.
 \end{definition}
+Important to note that a graph is a subgraph of itself.
 \begin{definition}[Induced subgraph]
     A subgraph $H$ of $G$ is induced if, for any $u, v \in \v[H], uv \in \e[H] \iff u, v \in \v$
 \end{definition}
@@ -131,33 +132,35 @@ Now we will prove a very important lemma
     \end{equation*}
 \end{customproposition}
 \begin{prf}
-    We will do an induction proof on $\nv$, the \textbf{base case} is the one in which we have a single edge as shown in \ref*{fig:k_2}. $K_2$ is the complete graph containing all of the edges connecting 2 vertices.
-    \begin{figure}[h]
-        \centering
-        \input{img/simple_edge.tikz}
-        \caption{A clique composed of just two vertices}
-        \label{fig:k_2}
-    \end{figure}
+    We will do an induction proof on $\nv$.
+    \begin{itemize}
+        \item[\textbf(Base case)] The base case is the one in which we have just two vertices connected by an edge $\clq{2}$ as shown in Figure \ref{fig:k_2}.
+        \begin{figure}[h]
+            \centering
+            \input{img/simple_edge.tikz}
+            \caption{A clique composed of just two vertices}
+            \label{fig:k_2}
+        \end{figure}
+        In this case we are having:
+        \begin{align*}
+            \ed[\clq{2}] &= \frac{1}{2} \\
+            \mind[\clq{2}] &= 1
+        \end{align*}
+        If we consider $H = \clq{2}$ and we know that every graph $G$ is subgraph of itself, then we have that $\mind > \ed[H] \geq \ed$.
+        \item[\textbf(Inductive case)] Let's suppose that we have a graph $G$ and we call $G' \das G - v$ then we suppose that $G'$ has a subgraph $H$ with $\mind[G'] > \ed[H] \geq \ed[G']$. We will now prove that $G$ follows the condition as well.
+        
+        Removing vertices with low degree increases the edge density. Given a graph $G$, let $v \in \v$ with $\deg{v} \leq \ed = \frac{m}{n}$
 
-    In this case we are having:
-    \begin{align*}
-        \ed[\clq{2}] &= \frac{1}{2} \\
-        \mind[\clq{2}] &= 1
-    \end{align*}
-    Let $H = \clq{2}$, every graph is subgraph of itself.
-    In the \textbf{inductive case}, $\nv > 2$, we suppose that for any $G'$ with $n(G') < \nv$ and $\e[G'] \geq 1, \ex H \subseteq G'$ such that $\mind[H] > \ed[H] \geq \ed[G']$.
-    
-    Removing vertices with low degree increases the edge density. Given a graph $G$, let $v \in \v$ with $\deg{v} \leq \ed = \frac{m}{n}$
-
-    Then we call $G' = G - v$, therefore
-    \begin{equation*}
-        \ed[G'] = \frac{e(G')}{n - 1} = \frac{m - \deg{v}}{n - 1} \geq \frac{m - \frac{m}{n}}{n - 1} = \frac{m}{n} \cdot \frac{n - 1}{n - 1} = \frac{m}{n} = \ed
-    \end{equation*}
-    By the induction hypothesis $\ex H \subseteq G'$ such that
-    \begin{equation*}
-        \mind > \ed[H] \geq \ed[G'] \geq \ed
-    \end{equation*}
-    And that proves our proposition.\qed
+        Then we call $G' = G - v$, therefore
+        \begin{equation*}
+            \ed[G'] = \frac{e(G')}{n - 1} = \frac{m - \deg{v}}{n - 1} \geq \frac{m - \frac{m}{n}}{n - 1} = \frac{m}{n} \cdot \frac{n - 1}{n - 1} = \frac{m}{n} = \ed
+        \end{equation*}
+        By the induction hypothesis $\ex H \subseteq G'$ such that
+        \begin{equation*}
+            \mind[G'] > \ed[H] \geq \ed[G'] \geq \ed
+        \end{equation*}
+        And that proves our proposition.\qed
+    \end{itemize}
 \end{prf}
 Let $G$ and $G'$ be two graphs, we say that $G$ and $G'$ are isomorphic ($G \cong G'$) if there is a bijection $\phi: \v \rightarrow V(G')$ where, for any $u, v \in \v, uv \in \e \iff \phi(u)\phi(v) \in \e[G']$. $\phi$ is called isomorphism, if domain and codomain are the same then the function is called an automorphism.
 \begin{coolfact}
